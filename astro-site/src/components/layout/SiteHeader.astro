@@ -1,0 +1,30 @@
+---
+import { navLinks } from '@data/nav';
+import '@styles/layout/header.css';
+
+interface Props {
+  active?: string;
+}
+const { active = '' } = Astro.props;
+---
+
+<header class="site-header">
+  <a href="/" class="site-header__brand">
+    <img src="/assets/images/lago-logo.svg" alt="Lagorithme" width="154" height="36" />
+  </a>
+  <div class="site-header_container">
+  <nav class="site-header__nav" aria-label="Navegación principal">
+    {
+      navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={['nav-pill',  { 'nav-pill--active': link.href === active }]}
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+</div>
+  <a href="/contacto" class="site-header__cta">Empezar</a>
+</header>

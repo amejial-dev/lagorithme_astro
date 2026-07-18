@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import TeamHero from '@components/sections/colaboradores/TeamHero.astro';
+import TeamGrid from '@components/sections/colaboradores/TeamGrid.astro';
+import FinalCta from '@components/sections/shared/FinalCta.astro';
+import { team } from '@data/colaboradores';
+import '@styles/pages/colaboradores.css';
+---
+
+<BaseLayout
+  title="Colaboradores"
+  description="Conoce a las personas detrás de Lagorithme."
+  active="/colaboradores"
+>
+  <TeamHero />
+
+  <section class="section section--stack section--stack-bordered">
+    <TeamGrid members={team} />
+  </section>
+
+  <FinalCta
+    title="¿Quieres formar parte del equipo?"
+    subtitle="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam."
+    secondaryLabel="Escríbenos"
+    secondaryHref="/contacto"
+  />
+</BaseLayout>

@@ -1,0 +1,139 @@
+---
+import Eyebrow from '@components/ui/Eyebrow.astro';
+import Button from '@components/ui/Button.astro';
+---
+
+<section class="about-hero">
+  <div class="about-hero__content">
+    <Eyebrow>Nosotros</Eyebrow>
+    <h1 class="about-hero__title">Neque porro quisquam est qui dolorem ipsum.</h1>
+    <p class="about-hero__subtitle">
+      Ut enim ad minima veniam quis nostrum exercitationem ullam corporis suscipit laboriosam
+      nisi ut aliquid ex ea commodi.
+    </p>
+    <Button href="/colaboradores" variant="solid" tone="coral" size="lg">Únete al equipo</Button>
+  </div>
+
+  <div class="about-hero__panel">
+    <span class="about-hero__mark" aria-hidden="true">◆</span>
+    <div class="about-hero__since">
+      <p class="about-hero__since-label">Desde</p>
+      <p class="about-hero__since-year">2019</p>
+    </div>
+    <p class="about-hero__blurb">
+      Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt.
+    </p>
+  </div>
+</section>
+
+<style>
+  .about-hero {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    border-bottom: var(--border-base);
+  }
+
+  .about-hero__content {
+    color: var(--color-bg);
+    background: var(--color-ink);
+    padding: 5.25rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.375rem;
+  }
+  .about-hero__content :global(.eyebrow) {
+    color: var(--color-coral);
+  }
+
+  .about-hero__title {
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    line-height: 1.02;
+    letter-spacing: -1.5px;
+    color: var(--color-bg);
+    margin: 0;
+  }
+
+  .about-hero__subtitle {
+    font-size: 1.0625rem;
+    max-width: 520px;
+    opacity: 0.7;
+    line-height: 1.6;
+    color: var(--color-bg);
+    margin: 0;
+  }
+
+  .about-hero__panel {
+    background: var(--color-coral);
+    border-left: var(--border-base);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.75rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 26.25rem;
+  }
+
+  .about-hero__mark {
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-size: 200px;
+    line-height: 0.8;
+    color: var(--color-ink);
+    position: absolute;
+    right: -14px;
+    bottom: -40px;
+    opacity: 0.12;
+  }
+
+  .about-hero__since {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .about-hero__since-label {
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-size: 0.9375rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-ink);
+    margin: 0;
+  }
+  .about-hero__since-year {
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-size: 4rem;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: var(--color-ink);
+    margin: 0;
+  }
+
+  .about-hero__blurb {
+    position: relative;
+    z-index: 1;
+    border-top: var(--border-base);
+    padding-top: 1.25rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--color-ink);
+    font-weight: var(--fw-semibold);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .about-hero {
+      grid-template-columns: 1fr;
+    }
+    .about-hero__panel {
+      border-left: none;
+      border-top: var(--border-base);
+    }
+  }
+</style>

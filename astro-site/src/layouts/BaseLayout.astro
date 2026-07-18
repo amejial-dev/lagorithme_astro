@@ -1,0 +1,45 @@
+---
+import SiteHeader from '@components/layout/SiteHeader.astro';
+import SiteFooter from '@components/layout/SiteFooter.astro';
+import PageLoader from '@components/layout/PageLoader.astro';
+import '@styles/tokens.css';
+import '@styles/base.css';
+import '@styles/utilities.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  active?: string;
+}
+
+const {
+  title,
+  description = 'Lagorithme — lorem ipsum dolor sit amet consectetur adipiscing elit.',
+  active = '',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/lago-logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title} · Lagorithme</title>
+  </head>
+  <body>
+    <PageLoader />
+    <SiteHeader active={active} />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

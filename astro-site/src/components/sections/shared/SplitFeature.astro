@@ -1,0 +1,95 @@
+---
+/**
+ * Two-column split section: a text/content panel next to a media
+ * panel. Reused across the home page for every alternating
+ * image/text block (device mockup showcases, the coral CTA split).
+ */
+interface Props {
+  order?: 'text-media' | 'media-text';
+  textBg?: string;
+  mediaBg?: string;
+  borderBetween?: boolean;
+}
+
+const {
+  order = 'text-media',
+  textBg = 'var(--color-bg)',
+  mediaBg = 'var(--color-navy)',
+  borderBetween = false,
+} = Astro.props;
+---
+
+<div class={`split-feature split-feature--${order}`}>
+  <div
+    class:list={['split-feature__content', { 'split-feature__content--bordered': borderBetween }]}
+    style={`background:${textBg};`}
+  >
+    <slot />
+  </div>
+  <div class="split-feature__media" style={`background:${mediaBg};`}>
+    <slot name="media" />
+  </div>
+</div>
+
+<style>
+  .split-feature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: var(--border-base);
+  }
+
+  .split-feature--media-text {
+    grid-template-areas: 'media content';
+  }
+  .split-feature--media-text .split-feature__media {
+    grid-area: media;
+  }
+  .split-feature--media-text .split-feature__content {
+    grid-area: content;
+  }
+
+  .split-feature__content {
+    color: var(--color-ink);
+    padding: 5rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.25rem;
+    position: relative;
+  }
+  .split-feature__content--bordered {
+    border-left: var(--border-base);
+  }
+
+  .split-feature__media {
+    min-height: 26.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .split-feature__media :global(img) {
+    max-width: 80%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .split-feature,
+    .split-feature--media-text {
+      grid-template-columns: 1fr;
+      grid-template-areas: none;
+    }
+    .split-feature__content {
+      padding: 3rem 1.75rem;
+      border-left: none !important;
+      border-top: var(--border-base);
+      order: 2;
+    }
+    .split-feature__media {
+      min-height: 260px;
+      order: 1;
+    }
+  }
+</style>

@@ -1,0 +1,127 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Ticker from '@components/ui/Ticker.astro';
+import Eyebrow from '@components/ui/Eyebrow.astro';
+import Button from '@components/ui/Button.astro';
+import SectionIntro from '@components/ui/SectionIntro.astro';
+import IconCardGrid from '@components/ui/IconCardGrid.astro';
+import SplitFeature from '@components/sections/shared/SplitFeature.astro';
+import FinalCta from '@components/sections/shared/FinalCta.astro';
+import HomeHero from '@components/sections/home/HomeHero.astro';
+import Cards4Grid from '@components/sections/home/Cards4Grid.astro';
+import { tickerItems, featureCards3, featureCards4 } from '@data/home';
+import '@styles/pages/home.css';
+---
+
+<BaseLayout title="Inicio" active="/">
+  <HomeHero />
+
+  <Ticker items={tickerItems} />
+
+  <SplitFeature order="text-media" textBg="var(--color-white)" mediaBg="var(--color-navy)">
+    <Eyebrow>Lorem ipsum</Eyebrow>
+    <h2 class="split-title">Neque porro quisquam est qui dolorem ipsum quia dolor.</h2>
+    <p class="split-body">
+      Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
+      nisi ut aliquid ex ea commodi.
+    </p>
+    <Button tone="gray" size="sm">Ver más</Button>
+    <img
+      slot="media"
+      src="/assets/images/device-mockup.png"
+      alt="Vista previa del producto"
+      width="449"
+    />
+  </SplitFeature>
+
+  <SplitFeature
+    order="media-text"
+    mediaBg="var(--color-coral)"
+    textBg="var(--color-bg)"
+    borderBetween
+  >
+    <Eyebrow>Dolor sit amet</Eyebrow>
+    <h2 class="split-title">Quis autem vel eum iure reprehenderit qui in ea voluptate.</h2>
+    <p class="split-body">
+      Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
+      quod maxime placeat.
+    </p>
+    <Button tone="gray" size="sm">Explorar</Button>
+    <img
+      slot="media"
+      src="/assets/images/device-mockup.png"
+      alt="Vista previa del producto"
+      width="449"
+    />
+  </SplitFeature>
+
+  <section class="feature-band section">
+    <SectionIntro
+      title="Lorem ipsum dolor sit amet consectetur"
+      subtitle="Adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore."
+    />
+    <IconCardGrid items={featureCards3} columns={3} shadowTone="ink" borderWidth="base" />
+    <img src="/assets/images/feature-section-border.svg" alt="" class="feature-band__corner" />
+  </section>
+
+  <SplitFeature order="text-media" textBg="var(--color-bg)" mediaBg="var(--color-ink)">
+    <Eyebrow tone="muted">Consectetur</Eyebrow>
+    <h2 class="split-title">At vero eos et accusamus et iusto odio dignissimos.</h2>
+    <p class="split-body">
+      Et harum quidem rerum facilis est et expedita distinctio, nam libero tempore cum soluta
+      nobis est eligendi.
+    </p>
+    <Button tone="gray" size="sm">Descubrir</Button>
+    <img
+      slot="media"
+      src="/assets/images/device-mockup.png"
+      alt="Vista previa del producto"
+      width="449"
+    />
+  </SplitFeature>
+
+  <section class="feature-band section">
+    <SectionIntro
+      title="Sed do eiusmod tempor incididunt"
+      subtitle="Ut labore et dolore magna aliqua ut enim ad minim veniam."
+    />
+    <Cards4Grid items={featureCards4} />
+  </section>
+
+  <SplitFeature order="media-text" mediaBg="var(--color-navy)" textBg="var(--color-coral)">
+    <p class="split-eyebrow-plain">Lorem ipsum</p>
+    <h2 class="split-title">Temporibus autem quibusdam et aut officiis debitis.</h2>
+    <p class="split-body split-body--dark">
+      Aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non
+      recusandae.
+    </p>
+    <Button tone="gray" size="md">Empieza gratis</Button>
+    <img src="/assets/images/cta-corner-accent.svg" alt="" class="split-corner" />
+    <img
+      slot="media"
+      src="/assets/images/device-mockup.png"
+      alt="Vista previa del producto"
+      width="449"
+    />
+  </SplitFeature>
+
+  <SplitFeature order="text-media" textBg="var(--color-bg)" mediaBg="var(--color-gray)">
+    <h2 class="split-title">Itaque earum rerum hic tenetur a sapiente delectus.</h2>
+    <p class="split-body">
+      Ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus
+      asperiores repellat quibusdam.
+    </p>
+    <Button tone="gray" size="md">Contactar</Button>
+    <img
+      slot="media"
+      src="/assets/images/device-mockup.png"
+      alt="Vista previa del producto"
+      width="449"
+    />
+  </SplitFeature>
+
+  <FinalCta
+    title="Lorem ipsum dolor sit amet consectetur adipiscing elit."
+    subtitle="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam."
+  />
+</BaseLayout>

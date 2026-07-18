@@ -1,0 +1,146 @@
+---
+import type { TeamMember } from '@data/colaboradores';
+
+interface Props {
+  members: TeamMember[];
+}
+const { members } = Astro.props;
+
+const socials = [
+  { label: 'LinkedIn', icon: '/assets/social/linkedin.svg' },
+  { label: 'X', icon: '/assets/social/x.svg' },
+  { label: 'Instagram', icon: '/assets/social/instagram.svg' },
+];
+---
+
+<div class="team-grid">
+  {
+    members.map((member) => (
+      <article class="team-card">
+        <div
+          class="team-card__portrait"
+          style={`--portrait-bg:${member.bg}; --initial-color:${member.initialColor};`}
+        >
+          <span class="team-card__initial">{member.initial}</span>
+          <span class="team-card__tag">{member.tag}</span>
+        </div>
+        <div class="team-card__body">
+          <div>
+            <h3 class="team-card__name">{member.name}</h3>
+            <p class="team-card__role">{member.role}</p>
+          </div>
+          <p class="team-card__bio">{member.bio}</p>
+          <div class="team-card__socials">
+            {socials.map((s) => (
+              <a href="#" aria-label={`${member.name} en ${s.label}`}>
+                <img src={s.icon} alt="" width="30" height="30" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: var(--container-max);
+    width: 100%;
+  }
+
+  .team-card {
+    border: var(--border-thick);
+    background: var(--color-bg);
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    flex-direction: column;
+    transition: translate var(--ease-hover), box-shadow var(--ease-hover);
+    translate: 0 0;
+  }
+  .team-card:hover {
+    translate: -5px -5px;
+    box-shadow: var(--shadow-xl-hover);
+  }
+
+  .team-card__portrait {
+    background: var(--portrait-bg);
+    border-bottom: var(--border-thick);
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .team-card__initial {
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-size: 7.5rem;
+    line-height: 1;
+    color: var(--initial-color);
+  }
+
+  .team-card__tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: var(--border-thin);
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-size: 0.6875rem;
+    font-weight: var(--fw-bold);
+    text-transform: uppercase;
+    padding: 0.25rem 0.625rem;
+  }
+
+  .team-card__body {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .team-card__name {
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-size: 1.5rem;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .team-card__role {
+    font-weight: var(--fw-bold);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-coral);
+    margin: 0.25rem 0 0;
+  }
+
+  .team-card__bio {
+    font-size: 0.875rem;
+    opacity: 0.75;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .team-card__socials {
+    display: flex;
+    gap: 0.625rem;
+    margin-top: 0.375rem;
+    align-items: center;
+  }
+  .team-card__socials a {
+    display: flex;
+  }
+
+  @media (max-width: 992px) {
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

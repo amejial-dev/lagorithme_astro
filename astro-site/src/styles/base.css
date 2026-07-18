@@ -1,0 +1,110 @@
+@font-face {
+  font-family: 'IBrand';
+  src: url('/assets/fonts/ibrand.otf') format('opentype');
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-weight: var(--fw-medium);
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--color-ink);
+}
+
+a:hover {
+  color: var(--color-coral);
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.text-muted {
+  opacity: var(--text-muted-opacity);
+}
+
+/* Page-transition + mascot loader keyframes, shared globally */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes mascot-walk {
+  0% {
+    transform: translateY(0) rotate(-6deg) scale(1, 0.96);
+  }
+  12% {
+    transform: translateY(-6px) rotate(-2deg) scale(1, 1);
+  }
+  25% {
+    transform: translateY(-22px) rotate(6deg) scale(0.98, 1.03);
+  }
+  37% {
+    transform: translateY(-6px) rotate(2deg) scale(1, 1);
+  }
+  50% {
+    transform: translateY(0) rotate(-6deg) scale(1, 0.96);
+  }
+  62% {
+    transform: translateY(-6px) rotate(-2deg) scale(1, 1);
+  }
+  75% {
+    transform: translateY(-22px) rotate(6deg) scale(0.98, 1.03);
+  }
+  87% {
+    transform: translateY(-6px) rotate(2deg) scale(1, 1);
+  }
+  100% {
+    transform: translateY(0) rotate(-6deg) scale(1, 0.96);
+  }
+}
+
+@keyframes shadow-walk {
+  0%,
+  50%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.32;
+  }
+  25%,
+  75% {
+    transform: scaleX(0.55);
+    opacity: 0.14;
+  }
+}
+
+@keyframes slide-across {
+  0% {
+    transform: translateX(65vw);
+  }
+  100% {
+    transform: translateX(-65vw);
+  }
+}

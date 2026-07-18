@@ -1,0 +1,61 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionIntro from '@components/ui/SectionIntro.astro';
+import IconCardGrid from '@components/ui/IconCardGrid.astro';
+import Quote from '@components/ui/Quote.astro';
+import AboutHero from '@components/sections/nosotros/AboutHero.astro';
+import MissionVision from '@components/sections/nosotros/MissionVision.astro';
+import OffsetShowcase from '@components/sections/nosotros/OffsetShowcase.astro';
+import FinalCta from '@components/sections/shared/FinalCta.astro';
+import { values, corpValues } from '@data/nosotros';
+import '@styles/pages/nosotros.css';
+---
+
+<BaseLayout title="Nosotros" description="Las personas y valores detrás de Lagorithme." active="/nosotros">
+  <AboutHero />
+
+  <section class="values-row section">
+    <IconCardGrid items={values} columns={4} shadowTone="coral" borderWidth="thick" />
+  </section>
+
+  <section class="section section--stack">
+    <SectionIntro
+      title="Misión & Visión"
+      subtitle="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium."
+    />
+    <MissionVision
+      mission={{
+        label: 'Nuestra misión',
+        title: 'Neque porro quisquam est qui dolorem ipsum quia dolor.',
+        body: 'Ut enim ad minima veniam quis nostrum exercitationem ullam corporis suscipit laboriosam nisi ut aliquid ex ea commodi consequatur.',
+      }}
+      vision={{
+        label: 'Nuestra visión',
+        title: 'At vero eos et accusamus et iusto odio dignissimos.',
+        body: 'Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.',
+      }}
+    />
+  </section>
+
+  <section class="section section--stack section--white">
+    <SectionIntro
+      eyebrow="Valores corporativos"
+      title="Lo que nos define"
+      subtitle="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium."
+    />
+    <IconCardGrid items={corpValues} shadowTone="ink" borderWidth="base" layout="wrap" />
+  </section>
+
+  <section class="pull-quote section">
+    <Quote theme="light" attribution="Fundadores de Lagorithme">
+      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis."
+    </Quote>
+  </section>
+
+  <OffsetShowcase />
+
+  <FinalCta
+    title="Lorem ipsum dolor sit amet consectetur adipiscing elit."
+    subtitle="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam."
+  />
+</BaseLayout>

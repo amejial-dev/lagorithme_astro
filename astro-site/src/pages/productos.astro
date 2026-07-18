@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionIntro from '@components/ui/SectionIntro.astro';
+import IconCardGrid from '@components/ui/IconCardGrid.astro';
+import Quote from '@components/ui/Quote.astro';
+import ProductHero from '@components/sections/productos/ProductHero.astro';
+import BentoGrid from '@components/sections/productos/BentoGrid.astro';
+import FinalCta from '@components/sections/shared/FinalCta.astro';
+import { services, steps, bentoItems } from '@data/productos';
+import '@styles/pages/productos.css';
+---
+
+<BaseLayout
+  title="Producto"
+  description="Todo lo que necesitas, en un solo lugar."
+  active="/productos"
+>
+  <ProductHero />
+
+  <section class="section section--stack">
+    <SectionIntro
+      title="Todo lo que necesitas, en un solo lugar"
+      subtitle="Adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore."
+    />
+    <BentoGrid items={bentoItems} />
+  </section>
+
+  <section class="section section--stack">
+    <SectionIntro
+      eyebrow="Servicios"
+      title="Lo que hacemos por ti"
+      subtitle="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium."
+    />
+    <IconCardGrid items={services} columns={3} shadowTone="ink" borderWidth="thick" />
+  </section>
+
+  <section class="quote-band section">
+    <Quote theme="dark" attribution="Lorem Ipsum, Cliente">
+      "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet."
+    </Quote>
+  </section>
+
+  <section class="section section--stack">
+    <SectionIntro
+      title="Cómo funciona"
+      subtitle="Ut labore et dolore magna aliqua ut enim ad minim veniam."
+    />
+    <IconCardGrid items={steps} columns={3} shadowTone="ink" borderWidth="thick" />
+  </section>
+
+  <FinalCta
+    title="Lorem ipsum dolor sit amet consectetur adipiscing elit."
+    subtitle="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam."
+  />
+</BaseLayout>

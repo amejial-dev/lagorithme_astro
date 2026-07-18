@@ -1,0 +1,62 @@
+/* Page-specific styles for src/pages/index.astro */
+
+.split-title {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: clamp(1.6rem, 3vw, 2.375rem);
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.split-body {
+  font-size: 1rem;
+  opacity: 0.75;
+  line-height: 1.6;
+  max-width: 440px;
+  margin: 0;
+}
+.split-body--dark {
+  opacity: 0.85;
+  max-width: 420px;
+}
+
+.split-eyebrow-plain {
+  font-weight: var(--fw-bold);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.split-corner {
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 131px;
+  height: auto;
+}
+
+.feature-band {
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+  align-items: center;
+  position: relative;
+}
+
+.feature-band__corner {
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  width: 463px;
+  max-width: 40%;
+  height: auto;
+}
+
+@media (max-width: 576px) {
+  .split-corner {
+    width: 90px;
+  }
+}

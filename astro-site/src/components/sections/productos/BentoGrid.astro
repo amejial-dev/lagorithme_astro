@@ -1,0 +1,112 @@
+---
+import type { BentoItem } from '@data/productos';
+
+interface Props {
+  items: BentoItem[];
+}
+const { items } = Astro.props;
+---
+
+<div class="bento">
+  {
+    items.map((item) => (
+      <div
+        class={`bento__cell bento__cell--${item.size}`}
+        style={`--cell-bg:${item.bg}; --cell-fg:${item.fg};`}
+      >
+        <div class="bento__icon">
+          <img src={item.icon} alt="" width="20" height="20" />
+        </div>
+        <h3 class="bento__title">{item.title}</h3>
+        {item.body && <p class="bento__body">{item.body}</p>}
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 180px;
+    gap: 1.5rem;
+    max-width: var(--container-max);
+    width: 100%;
+  }
+
+  .bento__cell {
+    border: var(--border-base);
+    background: var(--cell-bg);
+    color: var(--cell-fg);
+    box-shadow: var(--shadow-md);
+    padding: 1.375rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.625rem;
+  }
+
+  .bento__cell--large {
+    grid-column: span 2;
+    grid-row: span 2;
+    padding: 2rem;
+    justify-content: flex-end;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .bento__cell--wide {
+    grid-column: span 2;
+    box-shadow: var(--shadow-lg);
+    padding: 1.625rem;
+  }
+
+  .bento__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: var(--border-thin);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bento__cell--small .bento__icon {
+    width: 2rem;
+    height: 2rem;
+    background: var(--color-gray);
+  }
+
+  .bento__title {
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    margin: 0;
+  }
+  .bento__cell--large .bento__title {
+    font-size: 1.375rem;
+  }
+  .bento__cell--wide .bento__title {
+    font-size: 1.125rem;
+  }
+  .bento__cell--small .bento__title {
+    font-size: 0.9375rem;
+  }
+
+  .bento__body {
+    font-size: 0.875rem;
+    opacity: 0.75;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .bento__cell--wide .bento__body {
+    font-size: 0.8125rem;
+  }
+
+  @media (max-width: 992px) {
+    .bento {
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: auto;
+    }
+    .bento__cell--large,
+    .bento__cell--wide {
+      grid-column: span 2;
+    }
+  }
+</style>

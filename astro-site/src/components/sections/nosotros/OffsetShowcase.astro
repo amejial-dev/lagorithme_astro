@@ -1,0 +1,100 @@
+---
+import Button from '@components/ui/Button.astro';
+---
+
+<section class="offset section">
+  <div class="offset__grid">
+    <div class="offset__stack">
+      <div class="offset__block offset__block--tall"></div>
+      <div class="offset__block offset__block--short"></div>
+    </div>
+    <div class="offset__card">
+      <p class="offset__eyebrow">El equipo</p>
+      <h2 class="offset__title">Quis autem vel eum iure reprehenderit qui in ea voluptate.</h2>
+      <p class="offset__body">
+        Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
+        quod maxime placeat facere.
+      </p>
+      <Button href="/colaboradores" tone="coral" size="sm">Conocer colaboradores</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .offset {
+    background: var(--color-gray);
+  }
+
+  .offset__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1100px;
+    margin-inline: auto;
+    align-items: center;
+  }
+
+  .offset__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .offset__block {
+    border: var(--border-base);
+    box-shadow: var(--shadow-md);
+  }
+  .offset__block--tall {
+    background: var(--color-navy);
+    height: 260px;
+  }
+  .offset__block--short {
+    background: var(--color-ink);
+    height: 180px;
+    margin-left: 3rem;
+  }
+
+  .offset__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    background: var(--color-bg);
+    border: var(--border-base);
+    box-shadow: var(--shadow-lg);
+    padding: 2.25rem;
+  }
+
+  .offset__eyebrow {
+    font-weight: var(--fw-bold);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-coral);
+    margin: 0;
+  }
+
+  .offset__title {
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-size: 1.75rem;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin: 0;
+  }
+
+  .offset__body {
+    font-size: 0.9375rem;
+    opacity: 0.75;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .offset__grid {
+      grid-template-columns: 1fr;
+    }
+    .offset__block--short {
+      margin-left: 0;
+    }
+  }
+</style>

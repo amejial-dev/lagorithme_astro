@@ -1,0 +1,47 @@
+---
+interface Props {
+  theme?: 'dark' | 'light';
+  attribution: string;
+}
+const { theme = 'dark', attribution } = Astro.props;
+---
+
+<div class={`quote quote--${theme}`}>
+  <p class="quote__text"><slot /></p>
+  <p class="quote__attribution">— {attribution}</p>
+</div>
+
+<style>
+  .quote {
+    text-align: center;
+  }
+  .quote--dark {
+    background: var(--color-ink);
+    color: var(--color-bg);
+  }
+  .quote--light {
+    background: var(--color-bg);
+    color: var(--color-ink);
+  }
+
+  .quote__text {
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+    max-width: 780px;
+    margin: 0 auto;
+    font-size: clamp(1.5rem, 3vw, 2.375rem);
+  }
+
+  .quote--dark .quote__text {
+    font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  }
+
+  .quote__attribution {
+    font-size: 0.9375rem;
+    opacity: 0.55;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+  }
+</style>

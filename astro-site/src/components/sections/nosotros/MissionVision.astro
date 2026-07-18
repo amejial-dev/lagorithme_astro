@@ -1,0 +1,89 @@
+---
+interface Item {
+  label: string;
+  title: string;
+  body: string;
+}
+interface Props {
+  mission: Item;
+  vision: Item;
+}
+const { mission, vision } = Astro.props;
+const items = [mission, vision];
+---
+
+<div class="mv-grid">
+  {
+    items.map((item) => (
+      <div class="mv-card">
+        <div class="mv-card__icon">
+          <img src="/assets/icons/bookmark.svg" alt="" width="26" height="26" />
+        </div>
+        <p class="mv-card__label">{item.label}</p>
+        <h3 class="mv-card__title">{item.title}</h3>
+        <p class="mv-card__body">{item.body}</p>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .mv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .mv-card {
+    border: var(--border-base);
+    background: var(--color-coral);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-lg);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mv-card__icon {
+    width: 3.25rem;
+    height: 3.25rem;
+    border: var(--border-thin);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mv-card__label {
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-size: 0.9375rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+  }
+
+  .mv-card__title {
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-size: 1.625rem;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin: 0;
+  }
+
+  .mv-card__body {
+    font-size: 0.9375rem;
+    opacity: 0.75;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .mv-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

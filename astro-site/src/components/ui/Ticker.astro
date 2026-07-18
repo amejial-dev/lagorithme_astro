@@ -1,0 +1,58 @@
+---
+interface Props {
+  items: string[];
+  speed?: 'normal' | 'fast';
+}
+const { items, speed = 'normal' } = Astro.props;
+/* Repeated 4x and animated -50% so the marquee loops seamlessly */
+const doubled = [...items, ...items, ...items, ...items];
+---
+
+<div class="ticker">
+  <div class={`ticker__track ticker__track--${speed}`}>
+    {
+      doubled.map((label) => (
+        <span class="ticker__item">
+          <span class="ticker__dot" />
+          {label}
+        </span>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .ticker {
+    border-bottom: var(--border-base);
+    padding: 1rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: var(--color-coral);
+    width: 100%;
+  }
+
+  .ticker__track {
+    display: inline-flex;
+    animation: marquee 22s linear infinite;
+  }
+  .ticker__track--fast {
+    animation-duration: 12s;
+  }
+
+  .ticker__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0 2.5rem;
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-size: 1.25rem;
+    color: var(--color-ink);
+  }
+
+  .ticker__dot {
+    width: 10px;
+    height: 10px;
+    background: var(--color-ink);
+  }
+</style>

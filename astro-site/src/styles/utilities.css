@@ -1,0 +1,108 @@
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  width: 100%;
+}
+
+.section {
+  padding: var(--section-pad-y) var(--section-pad-x);
+  border-bottom: var(--border-base);
+}
+
+.section--no-border {
+  border-bottom: none;
+}
+
+.section--tight-top {
+  padding-top: clamp(2.5rem, 5vw, 4.375rem);
+}
+
+.section--tight-bottom {
+  padding-bottom: clamp(2.5rem, 5vw, 4.375rem);
+}
+
+.section-intro {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+.section-intro__title {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: clamp(1.6rem, 2.6vw, 2.125rem);
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.section-intro__subtitle {
+  font-size: 1rem;
+  opacity: 0.65;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 992px) {
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .grid--2,
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Shared page section layout: centered stack of intro + content blocks.
+   Used by every marketing page between the hero and the final CTA. */
+.section--stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+  align-items: center;
+}
+
+/* Large-viewport scaling: keep the container from staying pinned at a
+   fixed pixel width once we're well past desktop (2K / 4K displays),
+   so the layout keeps its intended proportions instead of shrinking
+   into a small island in the middle of the screen. */
+@media (min-width: 1400px) {
+  :root {
+    --container-max: 1320px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --container-max: 1600px;
+  }
+}
+
+@media (min-width: 2560px) {
+  :root {
+    --container-max: 2000px;
+  }
+}

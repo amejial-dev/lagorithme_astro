@@ -1,0 +1,89 @@
+---
+/**
+ * Full-screen mascot loading overlay shown briefly while navigating
+ * between pages. Markup lives here; behavior lives in
+ * src/scripts/page-transition.ts (kept out of the component so the
+ * transition logic can be unit-tested / reused independent of markup).
+ */
+---
+
+<div id="page-loader" class="page-loader" aria-hidden="true">
+  <div class="page-loader__slide">
+    <div class="page-loader__stage">
+      <img
+        src="/assets/images/mascot.svg"
+        alt=""
+        class="page-loader__mascot"
+        width="150"
+        height="150"
+      />
+    </div>
+    <div class="page-loader__shadow"></div>
+  </div>
+</div>
+
+<script src="../../scripts/page-transition.ts"></script>
+
+<style>
+  .page-loader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  .page-loader.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .page-loader__slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .page-loader.is-active .page-loader__slide {
+    animation: slide-across var(--page-loader-slide-duration, 2.4s) linear forwards;
+  }
+
+  .page-loader__stage {
+    position: relative;
+    width: 170px;
+    height: 150px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .page-loader__mascot {
+    width: 150px;
+    height: auto;
+    transform-origin: 50% 100%;
+  }
+
+  .page-loader.is-active .page-loader__mascot {
+    animation: mascot-walk var(--page-loader-walk-duration, 0.8s) ease-in-out infinite;
+  }
+
+  .page-loader__shadow {
+    width: 70px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgb(14 21 36 / 40%);
+    filter: blur(3px);
+    margin-top: -6px;
+  }
+
+  .page-loader.is-active .page-loader__shadow {
+    animation: shadow-walk var(--page-loader-walk-duration, 0.8s) ease-in-out infinite;
+  }
+</style>

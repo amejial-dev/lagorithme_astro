@@ -1,0 +1,18 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Eyebrow from '@components/ui/Eyebrow.astro';
+import ContactForm from '@components/sections/contacto/ContactForm.astro';
+import '@styles/pages/contacto.css';
+---
+
+<BaseLayout title="Contacto" description="Ponte en contacto con el equipo de Lagorithme." active="/contacto">
+  <section class="contact-hero section--tight-bottom">
+    <Eyebrow center>Contacto</Eyebrow>
+    <h1 class="contact-hero__title">Lorem ipsum dolor sit amet consectetur adipiscing.</h1>
+    <p class="contact-hero__subtitle">
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.
+    </p>
+  </section>
+
+  <ContactForm />
+</BaseLayout>

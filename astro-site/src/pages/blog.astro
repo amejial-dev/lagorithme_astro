@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Eyebrow from '@components/ui/Eyebrow.astro';
+import BlogGrid from '@components/sections/blog/BlogGrid.astro';
+import FinalCta from '@components/sections/shared/FinalCta.astro';
+import { posts } from '@data/blog';
+import '@styles/pages/blog.css';
+---
+
+<BaseLayout title="Blog" description="Novedades y artículos de Lagorithme." active="/blog">
+  <section class="blog-hero section">
+    <Eyebrow center>Blog</Eyebrow>
+    <h1 class="blog-hero__title">Lorem ipsum dolor sit amet consectetur adipiscing.</h1>
+    <p class="blog-hero__subtitle">
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.
+    </p>
+  </section>
+
+  <section class="section section--stack">
+    <BlogGrid posts={posts} />
+  </section>
+
+  <FinalCta
+    title="Lorem ipsum dolor sit amet consectetur adipiscing elit."
+    subtitle="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam."
+  />
+</BaseLayout>
