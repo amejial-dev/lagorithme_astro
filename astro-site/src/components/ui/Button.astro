@@ -3,7 +3,7 @@ interface Props {
   href?: string;
   variant?: 'solid' | 'outline';
   tone?: 'coral' | 'gray' | 'ink';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   type?: 'button' | 'submit';
   class?: string;
 }
@@ -73,6 +73,17 @@ const classes = ['btn', `btn--${variant}`, `btn--${tone}`, `btn--${size}`, class
   }
   .btn--lg:hover {
     translate: -4px -4px;
+    box-shadow: var(--shadow-xl-hover);
+  }
+
+  .btn--xl {
+    padding: 1.375rem 2.75rem;
+    font-size: 1.1875rem;
+    border: var(--border-thick);
+    box-shadow: var(--shadow-xl);
+  }
+  .btn--xl:hover {
+    translate: -5px -5px;
     box-shadow: var(--shadow-xl-hover);
   }
 
