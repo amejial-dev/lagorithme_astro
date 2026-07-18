@@ -12,19 +12,50 @@ const { active = '' } = Astro.props;
   <a href="/" class="site-header__brand">
     <img src="/assets/images/lago-logo.svg" alt="Lagorithme" width="154" height="36" />
   </a>
-  <div class="site-header_container">
-  <nav class="site-header__nav" aria-label="Navegación principal">
+
+  <div class="site-header__container">
+    <nav class="site-header__nav" aria-label="Navegación principal">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={['nav-pill', { 'nav-pill--active': link.href === active }]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="site-header__actions">
+    <a href="/contacto" class="site-header__cta">Empezar</a>
+    <button
+      type="button"
+      id="site-header-toggle"
+      class="site-header__toggle"
+      aria-expanded="false"
+      aria-controls="site-header-mobile-nav"
+      aria-label="Abrir menú"
+    >
+      <span class="site-header__toggle-bar"></span>
+      <span class="site-header__toggle-bar"></span>
+      <span class="site-header__toggle-bar"></span>
+    </button>
+  </div>
+
+  <nav id="site-header-mobile-nav" class="site-header__mobile-nav" aria-label="Navegación móvil">
     {
       navLinks.map((link) => (
         <a
           href={link.href}
-          class:list={['nav-pill',  { 'nav-pill--active': link.href === active }]}
+          class:list={['nav-pill', { 'nav-pill--active': link.href === active }]}
         >
           {link.label}
         </a>
       ))
     }
   </nav>
-</div>
-  <a href="/contacto" class="site-header__cta">Empezar</a>
 </header>
+
+<script src="../../scripts/site-header.ts"></script>

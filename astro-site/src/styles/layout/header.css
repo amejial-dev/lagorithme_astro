@@ -29,12 +29,85 @@
   font-size: 0.8125rem;
 
 }
- /* ESTO ROMPE EL RESPONSIVE DESIGN, NO SE PUEDE USAR EN MOBILE */
-.site-header_container {
+
+.site-header__container {
   border: var(--border-base);
   padding: 0.5rem 0.75rem;
   box-shadow: var(--shadow-sm);
   background-color:  var(--color-bg);
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.site-header__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  border: var(--border-base);
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  padding: 0;
+  transition: translate var(--ease-hover), box-shadow var(--ease-hover);
+  translate: 0 0;
+}
+.site-header__toggle:hover {
+  translate: -3px -3px;
+  box-shadow: var(--shadow-sm-hover);
+}
+.site-header__toggle-bar {
+  display: block;
+  width: 20px;
+  height: 3px;
+  background-color: var(--color-ink);
+  transition: translate var(--ease-hover), rotate var(--ease-hover), opacity var(--ease-hover);
+}
+.site-header__toggle[aria-expanded='true'] .site-header__toggle-bar:nth-child(1) {
+  translate: 0 8px;
+  rotate: 45deg;
+}
+.site-header__toggle[aria-expanded='true'] .site-header__toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+.site-header__toggle[aria-expanded='true'] .site-header__toggle-bar:nth-child(3) {
+  translate: 0 -8px;
+  rotate: -45deg;
+}
+
+.site-header__mobile-nav {
+  display: none;
+  flex-direction: column;
+  gap: 0.625rem;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 1.75rem;
+  right: 1.75rem;
+  padding: 1rem;
+  border: var(--border-base);
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  translate: 0 -8px;
+  pointer-events: none;
+  transition: opacity var(--ease-hover), translate var(--ease-hover);
+  z-index: 49;
+}
+.site-header__mobile-nav .nav-pill {
+  width: 100%;
+  text-align: center;
+}
+.site-header__mobile-nav.is-open {
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
 }
 
 .nav-pill {
@@ -79,8 +152,20 @@
 }
 
 @media (max-width: 992px) {
-  .site-header__nav {
+  .site-header__container {
     display: none;
+  }
+
+  .site-header__cta {
+    display: none;
+  }
+
+  .site-header__toggle {
+    display: flex;
+  }
+
+  .site-header__mobile-nav {
+    display: flex;
   }
 }
 
