@@ -1,6 +1,7 @@
 ---
 import Antetitulo from '@componentes/ui/Antetitulo.astro';
 import Boton from '@componentes/ui/Boton.astro';
+import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
 ---
 
 <section class="portada-producto">
@@ -17,7 +18,10 @@ import Boton from '@componentes/ui/Boton.astro';
       Hablemos de tu proyecto
     </Boton>
   </div>
-  <div class="portada-producto__medio"></div>
+  <div class="portada-producto__medio">
+    <AdornoNeo pieza="08" ancho="340px" arriba="12%" izquierda="14%" opacidad="0.5" />
+    <AdornoNeo pieza="19" ancho="220px" abajo="-60px" derecha="-50px" opacidad="0.2" />
+  </div>
 </section>
 
 <style>
@@ -41,6 +45,7 @@ import Boton from '@componentes/ui/Boton.astro';
     font-size: clamp(2rem, 4.5vw, 3.25rem);
     line-height: 1.05;
     letter-spacing: -1.5px;
+    max-width: 36rem;
     margin: 0;
   }
 
@@ -54,6 +59,7 @@ import Boton from '@componentes/ui/Boton.astro';
 
   .portada-producto__medio {
     position: relative;
+    overflow: hidden;
     border-left: var(--borde-base);
     background: var(--color-tinta);
     min-height: 27.5rem;

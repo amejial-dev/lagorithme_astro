@@ -10,15 +10,13 @@
 }
 
 .bloque-cuerpo {
-  font-size: 1rem;
+  font-size: 1.0625rem;
   opacity: 0.75;
-  line-height: 1.6;
-  max-width: 440px;
+  line-height: 1.7;
   margin: 0;
 }
 .bloque-cuerpo--oscuro {
   opacity: 0.85;
-  max-width: 420px;
 }
 
 .bloque-antetitulo {

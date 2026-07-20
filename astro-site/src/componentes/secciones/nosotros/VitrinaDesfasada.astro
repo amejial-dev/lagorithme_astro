@@ -1,12 +1,17 @@
 ---
 import Boton from '@componentes/ui/Boton.astro';
+import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
 ---
 
 <section class="vitrina seccion">
   <div class="vitrina__rejilla">
     <div class="vitrina__pila">
-      <div class="vitrina__bloque vitrina__bloque--alto"></div>
-      <div class="vitrina__bloque vitrina__bloque--bajo"></div>
+      <div class="vitrina__bloque vitrina__bloque--alto">
+        <AdornoNeo pieza="05" ancho="220px" arriba="-50px" derecha="-40px" opacidad="0.45" />
+      </div>
+      <div class="vitrina__bloque vitrina__bloque--bajo">
+        <AdornoNeo pieza="12" ancho="200px" abajo="-50px" izquierda="-40px" opacidad="0.6" />
+      </div>
     </div>
     <div class="vitrina__tarjeta">
       <p class="vitrina__antetitulo">Con quién trabajamos</p>
@@ -22,7 +27,7 @@ import Boton from '@componentes/ui/Boton.astro';
 
 <style>
   .vitrina {
-    background: var(--color-gris);
+    background: var(--color-blanco);
   }
 
   .vitrina__rejilla {
@@ -41,15 +46,17 @@ import Boton from '@componentes/ui/Boton.astro';
   }
 
   .vitrina__bloque {
+    position: relative;
+    overflow: hidden;
     border: var(--borde-base);
     box-shadow: var(--sombra-md);
   }
   .vitrina__bloque--alto {
-    background: var(--color-azul);
+    background: var(--color-principal);
     height: 260px;
   }
   .vitrina__bloque--bajo {
-    background: var(--color-tinta);
+    background: var(--color-gris);
     height: 180px;
     margin-left: 3rem;
   }

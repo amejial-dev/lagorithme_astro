@@ -28,8 +28,8 @@ export const colaboradores: Colaborador[] = [
     etiqueta: 'En desarrollo',
     descripcion: 'Software hospitalario que estamos construyendo actualmente junto a su equipo.',
     inicial: 'A',
-    fondo: 'var(--color-principal)',
-    colorInicial: 'var(--color-tinta)',
+    fondo: 'var(--color-blanco)',
+    colorInicial: 'var(--color-principal)',
   },
   {
     trabajo: 'Observatorio ambiental',
@@ -40,8 +40,8 @@ export const colaboradores: Colaborador[] = [
     descripcion:
       'Contribuimos al desarrollo del observatorio ambiental de Barranquilla, un proyecto de la Universidad Libre junto a Barranquilla Verde.',
     inicial: 'U',
-    fondo: 'var(--color-azul)',
-    colorInicial: 'var(--color-principal)',
+    fondo: 'var(--color-gris)',
+    colorInicial: 'var(--color-tinta)',
   },
   {
     // TODO: 'trabajo', 'resumen' y 'descripcion' son redacción nuestra, no
@@ -54,7 +54,7 @@ export const colaboradores: Colaborador[] = [
     etiqueta: 'Cliente',
     descripcion: 'Trabajamos con su equipo en el desarrollo de su plataforma digital.',
     inicial: 'P',
-    fondo: 'var(--color-tinta)',
-    colorInicial: 'var(--color-principal)',
+    fondo: 'var(--color-principal)',
+    colorInicial: 'var(--color-tinta)',
   },
 ];

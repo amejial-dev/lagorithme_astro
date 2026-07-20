@@ -1,10 +1,13 @@
 ---
 import Antetitulo from '@componentes/ui/Antetitulo.astro';
 import Boton from '@componentes/ui/Boton.astro';
+import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
 ---
 
 <section class="portada-nosotros">
   <div class="portada-nosotros__contenido">
+    <AdornoNeo pieza="03" ancho="300px" abajo="-90px" derecha="-80px" opacidad="0.08" />
+
     <Antetitulo>Nosotros</Antetitulo>
     <h1 class="portada-nosotros__titulo">Aliados estratégicos, no proveedores de turno.</h1>
     <p class="portada-nosotros__subtitulo">
@@ -17,6 +20,8 @@ import Boton from '@componentes/ui/Boton.astro';
   </div>
 
   <div class="portada-nosotros__panel">
+    <AdornoNeo pieza="20" ancho="240px" arriba="-60px" izquierda="-50px" opacidad="0.35" />
+
     <span class="portada-nosotros__marca" aria-hidden="true">◆</span>
     <div class="portada-nosotros__sede">
       <p class="portada-nosotros__sede-etiqueta">Sede</p>
@@ -36,6 +41,8 @@ import Boton from '@componentes/ui/Boton.astro';
   }
 
   .portada-nosotros__contenido {
+    position: relative;
+    overflow: hidden;
     color: var(--color-fondo);
     background: var(--color-tinta);
     padding: 5.25rem 3.5rem;
@@ -55,6 +62,7 @@ import Boton from '@componentes/ui/Boton.astro';
     line-height: 1.02;
     letter-spacing: -1.5px;
     color: var(--color-fondo);
+    max-width: 36rem;
     margin: 0;
   }
 

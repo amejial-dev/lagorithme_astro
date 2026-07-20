@@ -1,5 +1,6 @@
 ---
 import Boton from '@componentes/ui/Boton.astro';
+import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
 
 interface Props {
   titulo: string;
@@ -21,6 +22,9 @@ const {
 ---
 
 <section class="llamada-final seccion">
+  <AdornoNeo pieza="15" ancho="300px" arriba="-90px" izquierda="-90px" opacidad="0.07" />
+  <AdornoNeo pieza="09" ancho="260px" abajo="-80px" derecha="-70px" opacidad="0.07" />
+
   <h2 class="llamada-final__titulo">{titulo}</h2>
   <p class="llamada-final__subtitulo">{subtitulo}</p>
   <div class="llamada-final__acciones">
@@ -39,6 +43,8 @@ const {
 
 <style>
   .llamada-final {
+    position: relative;
+    overflow: hidden;
     background: var(--color-tinta);
     color: var(--color-fondo);
     display: flex;
@@ -48,6 +54,13 @@ const {
     gap: 1.375rem;
     padding-top: 6.25rem;
     padding-bottom: 6.25rem;
+  }
+
+  .llamada-final__titulo,
+  .llamada-final__subtitulo,
+  .llamada-final__acciones {
+    position: relative;
+    z-index: 1;
   }
 
   .llamada-final__titulo {

@@ -1,5 +1,6 @@
 ---
 import { colaboradores } from '@datos/colaboradores';
+import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
 
 /*
   Ocupa el hueco de la prueba, justo debajo de la portada. La jerarquía
@@ -12,6 +13,9 @@ import { colaboradores } from '@datos/colaboradores';
 ---
 
 <section class="banda-trabajos">
+  <AdornoNeo pieza="06" ancho="260px" abajo="-90px" izquierda="-60px" opacidad="0.08" />
+  <AdornoNeo pieza="10" ancho="180px" arriba="30%" derecha="-60px" opacidad="0.06" />
+
   <div class="banda-trabajos__contenedor contenedor">
     <p class="banda-trabajos__etiqueta">Ahora mismo estamos construyendo</p>
 
@@ -34,6 +38,8 @@ import { colaboradores } from '@datos/colaboradores';
 
 <style>
   .banda-trabajos {
+    position: relative;
+    overflow: hidden;
     background: var(--color-tinta);
     color: var(--color-fondo);
     border-bottom: var(--borde-base);
@@ -41,6 +47,8 @@ import { colaboradores } from '@datos/colaboradores';
   }
 
   .banda-trabajos__contenedor {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: clamp(2rem, 4vw, 3rem);

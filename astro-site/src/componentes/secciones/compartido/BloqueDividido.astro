@@ -27,7 +27,9 @@ const {
     ]}
     style={`background:${fondoTexto};`}
   >
-    <slot />
+    <div class="bloque-dividido__bloque">
+      <slot />
+    </div>
   </div>
   <div class="bloque-dividido__medio" style={`background:${fondoMedio};`}>
     <slot name="medio" />
@@ -59,12 +61,41 @@ const {
        intención y aguanta si alguien cambia el align-items. */
     min-height: 920px;
 
-    padding: 5rem 3.5rem;
+    padding: 5.5rem 4rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1.25rem;
+
+    /* Centra el bloque dentro del panel: al hacer zoom out el panel crece,
+       pero el contenido se queda en el medio en vez de estirarse de borde
+       a borde. */
+    align-items: center;
+
     position: relative;
+  }
+
+  /* Tope de ancho del contenido. No es un ancho fijo: por debajo de este
+     valor el bloque ocupa lo que haya, así que en pantallas normales nada
+     cambia. Solo actúa cuando el panel se vuelve demasiado ancho. */
+  .bloque-dividido__bloque {
+    width: 100%;
+    max-width: 34rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  /* Ritmo vertical: el gap uniforme dejaba los cuatro elementos igual de
+     apretados. El antetítulo pertenece al titular, así que se le pega; y el
+     botón es la acción, así que se separa para que se lea como paso aparte
+     y no como una línea más del párrafo. */
+  .bloque-dividido__bloque :global(.antetitulo),
+  .bloque-dividido__bloque :global(.bloque-antetitulo) {
+    margin-bottom: -0.875rem;
+  }
+
+  .bloque-dividido__bloque :global(.boton) {
+    margin-top: 0.75rem;
   }
   .bloque-dividido__contenido--con-borde {
     border-left: var(--borde-base);
@@ -81,7 +112,7 @@ const {
     position: relative;
     overflow: hidden;
   }
-  .bloque-dividido__medio :global(img) {
+  .bloque-dividido__medio > :global(img) {
     max-width: 80%;
     height: auto;
     display: block;

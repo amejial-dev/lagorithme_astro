@@ -1,7 +1,7 @@
 /* Estilos específicos de src/pages/contacto.astro */
 
 .portada-contacto {
-  background: var(--color-fondo);
+  background: var(--color-blanco);
   color: var(--color-tinta);
   padding: clamp(3.5rem, 8vw, 4.375rem) var(--seccion-espaciado-x) 2.5rem;
   display: flex;

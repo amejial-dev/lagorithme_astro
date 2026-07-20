@@ -1,5 +1,6 @@
 ---
 import Boton from '@componentes/ui/Boton.astro';
+import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
 import { enlacesRedes } from '@datos/navegacion';
 
 /* El brief pide reducir al mínimo lo que el usuario tiene que escribir:
@@ -47,6 +48,9 @@ const datos = [
   </form>
 
   <div class="formulario-contacto__info">
+    <AdornoNeo pieza="02" ancho="280px" arriba="-80px" derecha="-70px" opacidad="0.08" />
+    <AdornoNeo pieza="17" ancho="220px" abajo="-60px" izquierda="-60px" opacidad="0.06" />
+
     {
       datos.map((dato) => (
         <div class="bloque-info">
@@ -76,12 +80,16 @@ const datos = [
   }
 
   .formulario-contacto__formulario {
-    background: var(--color-fondo);
+    background: var(--color-blanco);
     padding: 4rem 3.5rem;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    max-width: 40rem;
+    margin-inline: auto;
+    width: 100%;
     gap: 1.375rem;
-    border-right: var(--borde-base);
+    /* border-right: var(--borde-base); */
   }
 
   .campo {
@@ -114,6 +122,8 @@ const datos = [
   }
 
   .formulario-contacto__info {
+    position: relative;
+    overflow: hidden;
     background: var(--color-tinta);
     color: var(--color-fondo);
     padding: 4rem 3.5rem;
@@ -121,6 +131,11 @@ const datos = [
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
+  }
+
+  .formulario-contacto__info > * {
+    max-width: 24rem;
+    width: 100%;
   }
 
   .bloque-info {

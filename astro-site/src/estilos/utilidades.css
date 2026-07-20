@@ -9,6 +9,12 @@
   border-bottom: var(--borde-base);
 }
 
+/* Fondo claro de sección. Es el fondo por defecto de todas las páginas
+   salvo el home, que conserva su propio ritmo de bandas. */
+.seccion--blanca {
+  background: var(--color-blanco);
+}
+
 .seccion--sin-borde {
   border-bottom: none;
 }
@@ -85,9 +91,10 @@
   align-items: center;
 }
 
-/* Escalado en pantallas grandes: evita que el contenedor se quede clavado
-   en un ancho fijo pasado el escritorio (2K / 4K), para que la maquetación
-   conserve sus proporciones en vez de encogerse en una isla central. */
+/* Escalado en pantallas grandes. Crece un poco pasado el escritorio para
+   no quedarse clavado, pero con techo: más allá de esto las líneas de texto
+   se vuelven ilegibles de largas y el contenido se despega hacia los bordes
+   al hacer zoom out. */
 @media (min-width: 1400px) {
   :root {
     --contenedor-max: 1320px;
@@ -96,12 +103,6 @@
 
 @media (min-width: 1920px) {
   :root {
-    --contenedor-max: 1600px;
-  }
-}
-
-@media (min-width: 2560px) {
-  :root {
-    --contenedor-max: 2000px;
+    --contenedor-max: 1440px;
   }
 }

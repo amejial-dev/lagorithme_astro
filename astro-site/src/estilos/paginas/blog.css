@@ -1,7 +1,7 @@
 /* Estilos específicos de src/pages/blog.astro */
 
 .portada-blog {
-  background: var(--color-fondo);
+  background: var(--color-blanco);
   color: var(--color-tinta);
   display: flex;
   flex-direction: column;

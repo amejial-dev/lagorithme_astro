@@ -1,15 +1,11 @@
 /* Estilos específicos de src/pages/nosotros.astro */
 
 .fila-capacidades {
-  background: var(--color-tinta);
-}
-
-.seccion--blanca {
   background: var(--color-blanco);
 }
 
 .cita-destacada {
-  background: var(--color-fondo);
+  background: var(--color-blanco);
   padding-top: 5.625rem;
   padding-bottom: 5.625rem;
 }

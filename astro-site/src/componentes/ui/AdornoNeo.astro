@@ -1,0 +1,87 @@
+---
+/**
+ * Adorno decorativo de la carpeta /assets/neo.
+ *
+ * Cada pieza va dentro de su propio contenedor posicionado, para que
+ * ajustar dónde cae sea cambiar un número en la llamada y nada más. El
+ * contenedor lee todo de variables CSS, así que no hace falta tocar este
+ * archivo para recolocar una pieza.
+ *
+ * Requisito: la sección que lo aloja tiene que ser `position: relative`.
+ *
+ * Aviso: los SVG vienen con fill="white" fijo. Solo se ven sobre fondos
+ * oscuros, coral o gris; sobre blanco desaparecen.
+ */
+interface Props {
+  /** Número de la pieza, '01' a '20'. */
+  pieza: string;
+  ancho?: string;
+  arriba?: string;
+  derecha?: string;
+  abajo?: string;
+  izquierda?: string;
+  giro?: string;
+  opacidad?: string;
+  capa?: string;
+  /** Por defecto se ocultan en móvil, donde solo estorban. */
+  enMovil?: boolean;
+}
+
+const {
+  pieza,
+  ancho = '240px',
+  arriba,
+  derecha,
+  abajo,
+  izquierda,
+  giro = '0deg',
+  opacidad = '1',
+  capa = '0',
+  enMovil = false,
+} = Astro.props;
+
+const estilo = [
+  `--adorno-ancho:${ancho}`,
+  arriba && `--adorno-arriba:${arriba}`,
+  derecha && `--adorno-derecha:${derecha}`,
+  abajo && `--adorno-abajo:${abajo}`,
+  izquierda && `--adorno-izquierda:${izquierda}`,
+  `--adorno-giro:${giro}`,
+  `--adorno-opacidad:${opacidad}`,
+  `--adorno-capa:${capa}`,
+]
+  .filter(Boolean)
+  .join(';');
+---
+
+<div class:list={['adorno-neo', { 'adorno-neo--en-movil': enMovil }]} style={estilo} aria-hidden="true">
+  <img src={`/assets/neo/Brutalist%20${pieza}.svg`} alt="" loading="lazy" />
+</div>
+
+<style>
+  .adorno-neo {
+    position: absolute;
+    top: var(--adorno-arriba, auto);
+    right: var(--adorno-derecha, auto);
+    bottom: var(--adorno-abajo, auto);
+    left: var(--adorno-izquierda, auto);
+    width: var(--adorno-ancho);
+    rotate: var(--adorno-giro);
+    opacity: var(--adorno-opacidad);
+    z-index: var(--adorno-capa);
+    pointer-events: none;
+  }
+
+  .adorno-neo img {
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: auto;
+  }
+
+  @media (max-width: 768px) {
+    .adorno-neo:not(.adorno-neo--en-movil) {
+      display: none;
+    }
+  }
+</style>

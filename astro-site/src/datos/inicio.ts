@@ -2,20 +2,20 @@ import type { ElementoTarjeta } from '@tipos/tarjetas';
 
 export const tarjetasServicio: ElementoTarjeta[] = [
   {
-    insignia: { tipo: 'icono', valor: '/assets/icons/layout.svg', fondo: 'var(--color-fondo)' },
+    insignia: { tipo: 'icono', valor: '/assets/icons/layout.svg', fondo: 'var(--color-principal)' },
     titulo: 'Desarrollo a la medida',
     cuerpo:
       'Construimos el software que tu operación necesita, no el que sobra en una plantilla.',
-    fondo: 'var(--color-tinta)',
-    texto: 'var(--color-fondo)',
+    fondo: 'var(--color-blanco)',
+    texto: 'var(--color-tinta)',
   },
   {
-    insignia: { tipo: 'icono', valor: '/assets/icons/apps.svg', fondo: 'var(--color-fondo)' },
+    insignia: { tipo: 'icono', valor: '/assets/icons/apps.svg', fondo: 'var(--color-principal)' },
     titulo: 'Automatización de procesos',
     cuerpo:
       'Quitamos del camino las tareas repetitivas para que tu equipo se dedique a lo que decide.',
-    fondo: 'var(--color-tinta)',
-    texto: 'var(--color-fondo)',
+    fondo: 'var(--color-gris)',
+    texto: 'var(--color-tinta)',
   },
   {
     insignia: { tipo: 'icono', valor: '/assets/icons/analytics.svg', fondo: 'var(--color-fondo)' },

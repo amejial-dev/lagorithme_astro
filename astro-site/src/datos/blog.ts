@@ -13,11 +13,11 @@ export interface ArticuloBlog {
   el sitio, o quitar /blog de la navegación mientras tanto.
 */
 const fondos = [
-  'var(--color-tinta)',
-  'var(--color-principal)',
-  'var(--color-azul)',
+  'var(--color-blanco)',
   'var(--color-gris)',
-  'var(--color-tinta)',
+  'var(--color-principal)',
+  'var(--color-blanco)',
+  'var(--color-gris)',
   'var(--color-principal)',
 ];
 
