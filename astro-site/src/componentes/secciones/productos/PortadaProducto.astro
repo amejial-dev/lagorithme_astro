@@ -1,0 +1,72 @@
+---
+import Antetitulo from '@componentes/ui/Antetitulo.astro';
+import Boton from '@componentes/ui/Boton.astro';
+---
+
+<section class="portada-producto">
+  <div class="portada-producto__contenido">
+    <Antetitulo>Servicios</Antetitulo>
+    <h1 class="portada-producto__titulo">
+      Tecnología que se adapta a tu operación, no al revés.
+    </h1>
+    <p class="portada-producto__subtitulo">
+      Desarrollo a la medida, automatización de procesos, inteligencia artificial y analítica de
+      datos para organizaciones públicas y privadas.
+    </p>
+    <Boton ruta="/contacto" variante="solido" tono="principal" tamano="lg">
+      Hablemos de tu proyecto
+    </Boton>
+  </div>
+  <div class="portada-producto__medio"></div>
+</section>
+
+<style>
+  .portada-producto {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    border-bottom: var(--borde-base);
+  }
+
+  .portada-producto__contenido {
+    padding: 4.375rem 3.5rem 4.375rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.375rem;
+  }
+
+  .portada-producto__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin: 0;
+  }
+
+  .portada-producto__subtitulo {
+    font-size: 1.0625rem;
+    max-width: 480px;
+    opacity: 0.7;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .portada-producto__medio {
+    position: relative;
+    border-left: var(--borde-base);
+    background: var(--color-tinta);
+    min-height: 27.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .portada-producto {
+      grid-template-columns: 1fr;
+    }
+    .portada-producto__medio {
+      border-left: none;
+      border-top: var(--borde-base);
+      min-height: 220px;
+    }
+  }
+</style>

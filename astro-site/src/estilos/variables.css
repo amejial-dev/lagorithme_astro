@@ -1,0 +1,74 @@
+/*
+  Variables de diseño del sistema neobrutalista de Lagorithme.
+  Todo color, sombra, espaciado y radio usado en los componentes
+  se deriva de estas propiedades personalizadas.
+*/
+:root {
+  /* Colores — los 4 esenciales del brandbook (LAGORITHME-BRANDBOOK_v1).
+     No cambiar estos valores sin actualizar el brandbook primero. */
+  --color-principal: #ff5555; /* Vibrant Coral */
+  --color-principal-suave: #ff9b8f; /* Coral aclarado, para texto sobre fondo oscuro */
+  --color-tinta: #0e1524; /* Ink Black — bordes, texto y fondos de contraste */
+  --color-azul: #1f3143; /* Deep space blue */
+  --color-gris: #a9a9a9; /* Silver */
+
+  --color-fondo: #f4f5f7; /* Fondo base de página */
+  --color-blanco: #ffffff; /* Blanco puro, para elevar secciones sobre el fondo base */
+
+  --color-texto: var(--color-tinta);
+  --opacidad-atenuada: 0.7;
+  --color-borde: var(--color-tinta);
+
+  /* Tipografía */
+  --fuente-cuerpo: 'Sora', system-ui, sans-serif;
+  --fuente-titulos: 'IBrand', var(--fuente-cuerpo);
+
+  --peso-medio: 500;
+  --peso-semi: 600;
+  --peso-negrita: 700;
+
+  /* Bordes */
+  --borde-fino: 2px solid var(--color-borde);
+  --borde-base: 3px solid var(--color-borde);
+  --borde-grueso: 4px solid var(--color-borde);
+
+  /* Sombras "brutalistas" duras — sin desenfoque, solo desplazamiento */
+  --sombra-sm: 3px 3px 0 var(--color-tinta);
+  --sombra-sm-hover: 7px 7px 0 var(--color-tinta);
+  --sombra-md: 5px 5px 0 var(--color-tinta);
+  --sombra-md-hover: 9px 9px 0 var(--color-tinta);
+  --sombra-lg: 8px 8px 0 var(--color-tinta);
+  --sombra-lg-hover: 12px 12px 0 var(--color-tinta);
+  --sombra-xl: 10px 10px 0 var(--color-tinta);
+  --sombra-xl-hover: 15px 15px 0 var(--color-tinta);
+
+  /* Movimiento */
+  --transicion-hover: 0.15s ease;
+
+  /* Maquetación */
+
+  /* Alto real del encabezado sticky (padding + la pastilla de navegación,
+     que es su hijo más alto). Va de 94px a 100px según el breakpoint; lo
+     usa la portada para descontarlo de su alto mínimo y quedar centrada. */
+  --alto-encabezado: 6rem;
+
+  --contenedor-max: 1200px;
+  --seccion-espaciado-x: clamp(1.5rem, 4vw, 3rem);
+  --seccion-espaciado-y: clamp(3.5rem, 8vw, 6.25rem);
+  --radio-cero: 0;
+}
+
+/*
+  Escala de breakpoints (documentada aquí como referencia; las condiciones
+  @media no pueden consumir propiedades personalizadas, así que los mismos
+  valores en píxeles se repiten literalmente en cada media query).
+
+  xs:    0      móviles
+  sm:    576px  móviles grandes
+  md:    768px  tablets
+  lg:    992px  portátiles pequeños
+  xl:    1200px escritorio
+  xxl:   1400px escritorio grande
+  xxxl:  1920px 2K
+  uhd:   2560px 4K
+*/

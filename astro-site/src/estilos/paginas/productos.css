@@ -1,0 +1,7 @@
+/* Estilos específicos de src/pages/productos.astro */
+
+.franja-cita {
+  background: var(--color-tinta);
+  padding-top: 5.625rem;
+  padding-bottom: 5.625rem;
+}

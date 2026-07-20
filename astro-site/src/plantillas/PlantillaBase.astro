@@ -1,0 +1,47 @@
+---
+import EncabezadoSitio from '@componentes/estructura/EncabezadoSitio.astro';
+import PieSitio from '@componentes/estructura/PieSitio.astro';
+import CargadorPagina from '@componentes/estructura/CargadorPagina.astro';
+import '@estilos/variables.css';
+import '@estilos/base.css';
+import '@estilos/utilidades.css';
+
+interface Props {
+  titulo: string;
+  descripcion?: string;
+  activa?: string;
+}
+
+const {
+  titulo,
+  descripcion = 'lagorithme — desarrollo de software, automatización de procesos e inteligencia artificial para organizaciones en Colombia y Latinoamérica.',
+  activa = '',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={descripcion} />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/lago-logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{titulo} · lagorithme</title>
+  </head>
+  <body>
+    <CargadorPagina />
+    <EncabezadoSitio activa={activa} />
+    <main>
+      <slot />
+    </main>
+    <PieSitio />
+
+    <script src="../scripts/animaciones.ts"></script>
+  </body>
+</html>

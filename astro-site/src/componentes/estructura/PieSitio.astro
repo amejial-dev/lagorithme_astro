@@ -1,0 +1,47 @@
+---
+import { navegacionPie, enlacesRedes } from '@datos/navegacion';
+import '@estilos/estructura/pie.css';
+const anio = new Date().getFullYear();
+---
+
+<footer class="pie">
+  <div class="pie__superior contenedor">
+    <div class="pie__marca">
+      <a href="/" class="pie__logo">
+        <img src="/assets/images/lago-logo.svg" alt="lagorithme" height="32" />
+      </a>
+      <p class="pie__lema">
+        Desarrollo de software, automatización e inteligencia artificial para organizaciones en
+        Colombia y Latinoamérica.
+      </p>
+    </div>
+
+    <div class="pie__columna">
+      <p class="pie__titulo">Navegación</p>
+      {navegacionPie.navegacion.map((e) => <a href={e.ruta}>{e.etiqueta}</a>)}
+    </div>
+
+    <div class="pie__columna">
+      <p class="pie__titulo">Recursos</p>
+      {navegacionPie.recursos.map((e) => <a href={e.ruta}>{e.etiqueta}</a>)}
+    </div>
+
+    <div class="pie__columna">
+      <p class="pie__titulo">Legal</p>
+      {navegacionPie.legal.map((etiqueta) => <span class="pie__legal">{etiqueta}</span>)}
+    </div>
+  </div>
+
+  <div class="pie__inferior contenedor">
+    <p class="pie__aviso">© {anio} lagorithme. Todos los derechos reservados.</p>
+    <div class="pie__redes">
+      {
+        enlacesRedes.map((red) => (
+          <a href="#" aria-label={red.etiqueta}>
+            <img src={red.icono} alt={red.etiqueta} width="30" height="30" />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</footer>

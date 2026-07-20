@@ -1,127 +1,129 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
-import Ticker from '@components/ui/Ticker.astro';
-import Eyebrow from '@components/ui/Eyebrow.astro';
-import Button from '@components/ui/Button.astro';
-import SectionIntro from '@components/ui/SectionIntro.astro';
-import IconCardGrid from '@components/ui/IconCardGrid.astro';
-import SplitFeature from '@components/sections/shared/SplitFeature.astro';
-import FinalCta from '@components/sections/shared/FinalCta.astro';
-import HomeHero from '@components/sections/home/HomeHero.astro';
-import Cards4Grid from '@components/sections/home/Cards4Grid.astro';
-import { tickerItems, featureCards3, featureCards4 } from '@data/home';
-import '@styles/pages/home.css';
+import PlantillaBase from '@plantillas/PlantillaBase.astro';
+import BandaTrabajos from '@componentes/secciones/inicio/BandaTrabajos.astro';
+import Antetitulo from '@componentes/ui/Antetitulo.astro';
+import Boton from '@componentes/ui/Boton.astro';
+import IntroSeccion from '@componentes/ui/IntroSeccion.astro';
+import RejillaTarjetasIcono from '@componentes/ui/RejillaTarjetasIcono.astro';
+import BloqueDividido from '@componentes/secciones/compartido/BloqueDividido.astro';
+import LlamadaFinal from '@componentes/secciones/compartido/LlamadaFinal.astro';
+import PortadaInicio from '@componentes/secciones/inicio/PortadaInicio.astro';
+import RejillaCuatroTarjetas from '@componentes/secciones/inicio/RejillaCuatroTarjetas.astro';
+import { tarjetasServicio, tarjetasPilares } from '@datos/inicio';
+import '@estilos/paginas/inicio.css';
 ---
 
-<BaseLayout title="Inicio" active="/">
-  <HomeHero />
+<PlantillaBase titulo="Inicio" activa="/">
+  <PortadaInicio />
 
-  <Ticker items={tickerItems} />
+  <BandaTrabajos />
 
-  <SplitFeature order="text-media" textBg="var(--color-white)" mediaBg="var(--color-navy)">
-    <Eyebrow>Lorem ipsum</Eyebrow>
-    <h2 class="split-title">Neque porro quisquam est qui dolorem ipsum quia dolor.</h2>
-    <p class="split-body">
-      Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-      nisi ut aliquid ex ea commodi.
+  <BloqueDividido orden="texto-medio" fondoTexto="var(--color-blanco)" fondoMedio="var(--color-azul)">
+    <Antetitulo>Desarrollo a la medida</Antetitulo>
+    <h2 class="bloque-titulo">Software construido sobre tu operación, no sobre una plantilla.</h2>
+    <p class="bloque-cuerpo">
+      Levantamos tus procesos reales —con sus excepciones— y desarrollamos la solución que
+      encaja con ellos, lista para crecer cuando la organización lo haga.
     </p>
-    <Button tone="gray" size="sm">Ver más</Button>
+    <Boton ruta="/productos" tono="gris" tamano="sm">Ver servicios</Boton>
     <img
-      slot="media"
+      slot="medio"
       src="/assets/images/device-mockup.png"
-      alt="Vista previa del producto"
+      alt="Vista previa de una solución a la medida"
       width="449"
     />
-  </SplitFeature>
+  </BloqueDividido>
 
-  <SplitFeature
-    order="media-text"
-    mediaBg="var(--color-coral)"
-    textBg="var(--color-bg)"
-    borderBetween
+  <BloqueDividido
+    orden="medio-texto"
+    fondoMedio="var(--color-principal)"
+    fondoTexto="var(--color-fondo)"
+    bordeIntermedio
   >
-    <Eyebrow>Dolor sit amet</Eyebrow>
-    <h2 class="split-title">Quis autem vel eum iure reprehenderit qui in ea voluptate.</h2>
-    <p class="split-body">
-      Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
-      quod maxime placeat.
+    <Antetitulo>Automatización de procesos</Antetitulo>
+    <h2 class="bloque-titulo">Las tareas repetitivas dejan de consumir el día de tu equipo.</h2>
+    <p class="bloque-cuerpo">
+      Automatizamos flujos operativos y administrativos para que las horas se vayan en decidir,
+      no en copiar datos de un sistema a otro.
     </p>
-    <Button tone="gray" size="sm">Explorar</Button>
+    <Boton ruta="/productos" tono="gris" tamano="sm">Cómo funciona</Boton>
     <img
-      slot="media"
+      slot="medio"
       src="/assets/images/device-mockup.png"
-      alt="Vista previa del producto"
+      alt="Vista previa de un flujo automatizado"
       width="449"
     />
-  </SplitFeature>
+  </BloqueDividido>
 
-  <section class="feature-band section">
-    <SectionIntro
-      title="Lorem ipsum dolor sit amet consectetur"
-      subtitle="Adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore."
+  <section class="franja-destacada seccion">
+    <IntroSeccion
+      titulo="Tres frentes, una misma operación"
+      subtitulo="Desarrollo, automatización e inteligencia artificial trabajando sobre el mismo sistema."
     />
-    <IconCardGrid items={featureCards3} columns={3} shadowTone="ink" borderWidth="base" />
-    <img src="/assets/images/feature-section-border.svg" alt="" class="feature-band__corner" />
+    <RejillaTarjetasIcono elementos={tarjetasServicio} columnas={3} tonoSombra="tinta" grosorBorde="base" />
+    <img src="/assets/images/feature-section-border.svg" alt="" class="franja-destacada__esquina" />
   </section>
 
-  <SplitFeature order="text-media" textBg="var(--color-bg)" mediaBg="var(--color-ink)">
-    <Eyebrow tone="muted">Consectetur</Eyebrow>
-    <h2 class="split-title">At vero eos et accusamus et iusto odio dignissimos.</h2>
-    <p class="split-body">
-      Et harum quidem rerum facilis est et expedita distinctio, nam libero tempore cum soluta
-      nobis est eligendi.
+  <BloqueDividido orden="texto-medio" fondoTexto="var(--color-fondo)" fondoMedio="var(--color-tinta)">
+    <Antetitulo tono="atenuado">Inteligencia artificial</Antetitulo>
+    <h2 class="bloque-titulo">IA dentro de tu organización y dentro del software que ya usas.</h2>
+    <p class="bloque-cuerpo">
+      No hace falta empezar de cero: integramos capacidades de inteligencia artificial en los
+      sistemas que tu equipo ya conoce y utiliza todos los días.
     </p>
-    <Button tone="gray" size="sm">Descubrir</Button>
+    <Boton ruta="/productos" tono="gris" tamano="sm">Descubrir</Boton>
     <img
-      slot="media"
+      slot="medio"
       src="/assets/images/device-mockup.png"
-      alt="Vista previa del producto"
+      alt="Vista previa de una integración con IA"
       width="449"
     />
-  </SplitFeature>
+  </BloqueDividido>
 
-  <section class="feature-band section">
-    <SectionIntro
-      title="Sed do eiusmod tempor incididunt"
-      subtitle="Ut labore et dolore magna aliqua ut enim ad minim veniam."
+  <section class="franja-destacada seccion">
+    <IntroSeccion
+      titulo="Y todo lo que sostiene la operación"
+      subtitulo="Analítica, datos, cumplimiento e integraciones con lo que ya tienes montado."
     />
-    <Cards4Grid items={featureCards4} />
+    <RejillaCuatroTarjetas elementos={tarjetasPilares} />
   </section>
 
-  <SplitFeature order="media-text" mediaBg="var(--color-navy)" textBg="var(--color-coral)">
-    <p class="split-eyebrow-plain">Lorem ipsum</p>
-    <h2 class="split-title">Temporibus autem quibusdam et aut officiis debitis.</h2>
-    <p class="split-body split-body--dark">
-      Aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non
-      recusandae.
+  <BloqueDividido orden="medio-texto" fondoMedio="var(--color-azul)" fondoTexto="var(--color-principal)">
+    <p class="bloque-antetitulo">Colombia y Latinoamérica</p>
+    <h2 class="bloque-titulo">Pensamos en grande desde el primer código.</h2>
+    <p class="bloque-cuerpo bloque-cuerpo--oscuro">
+      Lo que hoy resuelve un área mañana sostiene la empresa completa. Por eso construimos sobre
+      infraestructura robusta desde el día uno.
     </p>
-    <Button tone="gray" size="md">Empieza gratis</Button>
-    <img src="/assets/images/cta-corner-accent.svg" alt="" class="split-corner" />
+    <Boton ruta="/nosotros" tono="gris" tamano="md">Conocer lagorithme</Boton>
+    <img src="/assets/images/cta-corner-accent.svg" alt="" class="bloque-esquina" />
     <img
-      slot="media"
+      slot="medio"
       src="/assets/images/device-mockup.png"
       alt="Vista previa del producto"
       width="449"
     />
-  </SplitFeature>
+  </BloqueDividido>
 
-  <SplitFeature order="text-media" textBg="var(--color-bg)" mediaBg="var(--color-gray)">
-    <h2 class="split-title">Itaque earum rerum hic tenetur a sapiente delectus.</h2>
-    <p class="split-body">
-      Ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus
-      asperiores repellat quibusdam.
+  <BloqueDividido orden="texto-medio" fondoTexto="var(--color-fondo)" fondoMedio="var(--color-gris)">
+    <h2 class="bloque-titulo">Aliados estratégicos en el crecimiento de nuestros clientes.</h2>
+    <p class="bloque-cuerpo">
+      Software hospitalario, observatorios de datos ambientales, plataformas a la medida:
+      acompañamos cada proyecto con herramientas que evolucionan junto a la organización.
     </p>
-    <Button tone="gray" size="md">Contactar</Button>
+    <Boton ruta="/colaboradores" tono="gris" tamano="md">Ver colaboradores</Boton>
     <img
-      slot="media"
+      slot="medio"
       src="/assets/images/device-mockup.png"
       alt="Vista previa del producto"
       width="449"
     />
-  </SplitFeature>
+  </BloqueDividido>
 
-  <FinalCta
-    title="Lorem ipsum dolor sit amet consectetur adipiscing elit."
-    subtitle="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam."
+  <LlamadaFinal
+    titulo="El futuro de tu organización se programa hoy."
+    subtitulo="Cuéntanos qué proceso te está frenando y te decimos por dónde empezar."
+    etiquetaPrincipal="Iniciar transformación digital"
+    rutaPrincipal="/contacto"
   />
-</BaseLayout>
+</PlantillaBase>

@@ -1,0 +1,62 @@
+/* Estilos específicos de src/pages/index.astro */
+
+.bloque-titulo {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-negrita);
+  font-size: clamp(1.6rem, 3vw, 2.375rem);
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.bloque-cuerpo {
+  font-size: 1rem;
+  opacity: 0.75;
+  line-height: 1.6;
+  max-width: 440px;
+  margin: 0;
+}
+.bloque-cuerpo--oscuro {
+  opacity: 0.85;
+  max-width: 420px;
+}
+
+.bloque-antetitulo {
+  font-weight: var(--peso-negrita);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.bloque-esquina {
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 131px;
+  height: auto;
+}
+
+.franja-destacada {
+  background: var(--color-fondo);
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+  align-items: center;
+  position: relative;
+}
+
+.franja-destacada__esquina {
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  width: 463px;
+  max-width: 40%;
+  height: auto;
+}
+
+@media (max-width: 576px) {
+  .bloque-esquina {
+    width: 90px;
+  }
+}

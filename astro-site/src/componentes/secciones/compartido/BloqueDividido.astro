@@ -1,0 +1,119 @@
+---
+/**
+ * Sección partida en dos columnas: un panel de texto junto a un panel de
+ * medios. Se reutiliza en toda la portada para cada bloque alternado de
+ * imagen/texto.
+ */
+interface Props {
+  orden?: 'texto-medio' | 'medio-texto';
+  fondoTexto?: string;
+  fondoMedio?: string;
+  bordeIntermedio?: boolean;
+}
+
+const {
+  orden = 'texto-medio',
+  fondoTexto = 'var(--color-fondo)',
+  fondoMedio = 'var(--color-azul)',
+  bordeIntermedio = false,
+} = Astro.props;
+---
+
+<div class={`bloque-dividido bloque-dividido--${orden}`}>
+  <div
+    class:list={[
+      'bloque-dividido__contenido',
+      { 'bloque-dividido__contenido--con-borde': bordeIntermedio },
+    ]}
+    style={`background:${fondoTexto};`}
+  >
+    <slot />
+  </div>
+  <div class="bloque-dividido__medio" style={`background:${fondoMedio};`}>
+    <slot name="medio" />
+  </div>
+</div>
+
+<style>
+  .bloque-dividido {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: var(--borde-base);
+  }
+
+  .bloque-dividido--medio-texto {
+    grid-template-areas: 'medio contenido';
+  }
+  .bloque-dividido--medio-texto .bloque-dividido__medio {
+    grid-area: medio;
+  }
+  .bloque-dividido--medio-texto .bloque-dividido__contenido {
+    grid-area: contenido;
+  }
+
+  .bloque-dividido__contenido {
+    color: var(--color-tinta);
+
+    /* Mismo alto que el panel del portátil. La fila del grid ya iguala a
+       los dos por el más alto, pero dejarlo escrito aquí documenta la
+       intención y aguanta si alguien cambia el align-items. */
+    min-height: 920px;
+
+    padding: 5rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.25rem;
+    position: relative;
+  }
+  .bloque-dividido__contenido--con-borde {
+    border-left: var(--borde-base);
+  }
+
+  .bloque-dividido__medio {
+    /* Alto del panel donde va el portátil. min-height y no height: si algún
+       día el texto de la columna vecina crece más que esto, la fila lo
+       acompaña en vez de desbordarse. */
+    min-height: 920px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .bloque-dividido__medio :global(img) {
+    max-width: 80%;
+    height: auto;
+    display: block;
+  }
+
+  /* Entre el apilado y el escritorio las dos columnas son estrechas, y 920px
+     de alto las dejaría como dos torres. Se baja el alto en ese tramo. */
+  @media (max-width: 1100px) {
+    .bloque-dividido__contenido,
+    .bloque-dividido__medio {
+      min-height: 560px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .bloque-dividido,
+    .bloque-dividido--medio-texto {
+      grid-template-columns: 1fr;
+      grid-template-areas: none;
+    }
+    .bloque-dividido__contenido {
+      /* Apilado, el texto ocupa lo que necesite: forzarle un alto solo
+         mete aire muerto entre el texto y la imagen. */
+      min-height: 0;
+      padding: 3rem 1.75rem;
+      border-left: none !important;
+      border-top: var(--borde-base);
+      order: 2;
+    }
+    .bloque-dividido__medio {
+      min-height: 260px;
+      order: 1;
+    }
+  }
+</style>

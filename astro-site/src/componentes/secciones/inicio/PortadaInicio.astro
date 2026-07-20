@@ -1,0 +1,115 @@
+---
+import Boton from '@componentes/ui/Boton.astro';
+---
+
+<section class="portada-inicio seccion">
+  <img
+    src="/assets/images/hero-pattern.svg"
+    alt=""
+    class="portada-inicio__adorno portada-inicio__adorno--izquierda"
+  />
+  <img
+    src="/assets/images/hero-decoration-shape.svg"
+    alt=""
+    class="portada-inicio__adorno portada-inicio__adorno--derecha"
+  />
+
+  <h1 class="portada-inicio__titulo">El futuro de tu organización se programa hoy.</h1>
+  <p class="portada-inicio__subtitulo">
+    Impulsamos la transformación digital de empresas en Colombia y Latinoamérica mediante
+    automatización de procesos e inteligencia artificial.
+  </p>
+  <div class="portada-inicio__acciones">
+    <Boton ruta="/contacto" variante="solido" tono="principal" tamano="xl">
+      Iniciar transformación digital
+    </Boton>
+  </div>
+  <p class="portada-inicio__nota">Sector público y privado · Desarrollo a la medida</p>
+</section>
+
+<style>
+  .portada-inicio {
+    background: var(--color-fondo);
+    color: var(--color-tinta);
+
+    /* El encabezado es sticky y ocupa su alto por encima de esta sección.
+       Sin descontarlo, el bloque de 100svh arranca más abajo y el centro
+       óptico queda desplazado hacia el pie. */
+    min-height: calc(100svh - var(--alto-encabezado));
+
+    /* Padding simétrico: cualquier asimetría aquí desplaza el contenido
+       respecto al centro real de la sección. */
+    padding-top: clamp(3rem, 6vw, 4.375rem);
+    padding-bottom: clamp(3rem, 6vw, 4.375rem);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1.625rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* En pantallas muy bajas el alto mínimo estorba más de lo que ayuda. */
+  @media (max-height: 480px) {
+    .portada-inicio {
+      min-height: 0;
+    }
+  }
+
+  .portada-inicio__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: clamp(2.25rem, 6vw, 4.25rem);
+    line-height: 1.03;
+    letter-spacing: -1.5px;
+    max-width: 920px;
+    margin: 0;
+    position: relative;
+    text-wrap: balance;
+  }
+
+  .portada-inicio__subtitulo {
+    font-size: 1.1875rem;
+    max-width: 620px;
+    opacity: 0.7;
+    line-height: 1.55;
+    margin: 0;
+    position: relative;
+    text-wrap: pretty;
+  }
+
+  .portada-inicio__acciones {
+    position: relative;
+  }
+
+  .portada-inicio__nota {
+    font-size: 0.8125rem;
+    opacity: 0.55;
+    letter-spacing: 0.3px;
+    margin: 0;
+    position: relative;
+  }
+
+  .portada-inicio__adorno {
+    position: absolute;
+  }
+  .portada-inicio__adorno--izquierda {
+    left: 5%;
+    bottom: -10px;
+    width: 224px;
+  }
+  .portada-inicio__adorno--derecha {
+    left: 75%;
+    bottom: -10px;
+    width: 379px;
+  }
+
+  @media (max-width: 768px) {
+    .portada-inicio__adorno {
+      display: none;
+    }
+  }
+</style>

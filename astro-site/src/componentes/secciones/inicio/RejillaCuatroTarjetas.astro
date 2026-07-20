@@ -1,0 +1,65 @@
+---
+import type { TarjetaSimple } from '@datos/inicio';
+
+interface Props {
+  elementos: TarjetaSimple[];
+}
+const { elementos } = Astro.props;
+---
+
+<div class="tarjetas-cuatro">
+  {
+    elementos.map((elemento) => (
+      <div class="tarjetas-cuatro__elemento" style={`--rotacion:${elemento.rotacion}deg;`}>
+        <h3 class="tarjetas-cuatro__titulo">{elemento.titulo}</h3>
+        <p class="tarjetas-cuatro__cuerpo">{elemento.cuerpo}</p>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .tarjetas-cuatro {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: var(--contenedor-max);
+    width: 100%;
+  }
+
+  .tarjetas-cuatro__elemento {
+    border: var(--borde-base);
+    background: var(--color-fondo);
+    box-shadow: var(--sombra-md);
+    padding: 1.375rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transform: rotate(var(--rotacion));
+  }
+  .tarjetas-cuatro__elemento:hover {
+    transform: rotate(0deg) translateY(-4px);
+    box-shadow: var(--sombra-md-hover);
+  }
+
+  .tarjetas-cuatro__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .tarjetas-cuatro__cuerpo {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    opacity: 0.75;
+    margin: 0;
+  }
+
+  @media (max-width: 992px) {
+    .tarjetas-cuatro {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

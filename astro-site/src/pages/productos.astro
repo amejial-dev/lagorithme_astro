@@ -1,55 +1,58 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
-import SectionIntro from '@components/ui/SectionIntro.astro';
-import IconCardGrid from '@components/ui/IconCardGrid.astro';
-import Quote from '@components/ui/Quote.astro';
-import ProductHero from '@components/sections/productos/ProductHero.astro';
-import BentoGrid from '@components/sections/productos/BentoGrid.astro';
-import FinalCta from '@components/sections/shared/FinalCta.astro';
-import { services, steps, bentoItems } from '@data/productos';
-import '@styles/pages/productos.css';
+import PlantillaBase from '@plantillas/PlantillaBase.astro';
+import IntroSeccion from '@componentes/ui/IntroSeccion.astro';
+import RejillaTarjetasIcono from '@componentes/ui/RejillaTarjetasIcono.astro';
+import Cita from '@componentes/ui/Cita.astro';
+import PortadaProducto from '@componentes/secciones/productos/PortadaProducto.astro';
+import RejillaBento from '@componentes/secciones/productos/RejillaBento.astro';
+import LlamadaFinal from '@componentes/secciones/compartido/LlamadaFinal.astro';
+import { servicios, pasos, elementosBento } from '@datos/productos';
+import '@estilos/paginas/productos.css';
 ---
 
-<BaseLayout
-  title="Producto"
-  description="Todo lo que necesitas, en un solo lugar."
-  active="/productos"
+<PlantillaBase
+  titulo="Servicios"
+  descripcion="Desarrollo a la medida, automatización, inteligencia artificial y analítica de datos."
+  activa="/productos"
 >
-  <ProductHero />
+  <PortadaProducto />
 
-  <section class="section section--stack">
-    <SectionIntro
-      title="Todo lo que necesitas, en un solo lugar"
-      subtitle="Adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore."
+  <section class="seccion seccion--pila">
+    <IntroSeccion
+      titulo="Un solo aliado para toda la transformación"
+      subtitulo="Del primer diagnóstico al software funcionando y evolucionando en tu operación."
     />
-    <BentoGrid items={bentoItems} />
+    <RejillaBento elementos={elementosBento} />
   </section>
 
-  <section class="section section--stack">
-    <SectionIntro
-      eyebrow="Servicios"
-      title="Lo que hacemos por ti"
-      subtitle="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium."
+  <section class="seccion seccion--pila">
+    <IntroSeccion
+      antetitulo="Servicios"
+      titulo="Lo que hacemos por ti"
+      subtitulo="Seis frentes que se combinan según lo que tu organización necesite resolver."
     />
-    <IconCardGrid items={services} columns={3} shadowTone="ink" borderWidth="thick" />
+    <RejillaTarjetasIcono elementos={servicios} columnas={3} tonoSombra="tinta" grosorBorde="grueso" />
   </section>
 
-  <section class="quote-band section">
-    <Quote theme="dark" attribution="Lorem Ipsum, Cliente">
-      "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet."
-    </Quote>
+  <section class="franja-cita seccion">
+    <Cita tema="oscura" autor="lagorithme">
+      "Acompañamos el crecimiento de nuestros clientes con herramientas que evolucionan junto a
+      ellos."
+    </Cita>
   </section>
 
-  <section class="section section--stack">
-    <SectionIntro
-      title="Cómo funciona"
-      subtitle="Ut labore et dolore magna aliqua ut enim ad minim veniam."
+  <section class="seccion seccion--pila">
+    <IntroSeccion
+      titulo="Cómo trabajamos"
+      subtitulo="Entregamos por partes, para que el valor llegue antes del cierre del proyecto."
     />
-    <IconCardGrid items={steps} columns={3} shadowTone="ink" borderWidth="thick" />
+    <RejillaTarjetasIcono elementos={pasos} columnas={3} tonoSombra="tinta" grosorBorde="grueso" />
   </section>
 
-  <FinalCta
-    title="Lorem ipsum dolor sit amet consectetur adipiscing elit."
-    subtitle="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam."
+  <LlamadaFinal
+    titulo="¿Qué proceso te está frenando?"
+    subtitulo="Cuéntanos cómo funciona hoy y te decimos qué se puede automatizar."
+    etiquetaPrincipal="Iniciar transformación digital"
+    rutaPrincipal="/contacto"
   />
-</BaseLayout>
+</PlantillaBase>

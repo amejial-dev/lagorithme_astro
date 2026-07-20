@@ -1,0 +1,77 @@
+---
+import Boton from '@componentes/ui/Boton.astro';
+
+interface Props {
+  titulo: string;
+  subtitulo: string;
+  etiquetaPrincipal?: string;
+  rutaPrincipal?: string;
+  etiquetaSecundaria?: string;
+  rutaSecundaria?: string;
+}
+
+const {
+  titulo,
+  subtitulo,
+  etiquetaPrincipal,
+  rutaPrincipal,
+  etiquetaSecundaria = 'Hablemos de tu proyecto',
+  rutaSecundaria = '/contacto',
+} = Astro.props;
+---
+
+<section class="llamada-final seccion">
+  <h2 class="llamada-final__titulo">{titulo}</h2>
+  <p class="llamada-final__subtitulo">{subtitulo}</p>
+  <div class="llamada-final__acciones">
+    {
+      etiquetaPrincipal && rutaPrincipal && (
+        <Boton ruta={rutaPrincipal} variante="solido" tono="principal" tamano="lg">
+          {etiquetaPrincipal}
+        </Boton>
+      )
+    }
+    <Boton ruta={rutaSecundaria} variante="contorno" tono="tinta" tamano="md">
+      {etiquetaSecundaria}
+    </Boton>
+  </div>
+</section>
+
+<style>
+  .llamada-final {
+    background: var(--color-tinta);
+    color: var(--color-fondo);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.375rem;
+    padding-top: 6.25rem;
+    padding-bottom: 6.25rem;
+  }
+
+  .llamada-final__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: clamp(1.9rem, 4vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    max-width: 760px;
+    margin: 0;
+  }
+
+  .llamada-final__subtitulo {
+    font-size: 1.0625rem;
+    opacity: 0.7;
+    max-width: 520px;
+    margin: 0;
+  }
+
+  .llamada-final__acciones {
+    display: flex;
+    gap: 1.125rem;
+    margin-top: 0.625rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+</style>

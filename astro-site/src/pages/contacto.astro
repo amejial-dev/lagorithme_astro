@@ -1,18 +1,23 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
-import Eyebrow from '@components/ui/Eyebrow.astro';
-import ContactForm from '@components/sections/contacto/ContactForm.astro';
-import '@styles/pages/contacto.css';
+import PlantillaBase from '@plantillas/PlantillaBase.astro';
+import Antetitulo from '@componentes/ui/Antetitulo.astro';
+import FormularioContacto from '@componentes/secciones/contacto/FormularioContacto.astro';
+import '@estilos/paginas/contacto.css';
 ---
 
-<BaseLayout title="Contacto" description="Ponte en contacto con el equipo de Lagorithme." active="/contacto">
-  <section class="contact-hero section--tight-bottom">
-    <Eyebrow center>Contacto</Eyebrow>
-    <h1 class="contact-hero__title">Lorem ipsum dolor sit amet consectetur adipiscing.</h1>
-    <p class="contact-hero__subtitle">
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.
+<PlantillaBase
+  titulo="Contacto"
+  descripcion="Hablemos de tu proyecto: escríbenos y te respondemos."
+  activa="/contacto"
+>
+  <section class="portada-contacto seccion--ajustada-abajo">
+    <Antetitulo centrado>Contacto</Antetitulo>
+    <h1 class="portada-contacto__titulo">Hablemos de tu proyecto.</h1>
+    <p class="portada-contacto__subtitulo">
+      Cuatro campos y listo. Nos cuentas qué necesitas y te respondemos con una propuesta de
+      por dónde empezar.
     </p>
   </section>
 
-  <ContactForm />
-</BaseLayout>
+  <FormularioContacto />
+</PlantillaBase>

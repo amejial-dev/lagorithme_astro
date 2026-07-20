@@ -1,7 +1,0 @@
-/* Page-specific styles for src/pages/productos.astro */
-
-.quote-band {
-  background: var(--color-ink);
-  padding-top: 5.625rem;
-  padding-bottom: 5.625rem;
-}

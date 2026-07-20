@@ -1,61 +1,68 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
-import SectionIntro from '@components/ui/SectionIntro.astro';
-import IconCardGrid from '@components/ui/IconCardGrid.astro';
-import Quote from '@components/ui/Quote.astro';
-import AboutHero from '@components/sections/nosotros/AboutHero.astro';
-import MissionVision from '@components/sections/nosotros/MissionVision.astro';
-import OffsetShowcase from '@components/sections/nosotros/OffsetShowcase.astro';
-import FinalCta from '@components/sections/shared/FinalCta.astro';
-import { values, corpValues } from '@data/nosotros';
-import '@styles/pages/nosotros.css';
+import PlantillaBase from '@plantillas/PlantillaBase.astro';
+import IntroSeccion from '@componentes/ui/IntroSeccion.astro';
+import RejillaTarjetasIcono from '@componentes/ui/RejillaTarjetasIcono.astro';
+import Cita from '@componentes/ui/Cita.astro';
+import PortadaNosotros from '@componentes/secciones/nosotros/PortadaNosotros.astro';
+import MisionVision from '@componentes/secciones/nosotros/MisionVision.astro';
+import VitrinaDesfasada from '@componentes/secciones/nosotros/VitrinaDesfasada.astro';
+import LlamadaFinal from '@componentes/secciones/compartido/LlamadaFinal.astro';
+import { capacidades, valoresCorporativos, mision, vision } from '@datos/nosotros';
+import '@estilos/paginas/nosotros.css';
 ---
 
-<BaseLayout title="Nosotros" description="Las personas y valores detrás de Lagorithme." active="/nosotros">
-  <AboutHero />
+<PlantillaBase
+  titulo="Nosotros"
+  descripcion="Quiénes somos, qué nos mueve y los valores con los que construimos software en lagorithme."
+  activa="/nosotros"
+>
+  <PortadaNosotros />
 
-  <section class="values-row section">
-    <IconCardGrid items={values} columns={4} shadowTone="coral" borderWidth="thick" />
+  <section class="fila-capacidades seccion">
+    <RejillaTarjetasIcono elementos={capacidades} columnas={4} tonoSombra="principal" grosorBorde="grueso" />
   </section>
 
-  <section class="section section--stack">
-    <SectionIntro
-      title="Misión & Visión"
-      subtitle="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium."
+  <section class="seccion seccion--pila">
+    <IntroSeccion
+      titulo="Misión & Visión"
+      subtitulo="Hacia dónde vamos y qué nos comprometemos a hacer por el camino."
     />
-    <MissionVision
-      mission={{
-        label: 'Nuestra misión',
-        title: 'Neque porro quisquam est qui dolorem ipsum quia dolor.',
-        body: 'Ut enim ad minima veniam quis nostrum exercitationem ullam corporis suscipit laboriosam nisi ut aliquid ex ea commodi consequatur.',
+    <MisionVision
+      mision={{
+        etiqueta: 'Nuestra misión',
+        titulo: 'Impulsar la transformación digital de las organizaciones en Colombia.',
+        cuerpo: mision,
       }}
       vision={{
-        label: 'Nuestra visión',
-        title: 'At vero eos et accusamus et iusto odio dignissimos.',
-        body: 'Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.',
+        etiqueta: 'Nuestra visión',
+        titulo: 'Ser líderes en innovación tecnológica, de Colombia hacia el mundo.',
+        cuerpo: vision,
       }}
     />
   </section>
 
-  <section class="section section--stack section--white">
-    <SectionIntro
-      eyebrow="Valores corporativos"
-      title="Lo que nos define"
-      subtitle="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium."
+  <section class="seccion seccion--pila seccion--blanca">
+    <IntroSeccion
+      antetitulo="Valores corporativos"
+      titulo="Lo que nos define"
+      subtitulo="Cinco principios que atraviesan cada proyecto que tomamos."
     />
-    <IconCardGrid items={corpValues} shadowTone="ink" borderWidth="base" layout="wrap" />
+    <RejillaTarjetasIcono elementos={valoresCorporativos} tonoSombra="tinta" grosorBorde="base" disposicion="flujo" />
   </section>
 
-  <section class="pull-quote section">
-    <Quote theme="light" attribution="Fundadores de Lagorithme">
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis."
-    </Quote>
+  <section class="cita-destacada seccion">
+    <Cita tema="clara" autor="lagorithme">
+      "Nuestro enfoque está en la eficiencia, la escalabilidad y la evolución constante, con el
+      objetivo de ser aliados estratégicos en el crecimiento de nuestros clientes."
+    </Cita>
   </section>
 
-  <OffsetShowcase />
+  <VitrinaDesfasada />
 
-  <FinalCta
-    title="Lorem ipsum dolor sit amet consectetur adipiscing elit."
-    subtitle="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam."
+  <LlamadaFinal
+    titulo="Hablemos de lo que quieres transformar."
+    subtitulo="Cuéntanos cómo opera tu organización hoy y te proponemos por dónde empezar."
+    etiquetaPrincipal="Iniciar transformación digital"
+    rutaPrincipal="/contacto"
   />
-</BaseLayout>
+</PlantillaBase>

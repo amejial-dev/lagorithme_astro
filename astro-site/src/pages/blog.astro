@@ -1,27 +1,29 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
-import Eyebrow from '@components/ui/Eyebrow.astro';
-import BlogGrid from '@components/sections/blog/BlogGrid.astro';
-import FinalCta from '@components/sections/shared/FinalCta.astro';
-import { posts } from '@data/blog';
-import '@styles/pages/blog.css';
+import PlantillaBase from '@plantillas/PlantillaBase.astro';
+import Antetitulo from '@componentes/ui/Antetitulo.astro';
+import RejillaBlog from '@componentes/secciones/blog/RejillaBlog.astro';
+import LlamadaFinal from '@componentes/secciones/compartido/LlamadaFinal.astro';
+import { articulos } from '@datos/blog';
+import '@estilos/paginas/blog.css';
 ---
 
-<BaseLayout title="Blog" description="Novedades y artículos de Lagorithme." active="/blog">
-  <section class="blog-hero section">
-    <Eyebrow center>Blog</Eyebrow>
-    <h1 class="blog-hero__title">Lorem ipsum dolor sit amet consectetur adipiscing.</h1>
-    <p class="blog-hero__subtitle">
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.
+<PlantillaBase titulo="Blog" descripcion="Novedades y artículos de lagorithme." activa="/blog">
+  <section class="portada-blog seccion">
+    <Antetitulo centrado>Blog</Antetitulo>
+    <h1 class="portada-blog__titulo">Lo que aprendemos construyendo software.</h1>
+    <p class="portada-blog__subtitulo">
+      Automatización, inteligencia artificial y datos, contados desde los proyectos reales.
     </p>
   </section>
 
-  <section class="section section--stack">
-    <BlogGrid posts={posts} />
+  <section class="seccion seccion--pila">
+    <RejillaBlog articulos={articulos} />
   </section>
 
-  <FinalCta
-    title="Lorem ipsum dolor sit amet consectetur adipiscing elit."
-    subtitle="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam."
+  <LlamadaFinal
+    titulo="El futuro de tu organización se programa hoy."
+    subtitulo="Si algo de lo que leíste te suena a tu operación, hablemos."
+    etiquetaPrincipal="Iniciar transformación digital"
+    rutaPrincipal="/contacto"
   />
-</BaseLayout>
+</PlantillaBase>

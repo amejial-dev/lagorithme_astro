@@ -1,0 +1,5 @@
+/* Estilos específicos de src/pages/colaboradores.astro */
+
+.seccion--pila-con-borde {
+  border-bottom: var(--borde-base);
+}

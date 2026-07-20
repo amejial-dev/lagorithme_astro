@@ -1,0 +1,123 @@
+---
+import type { Colaborador } from '@datos/colaboradores';
+
+interface Props {
+  colaboradores: Colaborador[];
+}
+const { colaboradores } = Astro.props;
+---
+
+<div class="rejilla-colaboradores">
+  {
+    colaboradores.map((colaborador) => (
+      <article class="tarjeta-colaborador">
+        <div
+          class="tarjeta-colaborador__retrato"
+          style={`--retrato-fondo:${colaborador.fondo}; --color-inicial:${colaborador.colorInicial};`}
+        >
+          <span class="tarjeta-colaborador__inicial">{colaborador.inicial}</span>
+          <span class="tarjeta-colaborador__etiqueta">{colaborador.etiqueta}</span>
+        </div>
+        <div class="tarjeta-colaborador__cuerpo">
+          <div>
+            <h3 class="tarjeta-colaborador__nombre">{colaborador.nombre}</h3>
+            <p class="tarjeta-colaborador__sector">{colaborador.sector}</p>
+          </div>
+          <p class="tarjeta-colaborador__descripcion">{colaborador.descripcion}</p>
+        </div>
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .rejilla-colaboradores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: var(--contenedor-max);
+    width: 100%;
+  }
+
+  .tarjeta-colaborador {
+    border: var(--borde-grueso);
+    background: var(--color-fondo);
+    box-shadow: var(--sombra-xl);
+    display: flex;
+    flex-direction: column;
+    transition: translate var(--transicion-hover), box-shadow var(--transicion-hover);
+    translate: 0 0;
+  }
+  .tarjeta-colaborador:hover {
+    translate: -5px -5px;
+    box-shadow: var(--sombra-xl-hover);
+  }
+
+  .tarjeta-colaborador__retrato {
+    background: var(--retrato-fondo);
+    border-bottom: var(--borde-grueso);
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .tarjeta-colaborador__inicial {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: 7.5rem;
+    line-height: 1;
+    color: var(--color-inicial);
+  }
+
+  .tarjeta-colaborador__etiqueta {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: var(--borde-fino);
+    background: var(--color-fondo);
+    color: var(--color-tinta);
+    font-size: 0.6875rem;
+    font-weight: var(--peso-negrita);
+    text-transform: uppercase;
+    padding: 0.25rem 0.625rem;
+  }
+
+  .tarjeta-colaborador__cuerpo {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .tarjeta-colaborador__nombre {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: 1.5rem;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .tarjeta-colaborador__sector {
+    font-weight: var(--peso-negrita);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-principal);
+    margin: 0.25rem 0 0;
+  }
+
+  .tarjeta-colaborador__descripcion {
+    font-size: 0.875rem;
+    opacity: 0.75;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 992px) {
+    .rejilla-colaboradores {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

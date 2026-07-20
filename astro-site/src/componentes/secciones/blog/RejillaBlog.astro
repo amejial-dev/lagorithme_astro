@@ -1,0 +1,116 @@
+---
+import type { ArticuloBlog } from '@datos/blog';
+import Boton from '@componentes/ui/Boton.astro';
+
+interface Props {
+  articulos: ArticuloBlog[];
+}
+const { articulos } = Astro.props;
+---
+
+<div class="rejilla-blog">
+  {
+    articulos.map((articulo) => (
+      <a href="#" class="tarjeta-blog">
+        <div class="tarjeta-blog__imagen" style={`background:${articulo.fondoImagen};`} />
+        <div class="tarjeta-blog__cuerpo">
+          <div class="tarjeta-blog__meta">
+            <span class="tarjeta-blog__etiqueta">{articulo.etiqueta}</span>
+            <span class="tarjeta-blog__fecha">{articulo.fecha}</span>
+          </div>
+          <h3 class="tarjeta-blog__titulo">{articulo.titulo}</h3>
+          <p class="tarjeta-blog__extracto">{articulo.extracto}</p>
+        </div>
+      </a>
+    ))
+  }
+</div>
+
+<div class="rejilla-blog__mas">
+  <Boton tono="principal" tamano="md">Cargar más artículos</Boton>
+</div>
+
+<style>
+  .rejilla-blog {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    max-width: var(--contenedor-max);
+    width: 100%;
+  }
+
+  .tarjeta-blog {
+    text-decoration: none;
+    color: var(--color-tinta);
+    border: var(--borde-base);
+    background: var(--color-fondo);
+    box-shadow: var(--sombra-md);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: translate var(--transicion-hover), box-shadow var(--transicion-hover);
+    translate: 0 0;
+  }
+  .tarjeta-blog:hover {
+    translate: -3px -3px;
+    box-shadow: var(--sombra-md-hover);
+    color: var(--color-tinta);
+  }
+
+  .tarjeta-blog__imagen {
+    height: 170px;
+    border-bottom: var(--borde-base);
+  }
+
+  .tarjeta-blog__cuerpo {
+    padding: 1.375rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .tarjeta-blog__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+  .tarjeta-blog__etiqueta {
+    border: var(--borde-fino);
+    background: var(--color-principal);
+    color: var(--color-tinta);
+    font-size: 0.6875rem;
+    font-weight: var(--peso-negrita);
+    text-transform: uppercase;
+    padding: 0.1875rem 0.625rem;
+  }
+  .tarjeta-blog__fecha {
+    font-size: 0.75rem;
+    opacity: 0.5;
+  }
+
+  .tarjeta-blog__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: 1.1875rem;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .tarjeta-blog__extracto {
+    font-size: 0.875rem;
+    opacity: 0.7;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .rejilla-blog__mas {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 992px) {
+    .rejilla-blog {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

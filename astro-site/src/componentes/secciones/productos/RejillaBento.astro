@@ -1,0 +1,112 @@
+---
+import type { ElementoBento } from '@datos/productos';
+
+interface Props {
+  elementos: ElementoBento[];
+}
+const { elementos } = Astro.props;
+---
+
+<div class="bento">
+  {
+    elementos.map((elemento) => (
+      <div
+        class={`bento__celda bento__celda--${elemento.tamano}`}
+        style={`--celda-fondo:${elemento.fondo}; --celda-texto:${elemento.texto};`}
+      >
+        <div class="bento__icono">
+          <img src={elemento.icono} alt="" width="20" height="20" />
+        </div>
+        <h3 class="bento__titulo">{elemento.titulo}</h3>
+        {elemento.cuerpo && <p class="bento__cuerpo">{elemento.cuerpo}</p>}
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 180px;
+    gap: 1.5rem;
+    max-width: var(--contenedor-max);
+    width: 100%;
+  }
+
+  .bento__celda {
+    border: var(--borde-base);
+    background: var(--celda-fondo);
+    color: var(--celda-texto);
+    box-shadow: var(--sombra-md);
+    padding: 1.375rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.625rem;
+  }
+
+  .bento__celda--grande {
+    grid-column: span 2;
+    grid-row: span 2;
+    padding: 2rem;
+    justify-content: flex-end;
+    box-shadow: var(--sombra-lg);
+  }
+
+  .bento__celda--ancha {
+    grid-column: span 2;
+    box-shadow: var(--sombra-lg);
+    padding: 1.625rem;
+  }
+
+  .bento__icono {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: var(--borde-fino);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bento__celda--pequena .bento__icono {
+    width: 2rem;
+    height: 2rem;
+    background: var(--color-gris);
+  }
+
+  .bento__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    margin: 0;
+  }
+  .bento__celda--grande .bento__titulo {
+    font-size: 1.375rem;
+  }
+  .bento__celda--ancha .bento__titulo {
+    font-size: 1.125rem;
+  }
+  .bento__celda--pequena .bento__titulo {
+    font-size: 0.9375rem;
+  }
+
+  .bento__cuerpo {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .bento__celda--ancha .bento__cuerpo {
+    font-size: 0.8125rem;
+  }
+
+  @media (max-width: 992px) {
+    .bento {
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: auto;
+    }
+    .bento__celda--grande,
+    .bento__celda--ancha {
+      grid-column: span 2;
+    }
+  }
+</style>

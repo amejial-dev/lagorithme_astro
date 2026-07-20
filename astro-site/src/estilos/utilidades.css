@@ -1,0 +1,107 @@
+.contenedor {
+  max-width: var(--contenedor-max);
+  margin-inline: auto;
+  width: 100%;
+}
+
+.seccion {
+  padding: var(--seccion-espaciado-y) var(--seccion-espaciado-x);
+  border-bottom: var(--borde-base);
+}
+
+.seccion--sin-borde {
+  border-bottom: none;
+}
+
+.seccion--ajustada-arriba {
+  padding-top: clamp(2.5rem, 5vw, 4.375rem);
+}
+
+.seccion--ajustada-abajo {
+  padding-bottom: clamp(2.5rem, 5vw, 4.375rem);
+}
+
+.intro-seccion {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+.intro-seccion__titulo {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-negrita);
+  font-size: clamp(1.6rem, 2.6vw, 2.125rem);
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.intro-seccion__subtitulo {
+  font-size: 1rem;
+  opacity: 0.65;
+  margin: 0;
+}
+
+.rejilla {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.rejilla--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.rejilla--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.rejilla--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 992px) {
+  .rejilla--3,
+  .rejilla--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .rejilla--2,
+  .rejilla--3,
+  .rejilla--4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Maquetación compartida de sección: pila centrada de intro + bloques de
+   contenido. La usa cada página entre la portada y la llamada final. */
+.seccion--pila {
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+  align-items: center;
+}
+
+/* Escalado en pantallas grandes: evita que el contenedor se quede clavado
+   en un ancho fijo pasado el escritorio (2K / 4K), para que la maquetación
+   conserve sus proporciones en vez de encogerse en una isla central. */
+@media (min-width: 1400px) {
+  :root {
+    --contenedor-max: 1320px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --contenedor-max: 1600px;
+  }
+}
+
+@media (min-width: 2560px) {
+  :root {
+    --contenedor-max: 2000px;
+  }
+}

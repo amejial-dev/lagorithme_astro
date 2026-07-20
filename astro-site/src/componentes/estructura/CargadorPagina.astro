@@ -1,0 +1,90 @@
+---
+/**
+ * Capa de carga a pantalla completa con la mascota, visible un instante
+ * mientras se navega entre páginas. El marcado vive aquí; el
+ * comportamiento en src/scripts/transicion-pagina.ts (fuera del
+ * componente, para que la lógica de transición se pueda probar o
+ * reutilizar independiente del marcado).
+ */
+---
+
+<div id="cargador-pagina" class="cargador" aria-hidden="true">
+  <div class="cargador__deslizador">
+    <div class="cargador__escena">
+      <img
+        src="/assets/images/mascot.svg"
+        alt=""
+        class="cargador__mascota"
+        width="150"
+        height="150"
+      />
+    </div>
+    <div class="cargador__sombra"></div>
+  </div>
+</div>
+
+<script src="../../scripts/transicion-pagina.ts"></script>
+
+<style>
+  .cargador {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-fondo);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  .cargador.activo {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .cargador__deslizador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cargador.activo .cargador__deslizador {
+    animation: cruza-pantalla var(--cargador-duracion-deslizamiento, 2.4s) linear forwards;
+  }
+
+  .cargador__escena {
+    position: relative;
+    width: 170px;
+    height: 150px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .cargador__mascota {
+    width: 150px;
+    height: auto;
+    transform-origin: 50% 100%;
+  }
+
+  .cargador.activo .cargador__mascota {
+    animation: mascota-camina var(--cargador-duracion-caminata, 0.8s) ease-in-out infinite;
+  }
+
+  .cargador__sombra {
+    width: 70px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgb(14 21 36 / 40%);
+    filter: blur(3px);
+    margin-top: -6px;
+  }
+
+  .cargador.activo .cargador__sombra {
+    animation: sombra-camina var(--cargador-duracion-caminata, 0.8s) ease-in-out infinite;
+  }
+</style>

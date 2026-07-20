@@ -1,0 +1,47 @@
+---
+interface Props {
+  tema?: 'oscura' | 'clara';
+  autor: string;
+}
+const { tema = 'oscura', autor } = Astro.props;
+---
+
+<div class={`cita cita--${tema}`}>
+  <p class="cita__texto"><slot /></p>
+  <p class="cita__autor">— {autor}</p>
+</div>
+
+<style>
+  .cita {
+    text-align: center;
+  }
+  .cita--oscura {
+    background: var(--color-tinta);
+    color: var(--color-fondo);
+  }
+  .cita--clara {
+    background: var(--color-fondo);
+    color: var(--color-tinta);
+  }
+
+  .cita__texto {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+    max-width: 780px;
+    margin: 0 auto;
+    font-size: clamp(1.5rem, 3vw, 2.375rem);
+  }
+
+  .cita--oscura .cita__texto {
+    font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  }
+
+  .cita__autor {
+    font-size: 0.9375rem;
+    opacity: 0.55;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+  }
+</style>

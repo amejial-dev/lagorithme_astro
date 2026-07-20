@@ -1,0 +1,141 @@
+---
+import Antetitulo from '@componentes/ui/Antetitulo.astro';
+import Boton from '@componentes/ui/Boton.astro';
+---
+
+<section class="portada-nosotros">
+  <div class="portada-nosotros__contenido">
+    <Antetitulo>Nosotros</Antetitulo>
+    <h1 class="portada-nosotros__titulo">Aliados estratégicos, no proveedores de turno.</h1>
+    <p class="portada-nosotros__subtitulo">
+      Combinamos infraestructura robusta, inteligencia artificial y experiencia técnica para
+      ofrecer productos digitales que se adaptan a cada entorno y necesidad.
+    </p>
+    <Boton ruta="/colaboradores" variante="solido" tono="principal" tamano="lg">
+      Ver con quién trabajamos
+    </Boton>
+  </div>
+
+  <div class="portada-nosotros__panel">
+    <span class="portada-nosotros__marca" aria-hidden="true">◆</span>
+    <div class="portada-nosotros__sede">
+      <p class="portada-nosotros__sede-etiqueta">Sede</p>
+      <p class="portada-nosotros__sede-valor">Colombia</p>
+    </div>
+    <p class="portada-nosotros__resumen">
+      Con proyección hacia Latinoamérica y mercados globales.
+    </p>
+  </div>
+</section>
+
+<style>
+  .portada-nosotros {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    border-bottom: var(--borde-base);
+  }
+
+  .portada-nosotros__contenido {
+    color: var(--color-fondo);
+    background: var(--color-tinta);
+    padding: 5.25rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.375rem;
+  }
+  .portada-nosotros__contenido :global(.antetitulo) {
+    color: var(--color-principal);
+  }
+
+  .portada-nosotros__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    line-height: 1.02;
+    letter-spacing: -1.5px;
+    color: var(--color-fondo);
+    margin: 0;
+  }
+
+  .portada-nosotros__subtitulo {
+    font-size: 1.0625rem;
+    max-width: 520px;
+    opacity: 0.7;
+    line-height: 1.6;
+    color: var(--color-fondo);
+    margin: 0;
+  }
+
+  .portada-nosotros__panel {
+    background: var(--color-principal);
+    border-left: var(--borde-base);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.75rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 26.25rem;
+  }
+
+  .portada-nosotros__marca {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: 200px;
+    line-height: 0.8;
+    color: var(--color-tinta);
+    position: absolute;
+    right: -14px;
+    bottom: -40px;
+    opacity: 0.12;
+  }
+
+  .portada-nosotros__sede {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .portada-nosotros__sede-etiqueta {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: 0.9375rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-tinta);
+    margin: 0;
+  }
+  .portada-nosotros__sede-valor {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: 3.25rem;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: var(--color-tinta);
+    margin: 0;
+  }
+
+  .portada-nosotros__resumen {
+    position: relative;
+    z-index: 1;
+    border-top: var(--borde-base);
+    padding-top: 1.25rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--color-tinta);
+    font-weight: var(--peso-semi);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .portada-nosotros {
+      grid-template-columns: 1fr;
+    }
+    .portada-nosotros__panel {
+      border-left: none;
+      border-top: var(--borde-base);
+    }
+  }
+</style>

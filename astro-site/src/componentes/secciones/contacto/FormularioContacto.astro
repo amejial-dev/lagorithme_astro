@@ -1,0 +1,165 @@
+---
+import Boton from '@componentes/ui/Boton.astro';
+import { enlacesRedes } from '@datos/navegacion';
+
+/* El brief pide reducir al mínimo lo que el usuario tiene que escribir:
+   por eso el asunto es un selector y el mensaje es opcional. Falta definir
+   un mecanismo de contacto más automático; mientras tanto, formulario. */
+const necesidades = [
+  'Desarrollo a la medida',
+  'Automatización de procesos',
+  'Inteligencia artificial',
+  'Analítica y datos',
+  'Integración de sistemas',
+  'Otra cosa',
+];
+
+// TODO: teléfono y dirección pendientes de confirmar con la empresa.
+const datos = [
+  { etiqueta: 'Correo', valor: 'hola@lagorithme.com' },
+  { etiqueta: 'Ubicación', valor: 'Colombia' },
+];
+---
+
+<section class="formulario-contacto">
+  <!-- Todavía no hay backend: apunta el action de este formulario a tu
+       endpoint (Formspree, una función serverless, etc). -->
+  <form class="formulario-contacto__formulario">
+    <div class="campo">
+      <label for="nombre">Nombre</label>
+      <input class="campo__control" id="nombre" name="nombre" type="text" required />
+    </div>
+    <div class="campo">
+      <label for="correo">Correo electrónico</label>
+      <input class="campo__control" id="correo" name="correo" type="email" required />
+    </div>
+    <div class="campo">
+      <label for="necesidad">¿Qué necesitas?</label>
+      <select class="campo__control" id="necesidad" name="necesidad">
+        {necesidades.map((necesidad) => <option value={necesidad}>{necesidad}</option>)}
+      </select>
+    </div>
+    <div class="campo">
+      <label for="mensaje">Cuéntanos más <span class="campo__opcional">(opcional)</span></label>
+      <textarea class="campo__control" id="mensaje" name="mensaje" rows="4"></textarea>
+    </div>
+    <Boton tipo="submit" tono="principal" tamano="lg">Enviar</Boton>
+  </form>
+
+  <div class="formulario-contacto__info">
+    {
+      datos.map((dato) => (
+        <div class="bloque-info">
+          <p class="bloque-info__etiqueta">{dato.etiqueta}</p>
+          <p class="bloque-info__valor">{dato.valor}</p>
+        </div>
+      ))
+    }
+    <div class="formulario-contacto__redes">
+      {
+        enlacesRedes.map((red) => (
+          <a href="#" aria-label={red.etiqueta}>
+            <img src={red.icono} alt="" width="36" height="36" />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .formulario-contacto {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    border-top: var(--borde-base);
+    border-bottom: var(--borde-base);
+  }
+
+  .formulario-contacto__formulario {
+    background: var(--color-fondo);
+    padding: 4rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.375rem;
+    border-right: var(--borde-base);
+  }
+
+  .campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .campo label {
+    font-weight: var(--peso-negrita);
+    font-size: 0.875rem;
+  }
+  .campo__opcional {
+    font-weight: var(--peso-medio);
+    opacity: 0.55;
+  }
+  .campo__control {
+    border: var(--borde-base);
+    background: var(--color-fondo);
+    color: var(--color-tinta);
+    padding: 0.875rem 1rem;
+    font-size: 0.9375rem;
+    font-family: var(--fuente-cuerpo);
+    resize: vertical;
+    transition: box-shadow 0.1s ease, translate 0.1s ease;
+  }
+  .campo__control:focus {
+    outline: none;
+    box-shadow: var(--sombra-md);
+    translate: -2px -2px;
+  }
+
+  .formulario-contacto__info {
+    background: var(--color-tinta);
+    color: var(--color-fondo);
+    padding: 4rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .bloque-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .bloque-info__etiqueta {
+    font-weight: var(--peso-negrita);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-principal-suave);
+    margin: 0;
+  }
+  .bloque-info__valor {
+    font-size: 1.125rem;
+    font-weight: var(--peso-semi);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .formulario-contacto__redes {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    align-items: center;
+  }
+  .formulario-contacto__redes a {
+    display: flex;
+  }
+
+  @media (max-width: 768px) {
+    .formulario-contacto {
+      grid-template-columns: 1fr;
+    }
+    .formulario-contacto__formulario {
+      border-right: none;
+      border-bottom: var(--borde-base);
+    }
+  }
+</style>

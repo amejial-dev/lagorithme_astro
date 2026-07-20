@@ -1,0 +1,117 @@
+---
+interface Props {
+  ruta?: string;
+  variante?: 'solido' | 'contorno';
+  tono?: 'principal' | 'gris' | 'tinta';
+  tamano?: 'sm' | 'md' | 'lg' | 'xl';
+  tipo?: 'button' | 'submit';
+  class?: string;
+}
+
+const {
+  ruta,
+  variante = 'solido',
+  tono = 'principal',
+  tamano = 'md',
+  tipo = 'button',
+  class: clase = '',
+} = Astro.props;
+
+const Etiqueta = ruta ? 'a' : 'button';
+const clases = ['boton', `boton--${variante}`, `boton--${tono}`, `boton--${tamano}`, clase]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<Etiqueta class={clases} href={ruta} type={ruta ? undefined : tipo}>
+  <slot />
+</Etiqueta>
+
+<style>
+  .boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    text-decoration: none;
+    font-family: var(--fuente-cuerpo);
+    font-weight: var(--peso-negrita);
+    cursor: pointer;
+    transition: translate var(--transicion-hover), box-shadow var(--transicion-hover);
+    translate: 0 0;
+    color: var(--color-tinta);
+  }
+
+  /* Tamaños */
+  .boton--sm {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+    border: var(--borde-base);
+    box-shadow: var(--sombra-sm);
+  }
+  .boton--sm:hover {
+    translate: -3px -3px;
+    box-shadow: var(--sombra-sm-hover);
+  }
+
+  .boton--md {
+    padding: 0.625rem 1.125rem;
+    font-size: 0.875rem;
+    border: var(--borde-base);
+    box-shadow: var(--sombra-lg);
+  }
+  .boton--md:hover {
+    translate: -4px -4px;
+    box-shadow: var(--sombra-xl-hover);
+  }
+
+  .boton--lg {
+    padding: 1.125rem 2.25rem;
+    font-size: 1.0625rem;
+    border: var(--borde-grueso);
+    box-shadow: var(--sombra-lg);
+  }
+  .boton--lg:hover {
+    translate: -4px -4px;
+    box-shadow: var(--sombra-xl-hover);
+  }
+
+  .boton--xl {
+    padding: 1.375rem 2.75rem;
+    font-size: 1.1875rem;
+    border: var(--borde-grueso);
+    box-shadow: var(--sombra-xl);
+  }
+  .boton--xl:hover {
+    translate: -5px -5px;
+    box-shadow: var(--sombra-xl-hover);
+  }
+
+  /* Tonos (variante sólida) */
+  .boton--solido.boton--principal {
+    background: var(--color-principal);
+  }
+  .boton--solido.boton--gris {
+    background: var(--color-gris);
+  }
+  .boton--solido.boton--tinta {
+    background: var(--color-tinta);
+    color: var(--color-fondo);
+  }
+
+  /* Variante de contorno: transparente, sin sombra, para fondos oscuros */
+  .boton--contorno {
+    background: transparent;
+    border: var(--borde-base);
+    box-shadow: none;
+  }
+  .boton--contorno.boton--tinta {
+    border-color: var(--color-fondo);
+    color: var(--color-fondo);
+  }
+  .boton--contorno:hover {
+    translate: 0 0;
+    box-shadow: none;
+    opacity: 0.85;
+  }
+</style>

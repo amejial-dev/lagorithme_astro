@@ -1,0 +1,14 @@
+---
+interface Props {
+  titulo: string;
+  subtitulo?: string;
+  antetitulo?: string;
+}
+const { titulo, subtitulo, antetitulo } = Astro.props;
+---
+
+<div class="intro-seccion">
+  {antetitulo && <p class="antetitulo antetitulo--principal" style="align-self:center;">{antetitulo}</p>}
+  <h2 class="intro-seccion__titulo">{titulo}</h2>
+  {subtitulo && <p class="intro-seccion__subtitulo">{subtitulo}</p>}
+</div>

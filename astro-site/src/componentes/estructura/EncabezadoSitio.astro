@@ -1,0 +1,61 @@
+---
+import { enlacesNavegacion } from '@datos/navegacion';
+import '@estilos/estructura/encabezado.css';
+
+interface Props {
+  activa?: string;
+}
+const { activa = '' } = Astro.props;
+---
+
+<header class="encabezado">
+  <a href="/" class="encabezado__marca">
+    <img src="/assets/images/lago-logo.svg" alt="lagorithme" width="154" height="36" />
+  </a>
+
+  <div class="encabezado__contenedor">
+    <nav class="encabezado__navegacion" aria-label="Navegación principal">
+      {
+        enlacesNavegacion.map((enlace) => (
+          <a
+            href={enlace.ruta}
+            class:list={['pastilla-nav', { 'pastilla-nav--activa': enlace.ruta === activa }]}
+          >
+            {enlace.etiqueta}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="encabezado__acciones">
+    <a href="/contacto" class="encabezado__cta">Hablemos</a>
+    <button
+      type="button"
+      id="boton-menu"
+      class="encabezado__boton-menu"
+      aria-expanded="false"
+      aria-controls="navegacion-movil"
+      aria-label="Abrir menú"
+    >
+      <span class="encabezado__barra"></span>
+      <span class="encabezado__barra"></span>
+      <span class="encabezado__barra"></span>
+    </button>
+  </div>
+
+  <nav id="navegacion-movil" class="encabezado__navegacion-movil" aria-label="Navegación móvil">
+    {
+      enlacesNavegacion.map((enlace) => (
+        <a
+          href={enlace.ruta}
+          class:list={['pastilla-nav', { 'pastilla-nav--activa': enlace.ruta === activa }]}
+        >
+          {enlace.etiqueta}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<script src="../../scripts/encabezado-sitio.ts"></script>

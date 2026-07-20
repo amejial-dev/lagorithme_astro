@@ -1,0 +1,100 @@
+---
+import Boton from '@componentes/ui/Boton.astro';
+---
+
+<section class="vitrina seccion">
+  <div class="vitrina__rejilla">
+    <div class="vitrina__pila">
+      <div class="vitrina__bloque vitrina__bloque--alto"></div>
+      <div class="vitrina__bloque vitrina__bloque--bajo"></div>
+    </div>
+    <div class="vitrina__tarjeta">
+      <p class="vitrina__antetitulo">Con quién trabajamos</p>
+      <h2 class="vitrina__titulo">Proyectos en salud, medio ambiente y sector público.</h2>
+      <p class="vitrina__cuerpo">
+        Acompañamos a cada cliente con herramientas que evolucionan junto a su operación, desde
+        software hospitalario hasta el observatorio ambiental de Barranquilla.
+      </p>
+      <Boton ruta="/colaboradores" tono="principal" tamano="sm">Ver colaboradores</Boton>
+    </div>
+  </div>
+</section>
+
+<style>
+  .vitrina {
+    background: var(--color-gris);
+  }
+
+  .vitrina__rejilla {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1100px;
+    margin-inline: auto;
+    align-items: center;
+  }
+
+  .vitrina__pila {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .vitrina__bloque {
+    border: var(--borde-base);
+    box-shadow: var(--sombra-md);
+  }
+  .vitrina__bloque--alto {
+    background: var(--color-azul);
+    height: 260px;
+  }
+  .vitrina__bloque--bajo {
+    background: var(--color-tinta);
+    height: 180px;
+    margin-left: 3rem;
+  }
+
+  .vitrina__tarjeta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    background: var(--color-fondo);
+    border: var(--borde-base);
+    box-shadow: var(--sombra-lg);
+    padding: 2.25rem;
+  }
+
+  .vitrina__antetitulo {
+    font-weight: var(--peso-negrita);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-principal);
+    margin: 0;
+  }
+
+  .vitrina__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: 1.75rem;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin: 0;
+  }
+
+  .vitrina__cuerpo {
+    font-size: 0.9375rem;
+    opacity: 0.75;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .vitrina__rejilla {
+      grid-template-columns: 1fr;
+    }
+    .vitrina__bloque--bajo {
+      margin-left: 0;
+    }
+  }
+</style>
