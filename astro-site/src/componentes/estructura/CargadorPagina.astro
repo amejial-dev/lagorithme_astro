@@ -1,23 +1,36 @@
 ---
 /**
- * Capa de carga a pantalla completa con la mascota, visible un instante
- * mientras se navega entre páginas. El marcado vive aquí; el
- * comportamiento en src/scripts/transicion-pagina.ts (fuera del
- * componente, para que la lógica de transición se pueda probar o
- * reutilizar independiente del marcado).
+ * Cortina de transición entre páginas.
+ *
+ * Dos capas independientes que se mueven a la vez, ambas hacia la
+ * izquierda:
+ *
+ *   la mascota  → cruza la pantalla con su propio recorrido, por delante
+ *   la cortina  → la sigue, tapando al salir y descubriendo al llegar
+ *
+ * La mascota va SIEMPRE por delante del borde de la cortina, así que
+ * parece que tira de ella en vez de flotar por encima. Por eso es hermana
+ * de la cortina y no hija: si fuese hija, se movería con ella y perdería
+ * su recorrido propio.
+ *
+ * La apertura es CSS puro y arranca sola en cada carga. Si el script falla
+ * o tarda, la cortina se retira igual y nunca deja la página tapada. El JS
+ * solo se encarga del cierre, que es lo único que espera a un clic.
  */
 ---
 
 <div id="cargador-pagina" class="cargador" aria-hidden="true">
+  <div class="cargador__cortina"></div>
+
   <div class="cargador__deslizador">
     <div class="cargador__escena">
-      <img
+      <!-- <img
         src="/assets/images/mascot.svg"
         alt=""
         class="cargador__mascota"
         width="150"
         height="150"
-      />
+      /> -->
     </div>
     <div class="cargador__sombra"></div>
   </div>
@@ -27,33 +40,96 @@
 
 <style>
   .cargador {
+    --cortina-cierre: 650ms;
+    --cortina-apertura: 750ms;
+    --paso: 0.35s;
+
     position: fixed;
     inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-fondo);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.35s ease;
     z-index: 9999;
     overflow: hidden;
+    pointer-events: none;
   }
 
-  .cargador.activo {
-    opacity: 1;
-    pointer-events: auto;
+  /* --- La cortina --- */
+  .cargador__cortina {
+    position: absolute;
+    inset: 0;
+
+    /* Tinta y no el color de fondo: una cortina del mismo color que la
+       página no se ve pasar, y ahora mismo es lo único que comunica la
+       transición. Además es el color estructural del sitio (bordes,
+       sombras, bandas), así que se lee como parte de él. */
+    background: var(--color-tinta);
+    transform: translateX(100%);
+    animation: cortina-abre var(--cortina-apertura) cubic-bezier(0.65, 0, 0.35, 1) forwards;
   }
 
+  .cargador--cerrando .cargador__cortina {
+    animation: cortina-cierra var(--cortina-cierre) cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+
+  @keyframes cortina-abre {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes cortina-cierra {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  /* --- La mascota, con recorrido propio por delante de la cortina ---
+
+     OCULTA POR AHORA. Para recuperarla basta con quitar la regla
+     `display: none` de aquí abajo: el recorrido, la caminata y la sombra
+     siguen definidos y funcionando.
+
+     Al volver, ten en cuenta que la cortina ahora es tinta: la sombra del
+     muñeco es negra translúcida y sobre tinta no se verá. */
   .cargador__deslizador {
+    display: none;
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -75px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    animation: mascota-cruza var(--cortina-apertura) linear forwards;
   }
 
-  .cargador.activo .cargador__deslizador {
-    animation: cruza-pantalla var(--cargador-duracion-deslizamiento, 2.4s) linear forwards;
+  /* Mismo recorrido con otro nombre: al cerrar hace falta que la animación
+     vuelva a dispararse, y ya se consumió en la carga de la página. */
+  .cargador--cerrando .cargador__deslizador {
+    animation: mascota-cruza-cierre var(--cortina-cierre) linear forwards;
+  }
+
+  @keyframes mascota-cruza {
+    from {
+      transform: translateX(78vw);
+    }
+    to {
+      transform: translateX(-30vw);
+    }
+  }
+
+  @keyframes mascota-cruza-cierre {
+    from {
+      transform: translateX(78vw);
+    }
+    to {
+      transform: translateX(-30vw);
+    }
   }
 
   .cargador__escena {
@@ -69,10 +145,7 @@
     width: 150px;
     height: auto;
     transform-origin: 50% 100%;
-  }
-
-  .cargador.activo .cargador__mascota {
-    animation: mascota-camina var(--cargador-duracion-caminata, 0.8s) ease-in-out infinite;
+    animation: mascota-camina var(--paso) ease-in-out infinite;
   }
 
   .cargador__sombra {
@@ -82,9 +155,23 @@
     background: rgb(14 21 36 / 40%);
     filter: blur(3px);
     margin-top: -6px;
+    animation: sombra-camina var(--paso) ease-in-out infinite;
   }
 
-  .cargador.activo .cargador__sombra {
-    animation: sombra-camina var(--cargador-duracion-caminata, 0.8s) ease-in-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    .cargador__cortina,
+    .cargador--cerrando .cargador__cortina {
+      animation: none;
+      transform: translateX(100%);
+    }
+    .cargador__deslizador,
+    .cargador--cerrando .cargador__deslizador,
+    .cargador__mascota,
+    .cargador__sombra {
+      animation: none;
+    }
+    .cargador__deslizador {
+      transform: translateX(-100vw);
+    }
   }
 </style>

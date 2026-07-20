@@ -1,12 +1,19 @@
 /**
- * Intercepta los clics a enlaces internos y reproduce la animación de la
- * mascota un instante antes de que el navegador navegue de verdad, para
- * que el paso entre páginas se sienta intencional y no un fogonazo
- * blanco. DOM puro — sin runtime de framework.
+ * Intercepta los clics a enlaces internos y cierra la cortina antes de
+ * navegar de verdad, para que el paso entre páginas se sienta intencional
+ * y no un fogonazo blanco. DOM puro — sin runtime de framework.
+ *
+ * Aquí solo vive el cierre. La apertura es una animación CSS que arranca
+ * sola en cada carga (ver CargadorPagina.astro), de modo que si este script
+ * falla la página se descubre igual.
  */
 
-const DURACION_CAMINATA_MS = 800;
-const DURACION_DESLIZAMIENTO_MS = 2400;
+/* Tiene que coincidir con --cortina-cierre en CargadorPagina.astro. */
+const DURACION_CIERRE_MS = 650;
+
+function prefiereMenosMovimiento(): boolean {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
 
 function esEnlaceInternoNavegable(ancla: HTMLAnchorElement): boolean {
   const ruta = ancla.getAttribute('href');
@@ -24,8 +31,8 @@ function esMismaPagina(ruta: string): boolean {
 }
 
 function iniciarTransicionPagina() {
-  const cargador = document.getElementById('cargador-pagina');
-  if (!cargador) return;
+  const cortina = document.getElementById('cargador-pagina');
+  if (!cortina) return;
 
   let navegando = false;
 
@@ -36,6 +43,11 @@ function iniciarTransicionPagina() {
       if (!ancla || !(ancla instanceof HTMLAnchorElement)) return;
       if (!esEnlaceInternoNavegable(ancla)) return;
 
+      /* Respetar los modificadores del navegador: ctrl/cmd/shift y el clic
+         central abren en otra pestaña, y ahí la cortina no pinta nada. */
+      const e = evento as MouseEvent;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+
       const ruta = ancla.getAttribute('href')!;
       if (esMismaPagina(ruta)) return;
 
@@ -44,20 +56,32 @@ function iniciarTransicionPagina() {
         return;
       }
 
+      if (prefiereMenosMovimiento()) return;
+
       evento.preventDefault();
       navegando = true;
-      cargador.classList.add('activo');
+      cortina.classList.add('cargador--cerrando');
 
       window.setTimeout(() => {
         window.location.href = ruta;
-      }, DURACION_DESLIZAMIENTO_MS);
+      }, DURACION_CIERRE_MS);
     },
     true,
   );
 
-  window.addEventListener('pageshow', () => {
+  /* Al volver con el botón atrás la página sale de la bfcache con la
+     cortina cerrada: hay que reiniciarla o queda tapada. */
+  window.addEventListener('pageshow', (evento) => {
     navegando = false;
-    cargador.classList.remove('activo');
+    if (!cortina.classList.contains('cargador--cerrando')) return;
+
+    cortina.classList.remove('cargador--cerrando');
+    if ((evento as PageTransitionEvent).persisted) {
+      /* Reinicia la animación de apertura, que ya se había consumido. */
+      cortina.style.animation = 'none';
+      void cortina.offsetWidth;
+      cortina.style.animation = '';
+    }
   });
 }
 
@@ -67,6 +91,4 @@ if (document.readyState === 'loading') {
   iniciarTransicionPagina();
 }
 
-// Mantenemos las duraciones referenciadas para que queden documentadas junto
-// a sus contrapartes en CSS dentro de CargadorPagina.astro.
-export { DURACION_CAMINATA_MS, DURACION_DESLIZAMIENTO_MS };
+export { DURACION_CIERRE_MS };
