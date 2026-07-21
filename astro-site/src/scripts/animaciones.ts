@@ -16,6 +16,7 @@
  */
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { iniciarPortatilCodigo } from './portatil-codigo';
 
 /* Todo lo que se revela al entrar en pantalla, agrupado por bloque para
    que el stagger se note dentro de cada rejilla y no a lo largo de la
@@ -109,11 +110,15 @@ function responderAlPulsar() {
 }
 
 function iniciarAnimaciones() {
-  /* Quien pidió menos movimiento se queda sin ninguno: la página se ve
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Va antes del corte por movimiento reducido porque tiene su propia
+     variante estática: pinta el código completo en vez de no pintar nada. */
+  iniciarPortatilCodigo();
+
+  /* Quien pidió menos movimiento se queda sin el resto: la página se ve
      completa y estática. */
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  gsap.registerPlugin(ScrollTrigger);
 
   animarPortada();
   revelarAlHacerScroll();

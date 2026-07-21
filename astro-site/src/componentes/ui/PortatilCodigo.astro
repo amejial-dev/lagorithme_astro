@@ -1,0 +1,191 @@
+---
+/**
+ * El portátil que va escribiendo el código del propio sitio a medida que
+ * bajas por la portada.
+ *
+ * Hay una instancia por cada panel de medios del home, pero todas comparten
+ * un único estado: el script scripts/portatil-codigo.ts calcula cuánto
+ * código lleva escrito según el scroll y pinta lo mismo en todas. Por eso,
+ * cuando el portátil desaparece en las secciones de tarjetas y vuelve a
+ * salir más abajo, retoma exactamente donde se quedó.
+ *
+ * La pantalla se coloca con porcentajes calcados del SVG del chasis: en su
+ * viewBox de 1008x635 el rectángulo blanco es x=119 y=31 w=770 h=480. Si
+ * algún día se cambia el SVG, hay que recalcular esos cuatro números.
+ */
+interface Props {
+  /**
+   * Instancia de reserva para móvil, donde el portátil viajero no cabe:
+   * esta va dentro del flujo, en el primer panel, y se oculta en cuanto hay
+   * sitio para el que viaja.
+   */
+  soloMovil?: boolean;
+}
+
+const { soloMovil = false } = Astro.props;
+---
+
+<div class:list={['portatil', { 'portatil--solo-movil': soloMovil }]} data-portatil>
+  <img
+    class="portatil__chasis"
+    src="/assets/images/macbook-pro.svg"
+    alt="Portátil mostrando el código de lagorithme"
+    width="1008"
+    height="635"
+  />
+
+  <div class="portatil__pantalla">
+    <div class="portatil__barra">
+      <span class="portatil__punto portatil__punto--rojo"></span>
+      <span class="portatil__punto"></span>
+      <span class="portatil__punto"></span>
+      <p class="portatil__archivo" data-portatil-archivo>index.astro</p>
+    </div>
+
+    <div class="portatil__lienzo">
+      <!-- El script escribe aquí; sin JS se queda vacío y el portátil se ve
+           igualmente, con la pantalla en blanco. -->
+      <pre class="portatil__codigo" data-portatil-codigo></pre>
+    </div>
+  </div>
+</div>
+
+<style>
+  .portatil {
+    position: relative;
+    width: 80%;
+    max-width: 34rem;
+
+    /* Todo lo de dentro (tipografía y barra) se dimensiona en cqw, así el
+       contenido de la pantalla escala con el portátil y no con la ventana. */
+    container-type: inline-size;
+  }
+
+  .portatil__chasis {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .portatil__pantalla {
+    position: absolute;
+    left: 11.81%;
+    top: 4.88%;
+    width: 76.39%;
+    height: 75.59%;
+    background: var(--color-tinta);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .portatil__barra {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 0.9cqw;
+    padding: 1.1cqw 1.6cqw;
+    background: #1a202c;
+    border-bottom: 1px solid #2d3748;
+  }
+
+  .portatil__punto {
+    width: 1.3cqw;
+    height: 1.3cqw;
+    border-radius: 50%;
+    background: #4a5568;
+  }
+  .portatil__punto--rojo {
+    background: var(--color-principal);
+  }
+
+  .portatil__archivo {
+    margin: 0 0 0 0.8cqw;
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 1.6cqw;
+    color: #718096;
+  }
+
+  .portatil__lienzo {
+    flex: 1;
+    overflow: hidden;
+    padding: 1.4cqw 1.8cqw;
+  }
+
+  .portatil__codigo {
+    margin: 0;
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 2.05cqw;
+    line-height: 1.55;
+    color: #cbd5e0;
+    white-space: pre;
+    tab-size: 2;
+
+    /* El script lo desplaza hacia arriba cuando el código pasa de largo,
+       para que la última línea escrita siga siempre a la vista. */
+    will-change: transform;
+  }
+
+  /* Paleta del resaltado: coral de marca para las etiquetas, y grises fríos
+     para lo accesorio, que es lo que ya usa el chasis del SVG. */
+  .portatil__codigo :global(.tk-etiqueta) {
+    color: var(--color-principal);
+  }
+  .portatil__codigo :global(.tk-atributo) {
+    color: #f6ad55;
+  }
+  .portatil__codigo :global(.tk-texto) {
+    color: #9ae6b4;
+  }
+  .portatil__codigo :global(.tk-comentario) {
+    color: #4a5568;
+    font-style: italic;
+  }
+  .portatil__codigo :global(.tk-palabra) {
+    color: #90cdf4;
+  }
+  .portatil__codigo :global(.tk-variable) {
+    color: #d6bcfa;
+  }
+
+  /* Cursor de escritura. Solo lo lleva la última línea pintada. */
+  .portatil__codigo :global(.tk-cursor) {
+    display: inline-block;
+    width: 0.5em;
+    height: 1em;
+    translate: 0 0.15em;
+    background: var(--color-principal);
+    animation: portatil-cursor 1s steps(1) infinite;
+  }
+
+  @keyframes portatil-cursor {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    50.01%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .portatil__codigo :global(.tk-cursor) {
+      animation: none;
+    }
+  }
+
+  /* Apilado, el panel de medios baja a 260px: el portátil se ensancha para
+     que el código siga siendo legible. */
+  @media (max-width: 768px) {
+    .portatil {
+      width: 92%;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .portatil--solo-movil {
+      display: none;
+    }
+  }
+</style>
