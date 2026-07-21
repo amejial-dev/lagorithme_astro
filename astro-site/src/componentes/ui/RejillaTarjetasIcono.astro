@@ -30,11 +30,11 @@ const {
         style={`--tarjeta-fondo:${elemento.fondo ?? 'var(--color-fondo)'}; --tarjeta-texto:${elemento.texto ?? 'var(--color-tinta)'};`}
       >
         <div
-          class="tarjeta-icono__insignia"
+          class={`tarjeta-icono__insignia tarjeta-icono__insignia--${elemento.insignia.tipo}`}
           style={elemento.insignia.fondo ? `--insignia-fondo:${elemento.insignia.fondo}` : ''}
         >
           {elemento.insignia.tipo === 'icono' ? (
-            <img src={elemento.insignia.valor} alt="" width="26" height="26" />
+            <img src={elemento.insignia.valor} alt="" width="56" height="56" />
           ) : (
             <span class="tarjeta-icono__numero">{elemento.insignia.valor}</span>
           )}
@@ -116,31 +116,40 @@ const {
   .tarjeta-icono__insignia {
     width: 3.5rem;
     height: 3.5rem;
-    border: var(--borde-base);
-    background: var(--insignia-fondo, var(--color-principal));
     color: var(--color-tinta);
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .tarjeta-icono__insignia--numero {
+    border: var(--borde-base);
+    background: var(--insignia-fondo, var(--color-principal));
     box-shadow: var(--sombra-sm);
+  }
+
+  .tarjeta-icono__insignia--icono img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   .tarjeta-icono__numero {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
-    font-size: 1.5rem;
+    font-size: var(--texto-h6);
   }
 
   .tarjeta-icono__titulo {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
-    font-size: 1.3125rem;
+    font-size: var(--texto-2xl);
     line-height: 1.1;
     margin: 0;
   }
 
   .tarjeta-icono__cuerpo {
-    font-size: 0.875rem;
+    font-size: var(--texto-xs);
     opacity: 0.8;
     line-height: 1.6;
     margin: 0;

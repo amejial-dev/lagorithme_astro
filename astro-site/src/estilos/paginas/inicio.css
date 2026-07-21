@@ -3,14 +3,14 @@
 .bloque-titulo {
   font-family: var(--fuente-titulos);
   font-weight: var(--peso-negrita);
-  font-size: clamp(1.6rem, 3vw, 2.375rem);
+  font-size: var(--texto-h4);
   line-height: 1.15;
   letter-spacing: -0.5px;
   margin: 0;
 }
 
 .bloque-cuerpo {
-  font-size: 1.0625rem;
+  font-size: var(--texto-lg);
   opacity: 0.75;
   line-height: 1.7;
   margin: 0;
@@ -21,7 +21,7 @@
 
 .bloque-antetitulo {
   font-weight: var(--peso-negrita);
-  font-size: 0.875rem;
+  font-size: var(--texto-xs);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin: 0;

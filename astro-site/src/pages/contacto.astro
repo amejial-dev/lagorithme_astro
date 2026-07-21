@@ -2,6 +2,7 @@
 import PlantillaBase from '@plantillas/PlantillaBase.astro';
 import Antetitulo from '@componentes/ui/Antetitulo.astro';
 import FormularioContacto from '@componentes/secciones/contacto/FormularioContacto.astro';
+import Mascota from '@componentes/ui/Mascota.astro';
 import '@estilos/paginas/contacto.css';
 ---
 
@@ -17,6 +18,14 @@ import '@estilos/paginas/contacto.css';
       Cuatro campos y listo. Nos cuentas qué necesitas y te respondemos con una propuesta de
       por dónde empezar.
     </p>
+
+    <Mascota
+      pose="preguntando"
+      ancho="180px"
+      abajo="0"
+      izquierda="6%"
+      visibilidad="escritorio"
+    />
   </section>
 
   <FormularioContacto />

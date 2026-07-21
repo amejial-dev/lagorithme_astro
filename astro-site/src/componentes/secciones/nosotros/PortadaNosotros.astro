@@ -2,6 +2,7 @@
 import Antetitulo from '@componentes/ui/Antetitulo.astro';
 import Boton from '@componentes/ui/Boton.astro';
 import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
+import Mascota from '@componentes/ui/Mascota.astro';
 ---
 
 <section class="portada-nosotros">
@@ -30,6 +31,10 @@ import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
     <p class="portada-nosotros__resumen">
       Con proyección hacia Latinoamérica y mercados globales.
     </p>
+
+    <!-- Esquina inferior derecha del panel coral: el texto del panel es una
+         columna alineada a la izquierda, así que aquí no estorba a nadie. -->
+    <Mascota pose="pensando" ancho="185px" abajo="-12px" derecha="-10px" capa="2" />
   </div>
 </section>
 
@@ -58,7 +63,7 @@ import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
   .portada-nosotros__titulo {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
-    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-size: var(--texto-h2);
     line-height: 1.02;
     letter-spacing: -1.5px;
     color: var(--color-fondo);
@@ -67,7 +72,7 @@ import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
   }
 
   .portada-nosotros__subtitulo {
-    font-size: 1.0625rem;
+    font-size: var(--texto-lg);
     max-width: 520px;
     opacity: 0.7;
     line-height: 1.6;
@@ -90,7 +95,7 @@ import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
   .portada-nosotros__marca {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
-    font-size: 200px;
+    font-size: var(--texto-display-lg);
     line-height: 0.8;
     color: var(--color-tinta);
     position: absolute;
@@ -109,7 +114,7 @@ import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
   .portada-nosotros__sede-etiqueta {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
-    font-size: 0.9375rem;
+    font-size: var(--texto-sm);
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--color-tinta);
@@ -118,7 +123,7 @@ import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
   .portada-nosotros__sede-valor {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
-    font-size: 3.25rem;
+    font-size: var(--texto-display-sm);
     line-height: 1;
     letter-spacing: -2px;
     color: var(--color-tinta);
@@ -130,7 +135,7 @@ import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
     z-index: 1;
     border-top: var(--borde-base);
     padding-top: 1.25rem;
-    font-size: 0.9375rem;
+    font-size: var(--texto-sm);
     line-height: 1.55;
     color: var(--color-tinta);
     font-weight: var(--peso-semi);

@@ -27,6 +27,35 @@
   --peso-semi: 600;
   --peso-negrita: 700;
 
+  /* Escala de títulos — punto único de control de TODOS los títulos del sitio.
+     Es una escala visual, no semántica: un <h3> que visualmente es pequeño usa
+     --texto-h6 o un paso de la escala de texto. Cambia un valor aquí y ese
+     nivel se reescala en todas las páginas. */
+  --texto-h1: clamp(2.25rem, 6vw, 4.25rem); /* portada de inicio */
+  --texto-h2: clamp(2rem, 4.5vw, 3.5rem); /* portadas de páginas internas */
+  --texto-h3: clamp(1.9rem, 4vw, 2.75rem); /* llamada final */
+  --texto-h4: clamp(1.6rem, 3vw, 2.375rem); /* títulos de bloque y citas */
+  --texto-h5: clamp(1.375rem, 2.2vw, 1.75rem); /* títulos de sección menores */
+  --texto-h6: 1.5rem; /* títulos de tarjeta grandes */
+
+  /* Tamaños decorativos: iniciales gigantes, marcas de agua y cifras sueltas.
+     No son títulos de lectura, por eso van fuera de la escala h1–h6. */
+  --texto-display-lg: 12.5rem;
+  --texto-display: 7.5rem;
+  --texto-display-sm: 3.25rem;
+
+  /* Escala de texto corrido y elementos menores.
+     --texto-base es el tamaño del body; el resto son pasos hacia arriba/abajo. */
+  --texto-2xl: 1.375rem;
+  --texto-xl: 1.1875rem;
+  --texto-lg: 1.0625rem;
+  --texto-base: 1rem;
+  --texto-sm: 0.9375rem;
+  --texto-xs: 0.875rem;
+  --texto-2xs: 0.8125rem;
+  --texto-3xs: 0.75rem;
+  --texto-4xs: 0.6875rem;
+
   /* Bordes */
   --borde-fino: 2px solid var(--color-borde);
   --borde-base: 3px solid var(--color-borde);

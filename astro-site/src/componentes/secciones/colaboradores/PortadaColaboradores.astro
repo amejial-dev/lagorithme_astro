@@ -1,6 +1,7 @@
 ---
 import Antetitulo from '@componentes/ui/Antetitulo.astro';
 import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
+import Mascota from '@componentes/ui/Mascota.astro';
 
 interface Props {
   total: number;
@@ -25,6 +26,9 @@ const totalFormateado = String(total).padStart(2, '0');
 
     <p class="portada-colaboradores__conteo">{totalFormateado}</p>
     <p class="portada-colaboradores__etiqueta">Colaboradores</p>
+
+    <!-- Abajo a la izquierda, señalando hacia la cifra que corona el panel. -->
+    <Mascota pose="senalando-arriba" ancho="170px" abajo="-14px" izquierda="-6px" capa="2" />
   </div>
 </section>
 
@@ -50,7 +54,7 @@ const totalFormateado = String(total).padStart(2, '0');
   .portada-colaboradores__titulo {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
-    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-size: var(--texto-h2);
     line-height: 1.02;
     letter-spacing: -1.5px;
     max-width: 36rem;
@@ -58,7 +62,7 @@ const totalFormateado = String(total).padStart(2, '0');
   }
 
   .portada-colaboradores__subtitulo {
-    font-size: 1.0625rem;
+    font-size: var(--texto-lg);
     max-width: 520px;
     opacity: 0.7;
     line-height: 1.6;
@@ -82,7 +86,7 @@ const totalFormateado = String(total).padStart(2, '0');
   .portada-colaboradores__conteo {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
-    font-size: 7.5rem;
+    font-size: var(--texto-display);
     line-height: 1;
     letter-spacing: -4px;
     color: var(--color-tinta);
@@ -92,7 +96,7 @@ const totalFormateado = String(total).padStart(2, '0');
   .portada-colaboradores__etiqueta {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
-    font-size: 1rem;
+    font-size: var(--texto-base);
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--color-tinta);

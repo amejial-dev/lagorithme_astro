@@ -2,6 +2,7 @@
 import PlantillaBase from '@plantillas/PlantillaBase.astro';
 import Antetitulo from '@componentes/ui/Antetitulo.astro';
 import RejillaBlog from '@componentes/secciones/blog/RejillaBlog.astro';
+import Mascota from '@componentes/ui/Mascota.astro';
 import LlamadaFinal from '@componentes/secciones/compartido/LlamadaFinal.astro';
 import { articulos } from '@datos/blog';
 import '@estilos/paginas/blog.css';
@@ -14,6 +15,14 @@ import '@estilos/paginas/blog.css';
     <p class="portada-blog__subtitulo">
       Automatización, inteligencia artificial y datos, contados desde los proyectos reales.
     </p>
+
+    <Mascota
+      pose="trabajando"
+      ancho="180px"
+      abajo="0"
+      derecha="6%"
+      visibilidad="escritorio"
+    />
   </section>
 
   <section class="seccion seccion--pila seccion--blanca">

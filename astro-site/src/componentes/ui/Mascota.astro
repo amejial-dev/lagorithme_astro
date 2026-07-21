@@ -1,0 +1,130 @@
+---
+/**
+ * La mascota de lagorithme como pieza decorativa de sección.
+ *
+ * Mismo contrato que AdornoNeo: va absolutamente posicionada dentro de un
+ * contenedor `position: relative`, y todo lo que hay que ajustar para
+ * recolocarla son los props de la llamada, nunca este archivo.
+ *
+ * A diferencia de los adornos neo, los SVG de la mascota traen su propio
+ * color (blanco, coral y negro), así que se leen igual sobre fondo claro,
+ * coral o tinta. Es contenido decorativo: siempre aria-hidden.
+ */
+
+/** Nombre de archivo en /assets/mascota, sin extensión. */
+type Pose = 'presentando' | 'pensando' | 'trabajando' | 'preguntando' | 'senalando-arriba';
+
+interface Props {
+  pose: Pose;
+  ancho?: string;
+  arriba?: string;
+  derecha?: string;
+  abajo?: string;
+  izquierda?: string;
+  giro?: string;
+  opacidad?: string;
+  capa?: string;
+  /**
+   * Desde qué ancho aparece. Las portadas con texto centrado necesitan
+   * 'escritorio': por debajo de 1200px la mascota se le echaría encima.
+   */
+  visibilidad?: 'siempre' | 'tablet' | 'escritorio';
+  /**
+   * Descuenta la mitad de su propio tamaño, para centrarla de verdad
+   * cuando se la coloca con arriba/izquierda al 50%.
+   */
+  centrada?: boolean;
+}
+
+const {
+  pose,
+  ancho = '190px',
+  arriba,
+  derecha,
+  abajo,
+  izquierda,
+  giro = '0deg',
+  opacidad = '1',
+  capa = '1',
+  visibilidad = 'tablet',
+  centrada = false,
+} = Astro.props;
+
+const estilo = [
+  `--mascota-ancho:${ancho}`,
+  arriba && `--mascota-arriba:${arriba}`,
+  derecha && `--mascota-derecha:${derecha}`,
+  abajo && `--mascota-abajo:${abajo}`,
+  izquierda && `--mascota-izquierda:${izquierda}`,
+  `--mascota-giro:${giro}`,
+  `--mascota-opacidad:${opacidad}`,
+  `--mascota-capa:${capa}`,
+]
+  .filter(Boolean)
+  .join(';');
+---
+
+<div
+  class:list={['mascota', `mascota--${visibilidad}`, { 'mascota--centrada': centrada }]}
+  style={estilo}
+  aria-hidden="true"
+>
+  <img src={`/assets/mascota/${pose}.svg`} alt="" loading="lazy" />
+</div>
+
+<style>
+  .mascota {
+    position: absolute;
+    top: var(--mascota-arriba, auto);
+    right: var(--mascota-derecha, auto);
+    bottom: var(--mascota-abajo, auto);
+    left: var(--mascota-izquierda, auto);
+    width: var(--mascota-ancho);
+    rotate: var(--mascota-giro);
+    opacity: var(--mascota-opacidad);
+    z-index: var(--mascota-capa);
+    pointer-events: none;
+  }
+
+  /* El desplazamiento va en el contenedor y la flotación en la imagen, así
+     ninguna de las dos pisa la `translate` de la otra. */
+  .mascota--centrada {
+    translate: -50% -50%;
+  }
+
+  .mascota img {
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    animation: mascota-flota 5s ease-in-out infinite;
+  }
+
+  @keyframes mascota-flota {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 -8px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mascota img {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mascota--tablet {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .mascota--escritorio {
+      display: none;
+    }
+  }
+</style>

@@ -62,7 +62,7 @@ import Boton from '@componentes/ui/Boton.astro';
   .portada-inicio__titulo {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
-    font-size: clamp(2.25rem, 6vw, 4.25rem);
+    font-size: var(--texto-h1);
     line-height: 1.03;
     letter-spacing: -1.5px;
     max-width: 920px;
@@ -72,7 +72,7 @@ import Boton from '@componentes/ui/Boton.astro';
   }
 
   .portada-inicio__subtitulo {
-    font-size: 1.1875rem;
+    font-size: var(--texto-xl);
     max-width: 620px;
     opacity: 0.7;
     line-height: 1.55;
@@ -86,7 +86,7 @@ import Boton from '@componentes/ui/Boton.astro';
   }
 
   .portada-inicio__nota {
-    font-size: 0.8125rem;
+    font-size: var(--texto-2xs);
     opacity: 0.55;
     letter-spacing: 0.3px;
     margin: 0;

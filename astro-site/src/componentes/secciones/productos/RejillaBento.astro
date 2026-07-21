@@ -15,7 +15,7 @@ const { elementos } = Astro.props;
         style={`--celda-fondo:${elemento.fondo}; --celda-texto:${elemento.texto};`}
       >
         <div class="bento__icono">
-          <img src={elemento.icono} alt="" width="20" height="20" />
+          <img src={elemento.icono} alt="" width="40" height="40" />
         </div>
         <h3 class="bento__titulo">{elemento.titulo}</h3>
         {elemento.cuerpo && <p class="bento__cuerpo">{elemento.cuerpo}</p>}
@@ -63,15 +63,18 @@ const { elementos } = Astro.props;
   .bento__icono {
     width: 2.5rem;
     height: 2.5rem;
-    border: var(--borde-fino);
     display: flex;
     align-items: center;
     justify-content: center;
   }
+  .bento__icono img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
   .bento__celda--pequena .bento__icono {
     width: 2rem;
     height: 2rem;
-    background: var(--color-gris);
   }
 
   .bento__titulo {
@@ -80,23 +83,23 @@ const { elementos } = Astro.props;
     margin: 0;
   }
   .bento__celda--grande .bento__titulo {
-    font-size: 1.375rem;
+    font-size: var(--texto-2xl);
   }
   .bento__celda--ancha .bento__titulo {
-    font-size: 1.125rem;
+    font-size: var(--texto-xl);
   }
   .bento__celda--pequena .bento__titulo {
-    font-size: 0.9375rem;
+    font-size: var(--texto-sm);
   }
 
   .bento__cuerpo {
-    font-size: 0.875rem;
+    font-size: var(--texto-xs);
     opacity: 0.8;
     line-height: 1.5;
     margin: 0;
   }
   .bento__celda--ancha .bento__cuerpo {
-    font-size: 0.8125rem;
+    font-size: var(--texto-2xs);
   }
 
   @media (max-width: 992px) {

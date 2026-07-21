@@ -31,15 +31,11 @@ const { tema = 'oscura', autor } = Astro.props;
     letter-spacing: -0.5px;
     max-width: 780px;
     margin: 0 auto;
-    font-size: clamp(1.5rem, 3vw, 2.375rem);
-  }
-
-  .cita--oscura .cita__texto {
-    font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+    font-size: var(--texto-h4);
   }
 
   .cita__autor {
-    font-size: 0.9375rem;
+    font-size: var(--texto-sm);
     opacity: 0.55;
     margin-top: 1.5rem;
     margin-bottom: 0;

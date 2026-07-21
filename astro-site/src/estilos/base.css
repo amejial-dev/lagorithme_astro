@@ -20,8 +20,31 @@ body {
   background: var(--color-fondo);
   color: var(--color-texto);
   font-family: var(--fuente-cuerpo);
+  font-size: var(--texto-base);
   font-weight: var(--peso-medio);
   overflow-x: hidden;
+}
+
+/* Tamaño por defecto de cada nivel de título. Los componentes que necesitan
+   otro paso de la escala lo declaran con otra variable --texto-*, nunca con
+   un valor en rem escrito a mano. */
+h1 {
+  font-size: var(--texto-h1);
+}
+h2 {
+  font-size: var(--texto-h2);
+}
+h3 {
+  font-size: var(--texto-h3);
+}
+h4 {
+  font-size: var(--texto-h4);
+}
+h5 {
+  font-size: var(--texto-h5);
+}
+h6 {
+  font-size: var(--texto-h6);
 }
 
 img {

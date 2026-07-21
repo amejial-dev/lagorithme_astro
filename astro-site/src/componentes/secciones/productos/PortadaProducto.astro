@@ -2,6 +2,7 @@
 import Antetitulo from '@componentes/ui/Antetitulo.astro';
 import Boton from '@componentes/ui/Boton.astro';
 import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
+import Mascota from '@componentes/ui/Mascota.astro';
 ---
 
 <section class="portada-producto">
@@ -21,6 +22,9 @@ import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
   <div class="portada-producto__medio">
     <AdornoNeo pieza="08" ancho="340px" arriba="12%" izquierda="14%" opacidad="0.5" />
     <AdornoNeo pieza="19" ancho="220px" abajo="-60px" derecha="-50px" opacidad="0.2" />
+
+    <!-- El panel oscuro estaba vacío: la mascota "presentando" es su sujeto. -->
+    <Mascota pose="presentando" ancho="260px" arriba="50%" izquierda="50%" centrada capa="2" />
   </div>
 </section>
 
@@ -42,7 +46,7 @@ import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
   .portada-producto__titulo {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
-    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    font-size: var(--texto-h2);
     line-height: 1.05;
     letter-spacing: -1.5px;
     max-width: 36rem;
@@ -50,7 +54,7 @@ import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
   }
 
   .portada-producto__subtitulo {
-    font-size: 1.0625rem;
+    font-size: var(--texto-lg);
     max-width: 480px;
     opacity: 0.7;
     line-height: 1.6;

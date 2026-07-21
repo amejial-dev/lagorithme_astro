@@ -35,7 +35,7 @@
   align-items: center;
   gap: 0.625rem;
   font-weight: var(--peso-negrita);
-  font-size: 0.8125rem;
+  font-size: var(--texto-2xs);
 }
 
 .encabezado__contenedor {
@@ -124,7 +124,7 @@
   color: var(--color-tinta);
   padding: 0.5rem 0.875rem;
   font-weight: var(--peso-negrita);
-  font-size: 0.8125rem;
+  font-size: var(--texto-2xs);
   box-shadow: var(--sombra-sm);
   cursor: pointer;
   transition: translate var(--transicion-hover), box-shadow var(--transicion-hover);
@@ -147,7 +147,7 @@
   color: var(--color-tinta);
   padding: 0.625rem 1.125rem;
   font-weight: var(--peso-negrita);
-  font-size: 0.875rem;
+  font-size: var(--texto-xs);
   box-shadow: var(--sombra-lg);
   cursor: pointer;
   transition: translate var(--transicion-hover), box-shadow var(--transicion-hover);
