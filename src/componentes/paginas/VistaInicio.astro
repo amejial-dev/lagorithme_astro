@@ -1,0 +1,99 @@
+---
+import PlantillaBase from '@plantillas/PlantillaBase.astro';
+import BandaMetodo from '@componentes/secciones/inicio/BandaMetodo.astro';
+import Antetitulo from '@componentes/ui/Antetitulo.astro';
+import Boton from '@componentes/ui/Boton.astro';
+import IntroSeccion from '@componentes/ui/IntroSeccion.astro';
+import RejillaTarjetasIcono from '@componentes/ui/RejillaTarjetasIcono.astro';
+import BloqueDividido from '@componentes/secciones/compartido/BloqueDividido.astro';
+import LlamadaFinal from '@componentes/secciones/compartido/LlamadaFinal.astro';
+import PortadaInicio from '@componentes/secciones/inicio/PortadaInicio.astro';
+import RejillaCuatroTarjetas from '@componentes/secciones/inicio/RejillaCuatroTarjetas.astro';
+import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
+import PortatilCodigo from '@componentes/ui/PortatilCodigo.astro';
+import { tarjetasServicio, tarjetasPilares } from '@datos/inicio';
+import { obtenerIdioma, usarTraducciones, rutaLocal } from '@/i18n/utils';
+import '@estilos/paginas/inicio.css';
+
+const locale = Astro.currentLocale;
+const lang = obtenerIdioma(locale);
+const t = usarTraducciones(locale);
+---
+
+<PlantillaBase titulo={t('title.home')} activa="/">
+  <PortadaInicio />
+
+  <BandaMetodo />
+
+  <BloqueDividido orden="texto-medio" fondoTexto="var(--color-blanco)" fondoMedio="var(--color-azul)">
+    <Antetitulo>{t('home.block1.eyebrow')}</Antetitulo>
+    <h2 class="bloque-titulo">{t('home.block1.title')}</h2>
+    <p class="bloque-cuerpo">{t('home.block1.body')}</p>
+    <Boton ruta={rutaLocal('/productos', locale)} tono="gris" tamano="sm">{t('home.block1.cta')}</Boton>
+    <AdornoNeo slot="medio" pieza="07" ancho="300px" arriba="-80px" izquierda="-70px" opacidad="0.16" />
+    <PortatilCodigo slot="medio" />
+  </BloqueDividido>
+
+  <BloqueDividido
+    orden="medio-texto"
+    fondoMedio="var(--color-principal)"
+    fondoTexto="var(--color-fondo)"
+    bordeIntermedio
+  >
+    <Antetitulo>{t('home.block2.eyebrow')}</Antetitulo>
+    <h2 class="bloque-titulo">{t('home.block2.title')}</h2>
+    <p class="bloque-cuerpo">{t('home.block2.body')}</p>
+    <Boton ruta={rutaLocal('/productos', locale)} tono="gris" tamano="sm">{t('home.block2.cta')}</Boton>
+    <AdornoNeo slot="medio" pieza="11" ancho="280px" abajo="-80px" derecha="-60px" opacidad="0.18" />
+    <PortatilCodigo slot="medio" />
+  </BloqueDividido>
+
+  <section class="franja-destacada seccion">
+    <IntroSeccion titulo={t('home.section1.title')} subtitulo={t('home.section1.subtitle')} />
+    <RejillaTarjetasIcono
+      elementos={tarjetasServicio[lang]}
+      columnas={3}
+      tonoSombra="tinta"
+      grosorBorde="base"
+    />
+    <img src="/assets/images/feature-section-border.svg" alt="" class="franja-destacada__esquina" />
+  </section>
+
+  <BloqueDividido orden="texto-medio" fondoTexto="var(--color-fondo)" fondoMedio="var(--color-tinta)">
+    <Antetitulo tono="atenuado">{t('home.block3.eyebrow')}</Antetitulo>
+    <h2 class="bloque-titulo">{t('home.block3.title')}</h2>
+    <p class="bloque-cuerpo">{t('home.block3.body')}</p>
+    <Boton ruta={rutaLocal('/productos', locale)} tono="gris" tamano="sm">{t('home.block3.cta')}</Boton>
+    <AdornoNeo slot="medio" pieza="14" ancho="320px" arriba="-90px" derecha="-80px" opacidad="0.14" />
+    <PortatilCodigo slot="medio" />
+  </BloqueDividido>
+
+  <section class="franja-destacada seccion">
+    <IntroSeccion titulo={t('home.section2.title')} subtitulo={t('home.section2.subtitle')} />
+    <RejillaCuatroTarjetas elementos={tarjetasPilares[lang]} />
+  </section>
+
+  <BloqueDividido orden="medio-texto" fondoMedio="var(--color-azul)" fondoTexto="var(--color-principal)">
+    <p class="bloque-antetitulo">{t('home.block4.eyebrow')}</p>
+    <h2 class="bloque-titulo">{t('home.block4.title')}</h2>
+    <p class="bloque-cuerpo bloque-cuerpo--oscuro">{t('home.block4.body')}</p>
+    <Boton ruta={rutaLocal('/nosotros', locale)} tono="gris" tamano="md">{t('home.block4.cta')}</Boton>
+    <AdornoNeo slot="medio" pieza="18" ancho="260px" abajo="-70px" izquierda="-60px" opacidad="0.16" />
+    <PortatilCodigo slot="medio" />
+  </BloqueDividido>
+
+  <BloqueDividido orden="texto-medio" fondoTexto="var(--color-fondo)" fondoMedio="var(--color-gris)">
+    <h2 class="bloque-titulo">{t('home.block5.title')}</h2>
+    <p class="bloque-cuerpo">{t('home.block5.body')}</p>
+    <Boton ruta={rutaLocal('/clientes', locale)} tono="gris" tamano="md">{t('home.block5.cta')}</Boton>
+    <AdornoNeo slot="medio" pieza="13" ancho="300px" arriba="-80px" izquierda="-70px" opacidad="0.30" />
+    <PortatilCodigo slot="medio" />
+  </BloqueDividido>
+
+  <LlamadaFinal
+    titulo={t('home.final.title')}
+    subtitulo={t('home.final.subtitle')}
+    etiquetaPrincipal={t('home.final.cta')}
+    rutaPrincipal="/contacto"
+  />
+</PlantillaBase>

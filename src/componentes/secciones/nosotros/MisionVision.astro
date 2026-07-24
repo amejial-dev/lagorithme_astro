@@ -1,13 +1,4 @@
 ---
-interface Elemento {
-  etiqueta: string;
-  titulo: string;
-  cuerpo: string;
-}
-interface Props {
-  mision: Elemento;
-  vision: Elemento;
-}
 const { mision, vision } = Astro.props;
 const elementos = [mision, vision];
 ---

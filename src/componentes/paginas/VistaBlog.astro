@@ -1,0 +1,27 @@
+---
+import PlantillaBase from '@plantillas/PlantillaBase.astro';
+import Antetitulo from '@componentes/ui/Antetitulo.astro';
+import RejillaBlog from '@componentes/secciones/blog/RejillaBlog.astro';
+import Mascota from '@componentes/ui/Mascota.astro';
+import { articulos } from '@datos/blog';
+import { obtenerIdioma, usarTraducciones } from '@/i18n/utils';
+import '@estilos/paginas/blog.css';
+
+const locale = Astro.currentLocale;
+const lang = obtenerIdioma(locale);
+const t = usarTraducciones(locale);
+---
+
+<PlantillaBase titulo={t('title.blog')} descripcion={t('desc.blog')} activa="/blog">
+  <section class="portada-blog seccion">
+    <Antetitulo centrado>{t('title.blog')}</Antetitulo>
+    <h1 class="portada-blog__titulo">{t('blog.hero.title')}</h1>
+    <p class="portada-blog__subtitulo">{t('blog.hero.subtitle')}</p>
+
+    <Mascota pose="trabajando" ancho="180px" abajo="0" derecha="6%" visibilidad="escritorio" />
+  </section>
+
+  <section class="seccion seccion--pila seccion--blanca">
+    <RejillaBlog articulos={articulos[lang]} />
+  </section>
+</PlantillaBase>

@@ -1,0 +1,21 @@
+---
+import PlantillaBase from '@plantillas/PlantillaBase.astro';
+import PortadaClientes from '@componentes/secciones/clientes/PortadaClientes.astro';
+import RejillaClientes from '@componentes/secciones/clientes/RejillaClientes.astro';
+import { clientes } from '@datos/clientes';
+import { obtenerIdioma, usarTraducciones } from '@/i18n/utils';
+import '@estilos/paginas/clientes.css';
+
+const locale = Astro.currentLocale;
+const lang = obtenerIdioma(locale);
+const t = usarTraducciones(locale);
+const lista = clientes[lang];
+---
+
+<PlantillaBase titulo={t('title.clients')} descripcion={t('desc.clients')} activa="/clientes">
+  <PortadaClientes total={lista.length} />
+
+  <section class="seccion seccion--pila seccion--blanca seccion--pila-con-borde">
+    <RejillaClientes clientes={lista} />
+  </section>
+</PlantillaBase>

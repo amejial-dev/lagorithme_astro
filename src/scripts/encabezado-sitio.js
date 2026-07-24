@@ -1,7 +1,7 @@
 /**
  * Menú hamburguesa de EncabezadoSitio.astro. Vive fuera del componente
  * para que la lógica de abrir/cerrar se pueda reutilizar independiente
- * del marcado, igual que transicion-pagina.ts.
+ * del marcado, igual que transicion-pagina.js.
  */
 
 const BREAKPOINT_ESCRITORIO = 992;
@@ -12,13 +12,13 @@ function iniciarBotonMenu() {
   if (!boton || !navegacion) return;
 
   function cerrarMenu() {
-    boton!.setAttribute('aria-expanded', 'false');
-    navegacion!.classList.remove('abierta');
+    boton.setAttribute('aria-expanded', 'false');
+    navegacion.classList.remove('abierta');
   }
 
   function abrirMenu() {
-    boton!.setAttribute('aria-expanded', 'true');
-    navegacion!.classList.add('abierta');
+    boton.setAttribute('aria-expanded', 'true');
+    navegacion.classList.add('abierta');
   }
 
   boton.addEventListener('click', () => {
@@ -31,7 +31,7 @@ function iniciarBotonMenu() {
   });
 
   document.addEventListener('click', (evento) => {
-    const objetivo = evento.target as Node;
+    const objetivo = evento.target;
     if (!navegacion.contains(objetivo) && !boton.contains(objetivo)) cerrarMenu();
   });
 
@@ -49,7 +49,7 @@ function iniciarEstadoScroll() {
   if (!encabezado) return;
 
   function actualizarEstadoScroll() {
-    encabezado!.classList.toggle('con-scroll', window.scrollY > 0);
+    encabezado.classList.toggle('con-scroll', window.scrollY > 0);
   }
 
   actualizarEstadoScroll();

@@ -1,0 +1,22 @@
+---
+import PlantillaBase from '@plantillas/PlantillaBase.astro';
+import Antetitulo from '@componentes/ui/Antetitulo.astro';
+import FormularioContacto from '@componentes/secciones/contacto/FormularioContacto.astro';
+import Mascota from '@componentes/ui/Mascota.astro';
+import { usarTraducciones } from '@/i18n/utils';
+import '@estilos/paginas/contacto.css';
+
+const t = usarTraducciones(Astro.currentLocale);
+---
+
+<PlantillaBase titulo={t('title.contact')} descripcion={t('desc.contact')} activa="/contacto">
+  <section class="portada-contacto seccion--ajustada-abajo">
+    <Antetitulo centrado>{t('contact.hero.eyebrow')}</Antetitulo>
+    <h1 class="portada-contacto__titulo">{t('contact.hero.title')}</h1>
+    <p class="portada-contacto__subtitulo">{t('contact.hero.subtitle')}</p>
+
+    <Mascota pose="preguntando" ancho="180px" abajo="0" izquierda="6%" visibilidad="escritorio" />
+  </section>
+
+  <FormularioContacto />
+</PlantillaBase>

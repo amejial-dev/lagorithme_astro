@@ -47,9 +47,7 @@ const SELECTOR_CTA = '.llamada-final__cta';
 const SELECTORES_PULSABLES = '.boton, .pastilla-nav, .encabezado__cta, .tarjeta-blog';
 
 function animarPortada() {
-  const portada = gsap.utils.toArray<HTMLElement>(
-    '.portada-inicio > *:not(.portada-inicio__adorno)',
-  );
+  const portada = gsap.utils.toArray('.portada-inicio > *:not(.portada-inicio__adorno)');
   if (!portada.length) return;
 
   gsap.from(portada, {
@@ -62,15 +60,12 @@ function animarPortada() {
 }
 
 function revelarAlHacerScroll() {
-  const revelar = (
-    selector: string,
-    opciones: { desplazar?: boolean; destacar?: boolean } = {},
-  ) => {
+  const revelar = (selector, opciones = {}) => {
     const { desplazar = true, destacar = false } = opciones;
-    const elementos = gsap.utils.toArray<HTMLElement>(selector);
+    const elementos = gsap.utils.toArray(selector);
     if (!elementos.length) return;
 
-    const estadoInicial: gsap.TweenVars = { opacity: 0 };
+    const estadoInicial = { opacity: 0 };
     if (desplazar) estadoInicial.y = destacar ? 34 : 22;
     if (destacar) estadoInicial.scale = 0.9;
     gsap.set(elementos, estadoInicial);
@@ -99,7 +94,7 @@ function revelarAlHacerScroll() {
      (sin opacidad), para no fundirse dos veces con `.llamada-final > *`.
      Escribe en `transform`, así que convive con el hover (translate) y con
      el press (scale de responderAlPulsar), que solo actúa después. */
-  gsap.utils.toArray<HTMLElement>(SELECTOR_CTA).forEach((boton) => {
+  gsap.utils.toArray(SELECTOR_CTA).forEach((boton) => {
     gsap.set(boton, { scale: 0.8 });
     ScrollTrigger.create({
       trigger: boton,
@@ -115,7 +110,7 @@ function revelarAlHacerScroll() {
 }
 
 function responderAlPulsar() {
-  let pulsado: Element | null = null;
+  let pulsado = null;
 
   const soltar = () => {
     if (!pulsado) return;
@@ -124,7 +119,7 @@ function responderAlPulsar() {
   };
 
   document.addEventListener('pointerdown', (evento) => {
-    const objetivo = (evento.target as HTMLElement | null)?.closest(SELECTORES_PULSABLES);
+    const objetivo = evento.target?.closest(SELECTORES_PULSABLES);
     if (!objetivo) return;
     pulsado = objetivo;
     gsap.to(objetivo, { scale: 0.97, duration: 0.12, ease: 'power2.out' });

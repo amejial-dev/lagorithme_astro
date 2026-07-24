@@ -1,39 +1,40 @@
 ---
 import { navegacionPie, enlacesRedes } from '@datos/navegacion';
+import { usarTraducciones, rutaLocal } from '@/i18n/utils';
 import '@estilos/estructura/pie.css';
+
+const locale = Astro.currentLocale;
+const t = usarTraducciones(locale);
 const anio = new Date().getFullYear();
 ---
 
 <footer class="pie">
   <div class="pie__superior contenedor">
     <div class="pie__marca">
-      <a href="/" class="pie__logo">
+      <a href={rutaLocal('/', locale)} class="pie__logo">
         <img src="/assets/images/lago-logo.svg" alt="lagorithme" height="32" />
       </a>
-      <p class="pie__lema">
-        Software development, automation and artificial intelligence for organizations in
-        Colombia and Latin America.
-      </p>
+      <p class="pie__lema">{t('footer.tagline')}</p>
     </div>
 
     <div class="pie__columna">
-      <p class="pie__titulo">Navigation</p>
-      {navegacionPie.navegacion.map((e) => <a href={e.ruta}>{e.etiqueta}</a>)}
+      <p class="pie__titulo">{t('footer.navigation')}</p>
+      {navegacionPie.navegacion.map((e) => <a href={rutaLocal(e.ruta, locale)}>{t(e.clave)}</a>)}
     </div>
 
     <div class="pie__columna">
-      <p class="pie__titulo">Resources</p>
-      {navegacionPie.recursos.map((e) => <a href={e.ruta}>{e.etiqueta}</a>)}
+      <p class="pie__titulo">{t('footer.resources')}</p>
+      {navegacionPie.recursos.map((e) => <a href={rutaLocal(e.ruta, locale)}>{t(e.clave)}</a>)}
     </div>
 
     <div class="pie__columna">
-      <p class="pie__titulo">Legal</p>
-      {navegacionPie.legal.map((etiqueta) => <span class="pie__legal">{etiqueta}</span>)}
+      <p class="pie__titulo">{t('footer.legal')}</p>
+      {navegacionPie.legal.map((clave) => <span class="pie__legal">{t(clave)}</span>)}
     </div>
   </div>
 
   <div class="pie__inferior contenedor">
-    <p class="pie__aviso">© {anio} lagorithme. All rights reserved.</p>
+    <p class="pie__aviso">© {anio} lagorithme. {t('footer.rights')}</p>
     <div class="pie__redes">
       {
         enlacesRedes.map((red) => (

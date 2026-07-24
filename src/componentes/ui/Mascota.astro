@@ -11,31 +11,6 @@
  * coral o tinta. Es contenido decorativo: siempre aria-hidden.
  */
 
-/** Nombre de archivo en /assets/mascota, sin extensión. */
-type Pose = 'presentando' | 'pensando' | 'trabajando' | 'preguntando' | 'senalando-arriba';
-
-interface Props {
-  pose: Pose;
-  ancho?: string;
-  arriba?: string;
-  derecha?: string;
-  abajo?: string;
-  izquierda?: string;
-  giro?: string;
-  opacidad?: string;
-  capa?: string;
-  /**
-   * Desde qué ancho aparece. Las portadas con texto centrado necesitan
-   * 'escritorio': por debajo de 1200px la mascota se le echaría encima.
-   */
-  visibilidad?: 'siempre' | 'tablet' | 'escritorio';
-  /**
-   * Descuenta la mitad de su propio tamaño, para centrarla de verdad
-   * cuando se la coloca con arriba/izquierda al 50%.
-   */
-  centrada?: boolean;
-}
-
 const {
   pose,
   ancho = '190px',

@@ -1,7 +1,4 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -9,8 +6,7 @@
       "@componentes/*": ["src/componentes/*"],
       "@plantillas/*": ["src/plantillas/*"],
       "@datos/*": ["src/datos/*"],
-      "@estilos/*": ["src/estilos/*"],
-      "@tipos/*": ["src/tipos/*"]
+      "@estilos/*": ["src/estilos/*"]
     }
   }
 }

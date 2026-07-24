@@ -1,0 +1,55 @@
+---
+import PlantillaBase from '@plantillas/PlantillaBase.astro';
+import IntroSeccion from '@componentes/ui/IntroSeccion.astro';
+import RejillaTarjetasIcono from '@componentes/ui/RejillaTarjetasIcono.astro';
+import Cita from '@componentes/ui/Cita.astro';
+import PortadaNosotros from '@componentes/secciones/nosotros/PortadaNosotros.astro';
+import MisionVision from '@componentes/secciones/nosotros/MisionVision.astro';
+import VitrinaDesfasada from '@componentes/secciones/nosotros/VitrinaDesfasada.astro';
+import { capacidades, valoresCorporativos, mision, vision } from '@datos/nosotros';
+import { obtenerIdioma, usarTraducciones } from '@/i18n/utils';
+import '@estilos/paginas/nosotros.css';
+
+const locale = Astro.currentLocale;
+const lang = obtenerIdioma(locale);
+const t = usarTraducciones(locale);
+---
+
+<PlantillaBase titulo={t('title.about')} descripcion={t('desc.about')} activa="/nosotros">
+  <PortadaNosotros />
+
+  <section class="fila-capacidades seccion">
+    <RejillaTarjetasIcono elementos={capacidades[lang]} columnas={4} tonoSombra="tinta" grosorBorde="grueso" />
+  </section>
+
+  <section class="seccion seccion--pila seccion--blanca">
+    <IntroSeccion titulo={t('about.intro1.title')} subtitulo={t('about.intro1.subtitle')} />
+    <MisionVision
+      mision={{
+        etiqueta: t('about.mv.missionLabel'),
+        titulo: t('about.mv.missionTitle'),
+        cuerpo: mision[lang],
+      }}
+      vision={{
+        etiqueta: t('about.mv.visionLabel'),
+        titulo: t('about.mv.visionTitle'),
+        cuerpo: vision[lang],
+      }}
+    />
+  </section>
+
+  <section class="seccion seccion--pila seccion--blanca">
+    <IntroSeccion
+      antetitulo={t('about.intro2.eyebrow')}
+      titulo={t('about.intro2.title')}
+      subtitulo={t('about.intro2.subtitle')}
+    />
+    <RejillaTarjetasIcono elementos={valoresCorporativos[lang]} tonoSombra="tinta" grosorBorde="base" disposicion="tres-dos" />
+  </section>
+
+  <section class="cita-destacada seccion">
+    <Cita tema="clara" autor="lagorithme">{t('about.quote')}</Cita>
+  </section>
+
+  <VitrinaDesfasada />
+</PlantillaBase>

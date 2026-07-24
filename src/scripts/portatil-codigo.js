@@ -87,14 +87,9 @@ import { tarjetasServicio } from '@datos/inicio';
 />
 `;
 
-interface Ficha {
-  texto: string;
-  clase: string;
-}
-
 /* Resaltado por línea. Es deliberadamente tonto —no entiende de gramáticas,
    solo reconoce formas— porque el texto a colorear es fijo y conocido. */
-const PATRONES: [RegExp, string][] = [
+const PATRONES = [
   [/^<!--.*?-->/, 'tk-comentario'],
   [/^\/\/.*/, 'tk-comentario'],
   [/^\/\*.*?\*\//, 'tk-comentario'],
@@ -109,12 +104,12 @@ const PATRONES: [RegExp, string][] = [
   [/^[a-z-]+(?=\s*:)/, 'tk-atributo'],
 ];
 
-function trocear(linea: string): Ficha[] {
-  const fichas: Ficha[] = [];
+function trocear(linea) {
+  const fichas = [];
   let resto = linea;
 
   while (resto.length) {
-    const coincidencia = PATRONES.reduce<Ficha | null>((hallada, [patron, clase]) => {
+    const coincidencia = PATRONES.reduce((hallada, [patron, clase]) => {
       if (hallada) return hallada;
       const encontrado = resto.match(patron);
       return encontrado ? { texto: encontrado[0], clase } : null;
@@ -146,14 +141,14 @@ const LINEAS = CODIGO.split('\n').map((linea) => ({
 
 const TOTAL = LINEAS.reduce((suma, linea) => suma + linea.longitud, 0);
 
-function escapar(texto: string): string {
+function escapar(texto) {
   return texto.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 /** Devuelve el HTML del código escrito hasta `caracteres` (entero). */
-function componer(caracteres: number): string {
+function componer(caracteres) {
   let presupuesto = caracteres;
-  const pintadas: string[] = [];
+  const pintadas = [];
 
   for (const linea of LINEAS) {
     if (presupuesto <= 0) break;
@@ -198,9 +193,9 @@ function componer(caracteres: number): string {
  * revelados del sitio: sin JS la página se ve completa.
  */
 function orquestarSecuencia() {
-  const pistas = gsap.utils.toArray<HTMLElement>('.portatil-pista');
+  const pistas = gsap.utils.toArray('.portatil-pista');
 
-  const mostrar = (portatil: HTMLElement) =>
+  const mostrar = (portatil) =>
     gsap.to(portatil, {
       opacity: 1,
       y: 0,
@@ -213,7 +208,7 @@ function orquestarSecuencia() {
 
   /* La despedida deja el `y` y la rotación ya cargados para que la próxima
      aparición vuelva a botar, no solo a fundirse. */
-  const esconder = (portatil: HTMLElement) =>
+  const esconder = (portatil) =>
     gsap.to(portatil, {
       opacity: 0,
       y: 30,
@@ -225,7 +220,7 @@ function orquestarSecuencia() {
     });
 
   pistas.forEach((pista, indice) => {
-    const portatil = pista.querySelector<HTMLElement>('[data-portatil]');
+    const portatil = pista.querySelector('[data-portatil]');
     if (!portatil) return;
 
     gsap.set(portatil, { opacity: 0, y: 46, rotation: -4, scale: 0.94 });
@@ -264,10 +259,10 @@ function orquestarSecuencia() {
  * tamaño de la ventana, ScrollTrigger lo recalcula solo.
  */
 function acompanarScroll() {
-  const pistas = Array.from(document.querySelectorAll<HTMLElement>('.portatil-pista'));
+  const pistas = Array.from(document.querySelectorAll('.portatil-pista'));
 
   for (const pista of pistas) {
-    const viaje = pista.querySelector<HTMLElement>('[data-portatil-viaje]');
+    const viaje = pista.querySelector('[data-portatil-viaje]');
     if (!viaje) continue;
 
     gsap.fromTo(
@@ -310,13 +305,13 @@ function acompanarScroll() {
  * código continúa exactamente donde iba.
  */
 export function iniciarPortatilCodigo() {
-  const portatiles = Array.from(document.querySelectorAll<HTMLElement>('[data-portatil]'));
+  const portatiles = Array.from(document.querySelectorAll('[data-portatil]'));
   if (!portatiles.length) return;
 
   const pantallas = portatiles.map((portatil) => ({
     raiz: portatil,
-    codigo: portatil.querySelector<HTMLElement>('[data-portatil-codigo]'),
-    lienzo: portatil.querySelector<HTMLElement>('.portatil__lienzo'),
+    codigo: portatil.querySelector('[data-portatil-codigo]'),
+    lienzo: portatil.querySelector('.portatil__lienzo'),
     /* Alto útil del lienzo, medido la primera vez que hace falta y hasta
        que cambie la ventana. -1 = sin medir. */
     altoUtil: -1,
@@ -327,12 +322,10 @@ export function iniciarPortatilCodigo() {
     pintado: -1,
   }));
 
-  type Pantalla = (typeof pantallas)[number];
-
   let ultimoCaracteres = 0;
   let htmlActual = '';
 
-  const pintarPantalla = (pantalla: Pantalla) => {
+  const pintarPantalla = (pantalla) => {
     const { codigo, lienzo } = pantalla;
     if (!codigo || !lienzo || lienzo.clientHeight === 0) return;
 
@@ -362,7 +355,7 @@ export function iniciarPortatilCodigo() {
      demás sería reescribir el mismo HTML. Y de las pantallas, solo se
      escribe a las que andan cerca del viewport; las demás se ponen al día
      cuando el observador las ve llegar. */
-  const pintar = (avance: number) => {
+  const pintar = (avance) => {
     const caracteres = Math.round(avance * TOTAL);
     if (caracteres === ultimoCaracteres) return;
     ultimoCaracteres = caracteres;
@@ -400,7 +393,7 @@ export function iniciarPortatilCodigo() {
     }
   });
 
-  const bloques = document.querySelectorAll<HTMLElement>('.bloque-dividido');
+  const bloques = document.querySelectorAll('.bloque-dividido');
   if (!bloques.length) {
     pintar(1);
     return;

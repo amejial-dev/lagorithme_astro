@@ -1,27 +1,29 @@
 ---
 import { enlacesNavegacion } from '@datos/navegacion';
+import { usarTraducciones, rutaLocal, rutaOtroIdioma } from '@/i18n/utils';
 import '@estilos/estructura/encabezado.css';
 
-interface Props {
-  activa?: string;
-}
 const { activa = '' } = Astro.props;
+
+const locale = Astro.currentLocale;
+const t = usarTraducciones(locale);
+const rutaIdioma = rutaOtroIdioma(Astro.url.pathname, locale);
 ---
 
 <header class="encabezado">
-  <a href="/" class="encabezado__marca">
+  <a href={rutaLocal('/', locale)} class="encabezado__marca">
     <img src="/assets/images/lago-logo.svg" alt="lagorithme" width="154" height="36" />
   </a>
 
   <div class="encabezado__contenedor">
-    <nav class="encabezado__navegacion" aria-label="Main navigation">
+    <nav class="encabezado__navegacion" aria-label={t('header.mainNav')}>
       {
         enlacesNavegacion.map((enlace) => (
           <a
-            href={enlace.ruta}
+            href={rutaLocal(enlace.ruta, locale)}
             class:list={['pastilla-nav', { 'pastilla-nav--activa': enlace.ruta === activa }]}
           >
-            {enlace.etiqueta}
+            {t(enlace.clave)}
           </a>
         ))
       }
@@ -29,14 +31,17 @@ const { activa = '' } = Astro.props;
   </div>
 
   <div class="encabezado__acciones">
-    <a href="/contacto" class="encabezado__cta">Let's talk</a>
+    <a href={rutaLocal('/contacto', locale)} class="encabezado__cta">{t('header.cta')}</a>
+    <a href={rutaIdioma} class="encabezado__idioma" aria-label={t('header.langAria')}>
+      {t('header.langLabel')}
+    </a>
     <button
       type="button"
       id="boton-menu"
       class="encabezado__boton-menu"
       aria-expanded="false"
       aria-controls="navegacion-movil"
-      aria-label="Open menu"
+      aria-label={t('header.openMenu')}
     >
       <span class="encabezado__barra"></span>
       <span class="encabezado__barra"></span>
@@ -44,18 +49,46 @@ const { activa = '' } = Astro.props;
     </button>
   </div>
 
-  <nav id="navegacion-movil" class="encabezado__navegacion-movil" aria-label="Mobile navigation">
+  <nav id="navegacion-movil" class="encabezado__navegacion-movil" aria-label={t('header.mobileNav')}>
     {
       enlacesNavegacion.map((enlace) => (
         <a
-          href={enlace.ruta}
+          href={rutaLocal(enlace.ruta, locale)}
           class:list={['pastilla-nav', { 'pastilla-nav--activa': enlace.ruta === activa }]}
         >
-          {enlace.etiqueta}
+          {t(enlace.clave)}
         </a>
       ))
     }
   </nav>
 </header>
 
-<script src="../../scripts/encabezado-sitio.ts"></script>
+<script src="../../scripts/encabezado-sitio.js"></script>
+
+<style>
+  /* Botón de cambio de idioma, junto al CTA. Mismo lenguaje neobrutalista
+     que el resto: borde fino, sombra dura y desplazamiento al hover. */
+  .encabezado__idioma {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-family: var(--fuente-cuerpo);
+    font-weight: var(--peso-negrita);
+    font-size: var(--texto-2xs);
+    letter-spacing: 0.5px;
+    line-height: 1;
+    color: var(--color-tinta);
+    background: var(--color-fondo);
+    border: var(--borde-fino);
+    box-shadow: var(--sombra-sm);
+    padding: 0.45rem 0.7rem;
+    transition: translate var(--transicion-hover), box-shadow var(--transicion-hover);
+    translate: 0 0;
+  }
+  .encabezado__idioma:hover {
+    translate: -2px -2px;
+    box-shadow: var(--sombra-sm-hover);
+    color: var(--color-tinta);
+  }
+</style>

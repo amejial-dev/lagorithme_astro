@@ -11,11 +11,11 @@
 /* Tiene que coincidir con --cortina-cierre en CargadorPagina.astro. */
 const DURACION_CIERRE_MS = 450;
 
-function prefiereMenosMovimiento(): boolean {
+function prefiereMenosMovimiento() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-function esEnlaceInternoNavegable(ancla: HTMLAnchorElement): boolean {
+function esEnlaceInternoNavegable(ancla) {
   const ruta = ancla.getAttribute('href');
   if (!ruta || ruta === '#') return false;
   if (ruta.startsWith('http://') || ruta.startsWith('https://')) return false;
@@ -24,7 +24,7 @@ function esEnlaceInternoNavegable(ancla: HTMLAnchorElement): boolean {
   return true;
 }
 
-function esMismaPagina(ruta: string): boolean {
+function esMismaPagina(ruta) {
   const actual = window.location.pathname.replace(/\/$/, '') || '/';
   const destino = new URL(ruta, window.location.href).pathname.replace(/\/$/, '') || '/';
   return actual === destino;
@@ -39,16 +39,16 @@ function iniciarTransicionPagina() {
   document.addEventListener(
     'click',
     (evento) => {
-      const ancla = (evento.target as HTMLElement | null)?.closest('a[href]');
+      const ancla = evento.target?.closest('a[href]');
       if (!ancla || !(ancla instanceof HTMLAnchorElement)) return;
       if (!esEnlaceInternoNavegable(ancla)) return;
 
       /* Respetar los modificadores del navegador: ctrl/cmd/shift y el clic
          central abren en otra pestaña, y ahí la cortina no pinta nada. */
-      const e = evento as MouseEvent;
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      if (evento.metaKey || evento.ctrlKey || evento.shiftKey || evento.altKey || evento.button !== 0)
+        return;
 
-      const ruta = ancla.getAttribute('href')!;
+      const ruta = ancla.getAttribute('href');
       if (esMismaPagina(ruta)) return;
 
       if (navegando) {
@@ -76,7 +76,7 @@ function iniciarTransicionPagina() {
     if (!cortina.classList.contains('cargador--cerrando')) return;
 
     cortina.classList.remove('cargador--cerrando');
-    if ((evento as PageTransitionEvent).persisted) {
+    if (evento.persisted) {
       /* Reinicia la animación de apertura, que ya se había consumido. */
       cortina.style.animation = 'none';
       void cortina.offsetWidth;

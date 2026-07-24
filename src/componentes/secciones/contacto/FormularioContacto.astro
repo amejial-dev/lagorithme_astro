@@ -2,56 +2,72 @@
 import Boton from '@componentes/ui/Boton.astro';
 import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
 import { enlacesRedes } from '@datos/navegacion';
+import { obtenerIdioma, usarTraducciones } from '@/i18n/utils';
+
+const locale = Astro.currentLocale;
+const t = usarTraducciones(locale);
+const lang = obtenerIdioma(locale);
 
 /* El brief pide reducir al mínimo lo que el usuario tiene que escribir:
    por eso el asunto es un selector y el mensaje es opcional. Falta definir
    un mecanismo de contacto más automático; mientras tanto, formulario. */
-const necesidades = [
-  'Custom development',
-  'Process automation',
-  'Artificial intelligence',
-  'Analytics and data',
-  'Systems integration',
-  'Something else',
-];
+const necesidadesPorIdioma = {
+  es: [
+    'Desarrollo a la medida',
+    'Automatización de procesos',
+    'Inteligencia artificial',
+    'Analítica y datos',
+    'Integración de sistemas',
+    'Otra cosa',
+  ],
+  en: [
+    'Custom development',
+    'Process automation',
+    'Artificial intelligence',
+    'Analytics and data',
+    'Systems integration',
+    'Something else',
+  ],
+};
+const necesidades = necesidadesPorIdioma[lang];
 
 // TODO: teléfono y dirección pendientes de confirmar con la empresa.
 const datos = [
-  { etiqueta: 'Email', valor: 'hola@lagorithme.com' },
-  { etiqueta: 'Location', valor: 'Colombia' },
+  { etiqueta: t('contact.info.emailLabel'), valor: 'hola@lagorithme.com' },
+  { etiqueta: t('contact.info.locationLabel'), valor: t('contact.info.locationValue') },
 ];
 ---
 
 <section class="formulario-contacto">
-  <!-- Envía a nuestro endpoint (src/pages/api/contacto.ts), que reenvía
-       por SMTP de Zoho al correo comercial. Las credenciales viven en
-       variables de entorno del servidor, nunca aquí. -->
-  <form class="formulario-contacto__formulario" method="POST" action="/api/contacto">
+  <!-- Formulario solo visual: sitio estático sin servidor, así que el envío
+       está desactivado (preventDefault). Para que envíe de verdad hay que
+       conectarlo a algún servicio de formularios más adelante. -->
+  <form class="formulario-contacto__formulario" onsubmit="event.preventDefault()">
     <!-- Honeypot: invisible para humanos; si un bot lo rellena, el
          endpoint descarta el envío. -->
     <p class="campo-oculto" aria-hidden="true">
-      <label>Do not fill this field: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+      <label>{t('contact.form.honeypot')} <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
     </p>
 
     <div class="campo">
-      <label for="nombre">Name</label>
+      <label for="nombre">{t('contact.form.name')}</label>
       <input class="campo__control" id="nombre" name="nombre" type="text" required />
     </div>
     <div class="campo">
-      <label for="correo">Email address</label>
+      <label for="correo">{t('contact.form.email')}</label>
       <input class="campo__control" id="correo" name="correo" type="email" required />
     </div>
     <div class="campo">
-      <label for="necesidad">What do you need?</label>
+      <label for="necesidad">{t('contact.form.needQuestion')}</label>
       <select class="campo__control" id="necesidad" name="necesidad">
         {necesidades.map((necesidad) => <option value={necesidad}>{necesidad}</option>)}
       </select>
     </div>
     <div class="campo">
-      <label for="mensaje">Tell us more <span class="campo__opcional">(optional)</span></label>
+      <label for="mensaje">{t('contact.form.message')} <span class="campo__opcional">{t('contact.form.optional')}</span></label>
       <textarea class="campo__control" id="mensaje" name="mensaje" rows="4"></textarea>
     </div>
-    <Boton tipo="submit" tono="principal" tamano="lg">Send</Boton>
+    <Boton tipo="submit" tono="principal" tamano="lg">{t('contact.form.send')}</Boton>
   </form>
 
   <div class="formulario-contacto__info">

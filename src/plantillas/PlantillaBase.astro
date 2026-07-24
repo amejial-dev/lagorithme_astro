@@ -6,22 +6,16 @@ import AvisoCookies from '@componentes/estructura/AvisoCookies.astro';
 import '@estilos/variables.css';
 import '@estilos/base.css';
 import '@estilos/utilidades.css';
+import { obtenerIdioma, usarTraducciones } from '@/i18n/utils';
 
-interface Props {
-  titulo: string;
-  descripcion?: string;
-  activa?: string;
-}
+const lang = obtenerIdioma(Astro.currentLocale);
+const t = usarTraducciones(Astro.currentLocale);
 
-const {
-  titulo,
-  descripcion = 'lagorithme — software development, process automation and artificial intelligence for organizations in Colombia and Latin America.',
-  activa = '',
-} = Astro.props;
+const { titulo, descripcion = t('meta.default'), activa = '' } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -49,6 +43,6 @@ const {
     <PieSitio />
     <AvisoCookies />
 
-    <script src="../scripts/animaciones.ts"></script>
+    <script src="../scripts/animaciones.js"></script>
   </body>
 </html>

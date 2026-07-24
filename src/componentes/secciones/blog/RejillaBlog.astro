@@ -1,11 +1,10 @@
 ---
-import type { ArticuloBlog } from '@datos/blog';
 import Boton from '@componentes/ui/Boton.astro';
+import { usarTraducciones } from '@/i18n/utils';
 
-interface Props {
-  articulos: ArticuloBlog[];
-}
 const { articulos } = Astro.props;
+
+const t = usarTraducciones(Astro.currentLocale);
 ---
 
 <div class="rejilla-blog">
@@ -27,7 +26,7 @@ const { articulos } = Astro.props;
 </div>
 
 <div class="rejilla-blog__mas">
-  <Boton tono="principal" tamano="md">Load more articles</Boton>
+  <Boton tono="principal" tamano="md">{t('blog.loadMore')}</Boton>
 </div>
 
 <style>

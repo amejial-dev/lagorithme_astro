@@ -2,30 +2,27 @@
 import Antetitulo from '@componentes/ui/Antetitulo.astro';
 import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
 import Mascota from '@componentes/ui/Mascota.astro';
+import { usarTraducciones } from '@/i18n/utils';
 
-interface Props {
-  total: number;
-}
 const { total } = Astro.props;
 const totalFormateado = String(total).padStart(2, '0');
+
+const t = usarTraducciones(Astro.currentLocale);
 ---
 
 <section class="portada-clientes">
   <div class="portada-clientes__contenido">
     <AdornoNeo pieza="04" ancho="280px" abajo="-80px" derecha="-70px" opacidad="0.08" />
 
-    <Antetitulo tono="contorno">Clients</Antetitulo>
-    <h1 class="portada-clientes__titulo">The organizations that already trust us.</h1>
-    <p class="portada-clientes__subtitulo">
-      We work with companies across different sectors, supporting their growth with tools that
-      evolve alongside them.
-    </p>
+    <Antetitulo tono="contorno">{t('clients.hero.eyebrow')}</Antetitulo>
+    <h1 class="portada-clientes__titulo">{t('clients.hero.title')}</h1>
+    <p class="portada-clientes__subtitulo">{t('clients.hero.subtitle')}</p>
   </div>
   <div class="portada-clientes__panel">
     <AdornoNeo pieza="16" ancho="260px" arriba="-70px" derecha="-60px" opacidad="0.35" />
 
     <p class="portada-clientes__conteo">{totalFormateado}</p>
-    <p class="portada-clientes__etiqueta">Clients</p>
+    <p class="portada-clientes__etiqueta">{t('clients.hero.countLabel')}</p>
 
     <!-- Abajo a la izquierda, señalando hacia la cifra que corona el panel. -->
   </div>

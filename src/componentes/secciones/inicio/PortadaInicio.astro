@@ -1,5 +1,9 @@
 ---
 import Boton from '@componentes/ui/Boton.astro';
+import { usarTraducciones, rutaLocal } from '@/i18n/utils';
+
+const locale = Astro.currentLocale;
+const t = usarTraducciones(locale);
 ---
 
 <section class="portada-inicio seccion">
@@ -14,17 +18,14 @@ import Boton from '@componentes/ui/Boton.astro';
     class="portada-inicio__adorno portada-inicio__adorno--derecha"
   />
 
-  <h1 class="portada-inicio__titulo">Your organization's future is coded today.</h1>
-  <p class="portada-inicio__subtitulo">
-    We drive the digital transformation of companies across Colombia and Latin America through
-    process automation and artificial intelligence.
-  </p>
+  <h1 class="portada-inicio__titulo">{t('home.hero.title')}</h1>
+  <p class="portada-inicio__subtitulo">{t('home.hero.subtitle')}</p>
   <div class="portada-inicio__acciones">
-    <Boton ruta="/contacto" variante="solido" tono="principal" tamano="xl">
-      Start your digital transformation
+    <Boton ruta={rutaLocal('/contacto', locale)} variante="solido" tono="principal" tamano="xl">
+      {t('home.hero.cta')}
     </Boton>
   </div>
-  <p class="portada-inicio__nota">Public and private sector · Custom development</p>
+  <p class="portada-inicio__nota">{t('home.hero.note')}</p>
 </section>
 
 <style>

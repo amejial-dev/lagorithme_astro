@@ -3,20 +3,21 @@ import Antetitulo from '@componentes/ui/Antetitulo.astro';
 import Boton from '@componentes/ui/Boton.astro';
 import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
 import Mascota from '@componentes/ui/Mascota.astro';
+import { usarTraducciones, rutaLocal } from '@/i18n/utils';
+
+const locale = Astro.currentLocale;
+const t = usarTraducciones(locale);
 ---
 
 <section class="portada-nosotros">
   <div class="portada-nosotros__contenido">
     <AdornoNeo pieza="03" ancho="300px" abajo="-90px" derecha="-80px" opacidad="0.08" />
 
-    <Antetitulo>About</Antetitulo>
-    <h1 class="portada-nosotros__titulo">Strategic allies, not vendors of the moment.</h1>
-    <p class="portada-nosotros__subtitulo">
-      We combine robust infrastructure, artificial intelligence and technical expertise to
-      deliver digital products that adapt to every environment and need.
-    </p>
-    <Boton ruta="/clientes" variante="solido" tono="principal" tamano="lg">
-      See who we work with
+    <Antetitulo>{t('about.hero.eyebrow')}</Antetitulo>
+    <h1 class="portada-nosotros__titulo">{t('about.hero.title')}</h1>
+    <p class="portada-nosotros__subtitulo">{t('about.hero.subtitle')}</p>
+    <Boton ruta={rutaLocal('/clientes', locale)} variante="solido" tono="principal" tamano="lg">
+      {t('about.hero.cta')}
     </Boton>
   </div>
 
@@ -25,12 +26,10 @@ import Mascota from '@componentes/ui/Mascota.astro';
 
     <span class="portada-nosotros__marca" aria-hidden="true">◆</span>
     <div class="portada-nosotros__sede">
-      <p class="portada-nosotros__sede-etiqueta">Headquarters</p>
-      <p class="portada-nosotros__sede-valor">Colombia</p>
+      <p class="portada-nosotros__sede-etiqueta">{t('about.hero.hqLabel')}</p>
+      <p class="portada-nosotros__sede-valor">{t('about.hero.hqValue')}</p>
     </div>
-    <p class="portada-nosotros__resumen">
-      Reaching toward Latin America and global markets.
-    </p>
+    <p class="portada-nosotros__resumen">{t('about.hero.summary')}</p>
 
     <!-- Esquina inferior derecha del panel coral: el texto del panel es una
          columna alineada a la izquierda, así que aquí no estorba a nadie. -->

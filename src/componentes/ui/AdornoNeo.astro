@@ -12,21 +12,6 @@
  * Aviso: los SVG vienen con fill="white" fijo. Solo se ven sobre fondos
  * oscuros, coral o gris; sobre blanco desaparecen.
  */
-interface Props {
-  /** Número de la pieza, '01' a '20'. */
-  pieza: string;
-  ancho?: string;
-  arriba?: string;
-  derecha?: string;
-  abajo?: string;
-  izquierda?: string;
-  giro?: string;
-  opacidad?: string;
-  capa?: string;
-  /** Por defecto se ocultan en móvil, donde solo estorban. */
-  enMovil?: boolean;
-}
-
 const {
   pieza,
   ancho = '240px',

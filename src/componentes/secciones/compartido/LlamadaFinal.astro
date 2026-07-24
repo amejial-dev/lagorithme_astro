@@ -1,22 +1,17 @@
 ---
 import Boton from '@componentes/ui/Boton.astro';
 import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
+import { usarTraducciones, rutaLocal } from '@/i18n/utils';
 
-interface Props {
-  titulo: string;
-  subtitulo: string;
-  etiquetaPrincipal?: string;
-  rutaPrincipal?: string;
-  etiquetaSecundaria?: string;
-  rutaSecundaria?: string;
-}
+const locale = Astro.currentLocale;
+const t = usarTraducciones(locale);
 
 const {
   titulo,
   subtitulo,
   etiquetaPrincipal,
   rutaPrincipal,
-  etiquetaSecundaria = "Let's talk about your project",
+  etiquetaSecundaria = t('final.secondary'),
   rutaSecundaria = '/contacto',
 } = Astro.props;
 ---
@@ -31,7 +26,7 @@ const {
     {
       etiquetaPrincipal && rutaPrincipal && (
         <Boton
-          ruta={rutaPrincipal}
+          ruta={rutaLocal(rutaPrincipal, locale)}
           variante="solido"
           tono="gris"
           tamano="xl"
@@ -41,7 +36,7 @@ const {
         </Boton>
       )
     }
-    <Boton ruta={rutaSecundaria} variante="contorno" tamano="md">
+    <Boton ruta={rutaLocal(rutaSecundaria, locale)} variante="contorno" tamano="md">
       {etiquetaSecundaria}
     </Boton>
   </div>

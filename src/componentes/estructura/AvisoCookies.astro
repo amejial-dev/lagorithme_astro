@@ -11,19 +11,18 @@
  * no ve ni un parpadeo. Sin JS nunca aparece — coherente, porque sin JS
  * tampoco se carga la analítica.
  */
+import { usarTraducciones } from '@/i18n/utils';
+const t = usarTraducciones(Astro.currentLocale);
 ---
 
-<div class="aviso-cookies" data-aviso-cookies hidden role="region" aria-label="Cookie notice">
-  <p class="aviso-cookies__texto">
-    We use cookies only to understand how the site is used and improve it.
-    No chasing you around the internet.
-  </p>
+<div class="aviso-cookies" data-aviso-cookies hidden role="region" aria-label={t('cookies.aria')}>
+  <p class="aviso-cookies__texto">{t('cookies.text')}</p>
   <div class="aviso-cookies__acciones">
     <button class="aviso-cookies__boton aviso-cookies__boton--aceptar" data-cookies-aceptar>
-      Accept
+      {t('cookies.accept')}
     </button>
     <button class="aviso-cookies__boton aviso-cookies__boton--rechazar" data-cookies-rechazar>
-      Decline
+      {t('cookies.decline')}
     </button>
   </div>
 </div>
@@ -43,17 +42,17 @@
     script.async = true;
     document.head.appendChild(script);
 
-    const w = window as typeof window & { dataLayer?: unknown[] };
+    const w = window;
     w.dataLayer = w.dataLayer ?? [];
-    function gtag(...argumentos: unknown[]) {
-      w.dataLayer!.push(argumentos);
+    function gtag(...argumentos) {
+      w.dataLayer.push(argumentos);
     }
     gtag('js', new Date());
     gtag('config', ID_GOOGLE_ANALYTICS, { anonymize_ip: true });
   }
 
   function iniciarAvisoCookies() {
-    const aviso = document.querySelector<HTMLElement>('[data-aviso-cookies]');
+    const aviso = document.querySelector('[data-aviso-cookies]');
     if (!aviso) return;
 
     const eleccion = localStorage.getItem(CLAVE);

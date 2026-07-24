@@ -1,5 +1,10 @@
 ---
 import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
+import { obtenerIdioma, usarTraducciones } from '@/i18n/utils';
+
+const locale = Astro.currentLocale;
+const t = usarTraducciones(locale);
+const lang = obtenerIdioma(locale);
 
 /*
   Ocupa el hueco de la prueba social, justo bajo la portada. Sin productos
@@ -8,28 +13,21 @@ import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
   una cartera que aún no existe. Sustituye a la antigua banda de trabajos
   con firma de cliente (decisión debatida el 24/07/2026).
 */
-const pasos = [
-  {
-    numero: '01',
-    titulo: 'Discovery',
-    cuerpo: 'We map your real operation, exceptions and all.',
-  },
-  {
-    numero: '02',
-    titulo: 'Design',
-    cuerpo: 'We define the solution that fits your processes.',
-  },
-  {
-    numero: '03',
-    titulo: 'Development',
-    cuerpo: 'Short cycles, with deliverables you can see and test.',
-  },
-  {
-    numero: '04',
-    titulo: 'Evolution',
-    cuerpo: 'The software grows at the pace of your organization.',
-  },
-];
+const pasosPorIdioma = {
+  es: [
+    { numero: '01', titulo: 'Descubrimiento', cuerpo: 'Levantamos tu operación real, con sus excepciones.' },
+    { numero: '02', titulo: 'Diseño', cuerpo: 'Definimos la solución que encaja con tus procesos.' },
+    { numero: '03', titulo: 'Desarrollo', cuerpo: 'Ciclos cortos, con entregas que se pueden ver y probar.' },
+    { numero: '04', titulo: 'Evolución', cuerpo: 'El software crece al ritmo de tu organización.' },
+  ],
+  en: [
+    { numero: '01', titulo: 'Discovery', cuerpo: 'We map your real operation, exceptions and all.' },
+    { numero: '02', titulo: 'Design', cuerpo: 'We define the solution that fits your processes.' },
+    { numero: '03', titulo: 'Development', cuerpo: 'Short cycles, with deliverables you can see and test.' },
+    { numero: '04', titulo: 'Evolution', cuerpo: 'The software grows at the pace of your organization.' },
+  ],
+};
+const pasos = pasosPorIdioma[lang];
 ---
 
 <section class="banda-metodo">
@@ -37,7 +35,7 @@ const pasos = [
   <AdornoNeo pieza="10" ancho="180px" arriba="30%" derecha="-60px" opacidad="0.06" />
 
   <div class="banda-metodo__contenedor contenedor">
-    <p class="banda-metodo__etiqueta">How we work</p>
+    <p class="banda-metodo__etiqueta">{t('home.method.label')}</p>
 
     <ol class="banda-metodo__pasos">
       {

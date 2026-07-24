@@ -1,13 +1,21 @@
 import { defineConfig } from 'astro/config';
-import netlify from '@astrojs/netlify';
 
 export default defineConfig({
   site: 'https://lagorithme.com',
   trailingSlash: 'ignore',
 
-  /* El sitio sigue siendo estático; el adaptador existe solo para las
-     rutas marcadas con `prerender = false` (hoy, /api/contacto, que envía
-     el formulario por SMTP). Si algún día se migra de hosting, se cambia
-     este adaptador por el del proveedor nuevo y el endpoint sigue igual. */
-  adapter: netlify(),
+  /* Español por defecto en la raíz; inglés bajo /en (prefixDefaultLocale
+     false = el idioma por defecto no lleva prefijo). Astro deduce
+     Astro.currentLocale de la URL y los componentes eligen el texto con
+     ese valor (ver src/i18n). */
+  i18n: {
+    locales: ['es', 'en'],
+    defaultLocale: 'es',
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
+
+  /* Sitio 100% estático: se construye a HTML/CSS/JS puro y no necesita
+     servidor ni adaptador. */
 });

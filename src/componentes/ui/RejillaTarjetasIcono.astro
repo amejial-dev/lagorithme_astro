@@ -1,19 +1,4 @@
 ---
-import type { ElementoTarjeta } from '@tipos/tarjetas';
-
-interface Props {
-  elementos: ElementoTarjeta[];
-  columnas?: 2 | 3 | 4;
-  tonoSombra?: 'tinta' | 'principal';
-  grosorBorde?: 'base' | 'grueso';
-  /**
-   * 'tres-dos': cinco tarjetas en dos filas fijas —tres arriba y dos
-   * centradas abajo—, para que el reparto no dependa del ancho como en
-   * 'flujo' (que según la ventana dejaba una tarjeta huérfana).
-   */
-  disposicion?: 'rejilla' | 'flujo' | 'tres-dos';
-}
-
 const {
   elementos,
   columnas = 3,

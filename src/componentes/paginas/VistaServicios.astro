@@ -1,0 +1,42 @@
+---
+import PlantillaBase from '@plantillas/PlantillaBase.astro';
+import IntroSeccion from '@componentes/ui/IntroSeccion.astro';
+import RejillaTarjetasIcono from '@componentes/ui/RejillaTarjetasIcono.astro';
+import Cita from '@componentes/ui/Cita.astro';
+import PortadaProducto from '@componentes/secciones/productos/PortadaProducto.astro';
+import RejillaBento from '@componentes/secciones/productos/RejillaBento.astro';
+import { servicios, pasos, elementosBento } from '@datos/productos';
+import { obtenerIdioma, usarTraducciones } from '@/i18n/utils';
+import '@estilos/paginas/productos.css';
+
+const locale = Astro.currentLocale;
+const lang = obtenerIdioma(locale);
+const t = usarTraducciones(locale);
+---
+
+<PlantillaBase titulo={t('title.services')} descripcion={t('desc.services')} activa="/productos">
+  <PortadaProducto />
+
+  <section class="seccion seccion--pila seccion--blanca">
+    <IntroSeccion titulo={t('services.intro1.title')} subtitulo={t('services.intro1.subtitle')} />
+    <RejillaBento elementos={elementosBento[lang]} />
+  </section>
+
+  <section class="seccion seccion--pila seccion--blanca">
+    <IntroSeccion
+      antetitulo={t('services.intro2.eyebrow')}
+      titulo={t('services.intro2.title')}
+      subtitulo={t('services.intro2.subtitle')}
+    />
+    <RejillaTarjetasIcono elementos={servicios[lang]} columnas={3} tonoSombra="tinta" grosorBorde="grueso" />
+  </section>
+
+  <section class="franja-cita seccion">
+    <Cita tema="clara" autor="lagorithme">{t('services.quote')}</Cita>
+  </section>
+
+  <section class="seccion seccion--pila seccion--blanca">
+    <IntroSeccion titulo={t('services.intro3.title')} subtitulo={t('services.intro3.subtitle')} />
+    <RejillaTarjetasIcono elementos={pasos[lang]} columnas={3} tonoSombra="tinta" grosorBorde="grueso" />
+  </section>
+</PlantillaBase>
