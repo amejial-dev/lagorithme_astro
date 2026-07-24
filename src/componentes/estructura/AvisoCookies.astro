@@ -1,0 +1,159 @@
+---
+/**
+ * Aviso de cookies con consentimiento previo.
+ *
+ * La regla que lo gobierna: Google Analytics NO se carga hasta que el
+ * visitante acepta. Sin respuesta o con rechazo, no sale ni un byte hacia
+ * Google. La elección queda en localStorage y no se vuelve a preguntar.
+ *
+ * El banner arranca oculto (atributo hidden) y es el script quien lo
+ * enseña solo a quien no ha decidido: así el visitante que ya respondió
+ * no ve ni un parpadeo. Sin JS nunca aparece — coherente, porque sin JS
+ * tampoco se carga la analítica.
+ */
+---
+
+<div class="aviso-cookies" data-aviso-cookies hidden role="region" aria-label="Aviso de cookies">
+  <p class="aviso-cookies__texto">
+    Usamos cookies solo para entender cómo se navega el sitio y mejorarlo.
+    Nada de perseguirte por internet.
+  </p>
+  <div class="aviso-cookies__acciones">
+    <button class="aviso-cookies__boton aviso-cookies__boton--aceptar" data-cookies-aceptar>
+      Aceptar
+    </button>
+    <button class="aviso-cookies__boton aviso-cookies__boton--rechazar" data-cookies-rechazar>
+      Rechazar
+    </button>
+  </div>
+</div>
+
+<script>
+  /* Pega aquí el ID de Google Analytics (formato G-XXXXXXXXXX) cuando la
+     propiedad exista. Mientras esté vacío, aceptar no carga nada. */
+  const ID_GOOGLE_ANALYTICS = '';
+
+  const CLAVE = 'lago-consentimiento-cookies';
+
+  function cargarAnalytics() {
+    if (!ID_GOOGLE_ANALYTICS) return;
+
+    const script = document.createElement('script');
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${ID_GOOGLE_ANALYTICS}`;
+    script.async = true;
+    document.head.appendChild(script);
+
+    const w = window as typeof window & { dataLayer?: unknown[] };
+    w.dataLayer = w.dataLayer ?? [];
+    function gtag(...argumentos: unknown[]) {
+      w.dataLayer!.push(argumentos);
+    }
+    gtag('js', new Date());
+    gtag('config', ID_GOOGLE_ANALYTICS, { anonymize_ip: true });
+  }
+
+  function iniciarAvisoCookies() {
+    const aviso = document.querySelector<HTMLElement>('[data-aviso-cookies]');
+    if (!aviso) return;
+
+    const eleccion = localStorage.getItem(CLAVE);
+
+    if (eleccion === 'aceptado') {
+      cargarAnalytics();
+      return;
+    }
+    if (eleccion === 'rechazado') return;
+
+    aviso.hidden = false;
+
+    aviso.querySelector('[data-cookies-aceptar]')?.addEventListener('click', () => {
+      localStorage.setItem(CLAVE, 'aceptado');
+      aviso.hidden = true;
+      cargarAnalytics();
+    });
+
+    aviso.querySelector('[data-cookies-rechazar]')?.addEventListener('click', () => {
+      localStorage.setItem(CLAVE, 'rechazado');
+      aviso.hidden = true;
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciarAvisoCookies);
+  } else {
+    iniciarAvisoCookies();
+  }
+</script>
+
+<style>
+  .aviso-cookies {
+    position: fixed;
+    left: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 9000; /* Debajo de la cortina de transición (9999). */
+    max-width: 22rem;
+
+    background: var(--color-blanco);
+    color: var(--color-tinta);
+    border: var(--borde-base);
+    box-shadow: var(--sombra-lg);
+    padding: 1.25rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Sin esto, el display:flex de arriba le gana al [hidden] del navegador
+     y el aviso no se puede ocultar ni al aceptar ni al rechazar. */
+  .aviso-cookies[hidden] {
+    display: none;
+  }
+
+  .aviso-cookies__texto {
+    margin: 0;
+    font-size: var(--texto-xs);
+    line-height: 1.55;
+  }
+
+  .aviso-cookies__acciones {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .aviso-cookies__boton {
+    font-family: var(--fuente-cuerpo);
+    font-weight: var(--peso-negrita);
+    font-size: var(--texto-xs);
+    padding: 0.6rem 1.1rem;
+    border: var(--borde-fino);
+    cursor: pointer;
+    transition: translate var(--transicion-hover), box-shadow var(--transicion-hover);
+    translate: 0 0;
+    box-shadow: var(--sombra-sm);
+  }
+
+  .aviso-cookies__boton:hover {
+    translate: -2px -2px;
+    box-shadow: var(--sombra-sm-hover);
+  }
+
+  .aviso-cookies__boton--aceptar {
+    background: var(--color-principal);
+    color: var(--color-tinta);
+  }
+
+  .aviso-cookies__boton--rechazar {
+    background: var(--color-fondo);
+    color: var(--color-tinta);
+  }
+
+  @media (max-width: 576px) {
+    .aviso-cookies {
+      left: 1rem;
+      right: 1rem;
+      bottom: 1rem;
+      max-width: none;
+    }
+  }
+</style>
