@@ -23,26 +23,14 @@ const datos = [
 ---
 
 <section class="formulario-contacto">
-  <!-- Netlify Forms: al desplegar, Netlify detecta este formulario por el
-       atributo data-netlify y captura los envíos en su panel (pestaña
-       Forms). La notificación por correo se configura allí mismo:
-       Forms → Form notifications → Email. En localhost no funciona; el
-       receptor del POST existe solo en el sitio desplegado. -->
-  <form
-    class="formulario-contacto__formulario"
-    name="contacto"
-    method="POST"
-    action="/gracias"
-    data-netlify="true"
-    data-netlify-honeypot="bot-field"
-  >
-    <!-- Identifica el formulario en el POST; Netlify lo exige tal cual. -->
-    <input type="hidden" name="form-name" value="contacto" />
-
-    <!-- Honeypot: invisible para humanos; si un bot lo rellena, Netlify
-         descarta el envío. -->
+  <!-- Envía a nuestro endpoint (src/pages/api/contacto.ts), que reenvía
+       por SMTP de Zoho al correo comercial. Las credenciales viven en
+       variables de entorno del servidor, nunca aquí. -->
+  <form class="formulario-contacto__formulario" method="POST" action="/api/contacto">
+    <!-- Honeypot: invisible para humanos; si un bot lo rellena, el
+         endpoint descarta el envío. -->
     <p class="campo-oculto" aria-hidden="true">
-      <label>No llenar este campo: <input name="bot-field" /></label>
+      <label>No llenar este campo: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
     </p>
 
     <div class="campo">
