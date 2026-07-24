@@ -10,35 +10,35 @@ const { total } = Astro.props;
 const totalFormateado = String(total).padStart(2, '0');
 ---
 
-<section class="portada-colaboradores">
-  <div class="portada-colaboradores__contenido">
+<section class="portada-clientes">
+  <div class="portada-clientes__contenido">
     <AdornoNeo pieza="04" ancho="280px" abajo="-80px" derecha="-70px" opacidad="0.08" />
 
-    <Antetitulo tono="contorno">Colaboradores</Antetitulo>
-    <h1 class="portada-colaboradores__titulo">Las organizaciones que ya confían en nosotros.</h1>
-    <p class="portada-colaboradores__subtitulo">
-      Trabajamos con empresas de distintos sectores acompañando su crecimiento con herramientas
-      que evolucionan junto a ellas.
+    <Antetitulo tono="contorno">Clients</Antetitulo>
+    <h1 class="portada-clientes__titulo">The organizations that already trust us.</h1>
+    <p class="portada-clientes__subtitulo">
+      We work with companies across different sectors, supporting their growth with tools that
+      evolve alongside them.
     </p>
   </div>
-  <div class="portada-colaboradores__panel">
+  <div class="portada-clientes__panel">
     <AdornoNeo pieza="16" ancho="260px" arriba="-70px" derecha="-60px" opacidad="0.35" />
 
-    <p class="portada-colaboradores__conteo">{totalFormateado}</p>
-    <p class="portada-colaboradores__etiqueta">Colaboradores</p>
+    <p class="portada-clientes__conteo">{totalFormateado}</p>
+    <p class="portada-clientes__etiqueta">Clients</p>
 
     <!-- Abajo a la izquierda, señalando hacia la cifra que corona el panel. -->
   </div>
 </section>
 
 <style>
-  .portada-colaboradores {
+  .portada-clientes {
     display: grid;
     grid-template-columns: 1.4fr 1fr;
     border-bottom: var(--borde-base);
   }
 
-  .portada-colaboradores__contenido {
+  .portada-clientes__contenido {
     position: relative;
     overflow: hidden;
     background: var(--color-tinta);
@@ -50,7 +50,7 @@ const totalFormateado = String(total).padStart(2, '0');
     gap: 1.375rem;
   }
 
-  .portada-colaboradores__titulo {
+  .portada-clientes__titulo {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
     font-size: var(--texto-h2);
@@ -60,7 +60,7 @@ const totalFormateado = String(total).padStart(2, '0');
     margin: 0;
   }
 
-  .portada-colaboradores__subtitulo {
+  .portada-clientes__subtitulo {
     font-size: var(--texto-lg);
     max-width: 520px;
     opacity: 0.7;
@@ -68,7 +68,7 @@ const totalFormateado = String(total).padStart(2, '0');
     margin: 0;
   }
 
-  .portada-colaboradores__panel {
+  .portada-clientes__panel {
     position: relative;
     overflow: hidden;
     background: var(--color-principal);
@@ -82,7 +82,7 @@ const totalFormateado = String(total).padStart(2, '0');
     min-height: 21.25rem;
   }
 
-  .portada-colaboradores__conteo {
+  .portada-clientes__conteo {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
     font-size: var(--texto-display);
@@ -92,7 +92,7 @@ const totalFormateado = String(total).padStart(2, '0');
     margin: 0;
   }
 
-  .portada-colaboradores__etiqueta {
+  .portada-clientes__etiqueta {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
     font-size: var(--texto-base);
@@ -103,10 +103,10 @@ const totalFormateado = String(total).padStart(2, '0');
   }
 
   @media (max-width: 768px) {
-    .portada-colaboradores {
+    .portada-clientes {
       grid-template-columns: 1fr;
     }
-    .portada-colaboradores__panel {
+    .portada-clientes__panel {
       border-left: none;
       border-top: var(--borde-base);
     }

@@ -1,21 +1,21 @@
 ---
 import PlantillaBase from '@plantillas/PlantillaBase.astro';
-import PortadaColaboradores from '@componentes/secciones/colaboradores/PortadaColaboradores.astro';
-import RejillaColaboradores from '@componentes/secciones/colaboradores/RejillaColaboradores.astro';
+import PortadaClientes from '@componentes/secciones/clientes/PortadaClientes.astro';
+import RejillaClientes from '@componentes/secciones/clientes/RejillaClientes.astro';
 import LlamadaFinal from '@componentes/secciones/compartido/LlamadaFinal.astro';
-import { colaboradores } from '@datos/colaboradores';
-import '@estilos/paginas/colaboradores.css';
+import { clientes } from '@datos/clientes';
+import '@estilos/paginas/clientes.css';
 ---
 
 <PlantillaBase
-  titulo="Colaboradores"
-  descripcion="Las organizaciones que ya trabajan con lagorithme."
-  activa="/colaboradores"
+  titulo="Clients"
+  descripcion="The organizations already working with lagorithme."
+  activa="/clientes"
 >
-  <PortadaColaboradores total={colaboradores.length} />
+  <PortadaClientes total={clientes.length} />
 
   <section class="seccion seccion--pila seccion--blanca seccion--pila-con-borde">
-    <RejillaColaboradores colaboradores={colaboradores} />
+    <RejillaClientes clientes={clientes} />
   </section>
 
   <!-- <LlamadaFinal

@@ -1,4 +1,4 @@
-export interface Colaborador {
+export interface Cliente {
   /* Lo que estamos construyendo: es el titular en la banda de la portada. */
   trabajo: string;
   /* Una línea de qué es ese trabajo, para la banda. */
@@ -6,7 +6,7 @@ export interface Colaborador {
   nombre: string;
   sector: string;
   etiqueta: string;
-  /* Texto largo, para las tarjetas de /colaboradores. */
+  /* Texto largo, para las tarjetas de /clientes. */
   descripcion: string;
   inicial: string;
   fondo: string;
@@ -19,26 +19,26 @@ export interface Colaborador {
 
   Solo va aquí lo que esté confirmado y se pueda publicar como tal.
 */
-export const colaboradores: Colaborador[] = [
+export const clientes: Cliente[] = [
   {
-    trabajo: 'Software hospitalario',
-    resumen: 'En construcción ahora mismo junto a su equipo.',
+    trabajo: 'Hospital software',
+    resumen: 'Being built right now with their team.',
     nombre: 'Arsalud',
-    sector: 'Salud',
-    etiqueta: 'En desarrollo',
-    descripcion: 'Software hospitalario que estamos construyendo actualmente junto a su equipo.',
+    sector: 'Healthcare',
+    etiqueta: 'In development',
+    descripcion: 'Hospital software we are currently building together with their team.',
     inicial: 'A',
     fondo: 'var(--color-blanco)',
     colorInicial: 'var(--color-principal)',
   },
   {
-    trabajo: 'Observatorio ambiental',
-    resumen: 'Contribuimos al observatorio ambiental de Barranquilla, junto a Barranquilla Verde.',
+    trabajo: 'Environmental observatory',
+    resumen: "We contribute to Barranquilla's environmental observatory, alongside Barranquilla Verde.",
     nombre: 'Universidad Libre',
-    sector: 'Educación · Ambiental',
-    etiqueta: 'Contribución',
+    sector: 'Education · Environmental',
+    etiqueta: 'Contribution',
     descripcion:
-      'Contribuimos al desarrollo del observatorio ambiental de Barranquilla, un proyecto de la Universidad Libre junto a Barranquilla Verde.',
+      "We contribute to the development of Barranquilla's environmental observatory, a Universidad Libre project alongside Barranquilla Verde.",
     inicial: 'U',
     fondo: 'var(--color-gris)',
     colorInicial: 'var(--color-tinta)',
@@ -47,12 +47,12 @@ export const colaboradores: Colaborador[] = [
     // TODO: 'trabajo', 'resumen' y 'descripcion' son redacción nuestra, no
     // información confirmada. Pedir el detalle real del proyecto antes de
     // publicar el sitio: es lo único de esta sección que no está verificado.
-    trabajo: 'Plataforma digital',
-    resumen: 'Desarrollo a la medida junto a su equipo.',
+    trabajo: 'Digital platform',
+    resumen: 'Custom development together with their team.',
     nombre: 'Puerta de Oro',
-    sector: 'Proyecto en alianza',
-    etiqueta: 'Cliente',
-    descripcion: 'Trabajamos con su equipo en el desarrollo de su plataforma digital.',
+    sector: 'Partnership project',
+    etiqueta: 'Client',
+    descripcion: 'We work with their team on the development of their digital platform.',
     inicial: 'P',
     fondo: 'var(--color-principal)',
     colorInicial: 'var(--color-tinta)',

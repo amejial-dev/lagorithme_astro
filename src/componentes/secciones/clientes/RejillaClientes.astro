@@ -1,29 +1,29 @@
 ---
-import type { Colaborador } from '@datos/colaboradores';
+import type { Cliente } from '@datos/clientes';
 
 interface Props {
-  colaboradores: Colaborador[];
+  clientes: Cliente[];
 }
-const { colaboradores } = Astro.props;
+const { clientes } = Astro.props;
 ---
 
-<div class="rejilla-colaboradores">
+<div class="rejilla-clientes">
   {
-    colaboradores.map((colaborador) => (
-      <article class="tarjeta-colaborador">
+    clientes.map((cliente) => (
+      <article class="tarjeta-cliente">
         <div
-          class="tarjeta-colaborador__retrato"
-          style={`--retrato-fondo:${colaborador.fondo}; --color-inicial:${colaborador.colorInicial};`}
+          class="tarjeta-cliente__retrato"
+          style={`--retrato-fondo:${cliente.fondo}; --color-inicial:${cliente.colorInicial};`}
         >
-          <span class="tarjeta-colaborador__inicial">{colaborador.inicial}</span>
-          <span class="tarjeta-colaborador__etiqueta">{colaborador.etiqueta}</span>
+          <span class="tarjeta-cliente__inicial">{cliente.inicial}</span>
+          <span class="tarjeta-cliente__etiqueta">{cliente.etiqueta}</span>
         </div>
-        <div class="tarjeta-colaborador__cuerpo">
+        <div class="tarjeta-cliente__cuerpo">
           <div>
-            <h3 class="tarjeta-colaborador__nombre">{colaborador.nombre}</h3>
-            <p class="tarjeta-colaborador__sector">{colaborador.sector}</p>
+            <h3 class="tarjeta-cliente__nombre">{cliente.nombre}</h3>
+            <p class="tarjeta-cliente__sector">{cliente.sector}</p>
           </div>
-          <p class="tarjeta-colaborador__descripcion">{colaborador.descripcion}</p>
+          <p class="tarjeta-cliente__descripcion">{cliente.descripcion}</p>
         </div>
       </article>
     ))
@@ -31,7 +31,7 @@ const { colaboradores } = Astro.props;
 </div>
 
 <style>
-  .rejilla-colaboradores {
+  .rejilla-clientes {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
@@ -39,7 +39,7 @@ const { colaboradores } = Astro.props;
     width: 100%;
   }
 
-  .tarjeta-colaborador {
+  .tarjeta-cliente {
     border: var(--borde-grueso);
     background: var(--color-fondo);
     box-shadow: var(--sombra-xl);
@@ -48,12 +48,12 @@ const { colaboradores } = Astro.props;
     transition: translate var(--transicion-hover), box-shadow var(--transicion-hover);
     translate: 0 0;
   }
-  .tarjeta-colaborador:hover {
+  .tarjeta-cliente:hover {
     translate: -5px -5px;
     box-shadow: var(--sombra-xl-hover);
   }
 
-  .tarjeta-colaborador__retrato {
+  .tarjeta-cliente__retrato {
     background: var(--retrato-fondo);
     border-bottom: var(--borde-grueso);
     height: 280px;
@@ -63,7 +63,7 @@ const { colaboradores } = Astro.props;
     position: relative;
   }
 
-  .tarjeta-colaborador__inicial {
+  .tarjeta-cliente__inicial {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
     font-size: var(--texto-display);
@@ -71,7 +71,7 @@ const { colaboradores } = Astro.props;
     color: var(--color-inicial);
   }
 
-  .tarjeta-colaborador__etiqueta {
+  .tarjeta-cliente__etiqueta {
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -84,14 +84,14 @@ const { colaboradores } = Astro.props;
     padding: 0.25rem 0.625rem;
   }
 
-  .tarjeta-colaborador__cuerpo {
+  .tarjeta-cliente__cuerpo {
     padding: 1.75rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .tarjeta-colaborador__nombre {
+  .tarjeta-cliente__nombre {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
     font-size: var(--texto-h6);
@@ -99,7 +99,7 @@ const { colaboradores } = Astro.props;
     margin: 0;
   }
 
-  .tarjeta-colaborador__sector {
+  .tarjeta-cliente__sector {
     font-weight: var(--peso-negrita);
     font-size: var(--texto-2xs);
     text-transform: uppercase;
@@ -108,7 +108,7 @@ const { colaboradores } = Astro.props;
     margin: 0.25rem 0 0;
   }
 
-  .tarjeta-colaborador__descripcion {
+  .tarjeta-cliente__descripcion {
     font-size: var(--texto-xs);
     opacity: 0.75;
     line-height: 1.6;
@@ -116,7 +116,7 @@ const { colaboradores } = Astro.props;
   }
 
   @media (max-width: 992px) {
-    .rejilla-colaboradores {
+    .rejilla-clientes {
       grid-template-columns: 1fr;
     }
   }

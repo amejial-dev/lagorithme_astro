@@ -14,7 +14,7 @@ const { activa = '' } = Astro.props;
   </a>
 
   <div class="encabezado__contenedor">
-    <nav class="encabezado__navegacion" aria-label="Navegación principal">
+    <nav class="encabezado__navegacion" aria-label="Main navigation">
       {
         enlacesNavegacion.map((enlace) => (
           <a
@@ -29,14 +29,14 @@ const { activa = '' } = Astro.props;
   </div>
 
   <div class="encabezado__acciones">
-    <a href="/contacto" class="encabezado__cta">Hablemos</a>
+    <a href="/contacto" class="encabezado__cta">Let's talk</a>
     <button
       type="button"
       id="boton-menu"
       class="encabezado__boton-menu"
       aria-expanded="false"
       aria-controls="navegacion-movil"
-      aria-label="Abrir menú"
+      aria-label="Open menu"
     >
       <span class="encabezado__barra"></span>
       <span class="encabezado__barra"></span>
@@ -44,7 +44,7 @@ const { activa = '' } = Astro.props;
     </button>
   </div>
 
-  <nav id="navegacion-movil" class="encabezado__navegacion-movil" aria-label="Navegación móvil">
+  <nav id="navegacion-movil" class="encabezado__navegacion-movil" aria-label="Mobile navigation">
     {
       enlacesNavegacion.map((enlace) => (
         <a

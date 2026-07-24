@@ -26,20 +26,23 @@ const SELECTORES_REVELADO = [
   '.tarjeta-icono',
   '.bento__celda',
   '.tarjeta-mv',
-  '.tarjeta-colaborador',
+  '.tarjeta-cliente',
   '.tarjeta-blog',
   '.banda-metodo__paso',
   '.bloque-dividido__contenido > *',
   '.vitrina__tarjeta',
   '.vitrina__bloque',
+  '.tarjetas-cuatro__elemento',
   '.llamada-final > *',
-  '.cita',
 ];
 
-/* Estos llevan una rotación propia en CSS mediante `transform`. Animarles
-   `y` desde GSAP sobrescribiría esa rotación y las dejaría derechas, así
-   que se revelan solo con opacidad. */
-const SELECTORES_REVELADO_SIN_DESPLAZAR = ['.tarjetas-cuatro__elemento'];
+/* Entrada "destacada": los bloques de cierre que deben robar la atención.
+   Las citas de lagorithme entran con un pop (escala + rebote) en vez del
+   fundido discreto del resto. El botón principal de la llamada final se
+   trata aparte (SELECTOR_CTA) para poder escalarlo sin pelear con el
+   fundido de su contenedor. */
+const SELECTORES_REVELADO_DESTACADO = ['.cita'];
+const SELECTOR_CTA = '.llamada-final__cta';
 
 const SELECTORES_PULSABLES = '.boton, .pastilla-nav, .encabezado__cta, .tarjeta-blog';
 
@@ -59,11 +62,18 @@ function animarPortada() {
 }
 
 function revelarAlHacerScroll() {
-  const revelar = (selector: string, desplazar: boolean) => {
+  const revelar = (
+    selector: string,
+    opciones: { desplazar?: boolean; destacar?: boolean } = {},
+  ) => {
+    const { desplazar = true, destacar = false } = opciones;
     const elementos = gsap.utils.toArray<HTMLElement>(selector);
     if (!elementos.length) return;
 
-    gsap.set(elementos, desplazar ? { opacity: 0, y: 22 } : { opacity: 0 });
+    const estadoInicial: gsap.TweenVars = { opacity: 0 };
+    if (desplazar) estadoInicial.y = destacar ? 34 : 22;
+    if (destacar) estadoInicial.scale = 0.9;
+    gsap.set(elementos, estadoInicial);
 
     ScrollTrigger.batch(elementos, {
       start: 'top 88%',
@@ -72,16 +82,32 @@ function revelarAlHacerScroll() {
         gsap.to(lote, {
           opacity: 1,
           ...(desplazar ? { y: 0 } : {}),
-          duration: 0.6,
-          ease: 'power2.out',
-          stagger: 0.08,
+          ...(destacar ? { scale: 1 } : {}),
+          duration: destacar ? 0.8 : 0.6,
+          ease: destacar ? 'back.out(1.6)' : 'power2.out',
+          stagger: destacar ? 0.12 : 0.08,
           overwrite: true,
         }),
     });
   };
 
-  SELECTORES_REVELADO.forEach((selector) => revelar(selector, true));
-  SELECTORES_REVELADO_SIN_DESPLAZAR.forEach((selector) => revelar(selector, false));
+  SELECTORES_REVELADO.forEach((selector) => revelar(selector));
+  SELECTORES_REVELADO_DESTACADO.forEach((selector) => revelar(selector, { destacar: true }));
+
+  /* Golpe extra al botón principal de la llamada final: entra con un pop de
+     rebote que se compone con el fundido de su contenedor. Escala solo
+     (sin opacidad), para no fundirse dos veces con `.llamada-final > *`.
+     Escribe en `transform`, así que convive con el hover (translate) y con
+     el press (scale de responderAlPulsar), que solo actúa después. */
+  gsap.utils.toArray<HTMLElement>(SELECTOR_CTA).forEach((boton) => {
+    gsap.set(boton, { scale: 0.8 });
+    ScrollTrigger.create({
+      trigger: boton,
+      start: 'top 90%',
+      once: true,
+      onEnter: () => gsap.to(boton, { scale: 1, duration: 0.7, ease: 'back.out(2.2)' }),
+    });
+  });
 
   /* Las fuentes y las imágenes cambian el alto de la página después del
      primer cálculo; sin esto, los disparadores quedan desfasados. */

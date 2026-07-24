@@ -11,18 +11,18 @@ const anio = new Date().getFullYear();
         <img src="/assets/images/lago-logo.svg" alt="lagorithme" height="32" />
       </a>
       <p class="pie__lema">
-        Desarrollo de software, automatización e inteligencia artificial para organizaciones en
-        Colombia y Latinoamérica.
+        Software development, automation and artificial intelligence for organizations in
+        Colombia and Latin America.
       </p>
     </div>
 
     <div class="pie__columna">
-      <p class="pie__titulo">Navegación</p>
+      <p class="pie__titulo">Navigation</p>
       {navegacionPie.navegacion.map((e) => <a href={e.ruta}>{e.etiqueta}</a>)}
     </div>
 
     <div class="pie__columna">
-      <p class="pie__titulo">Recursos</p>
+      <p class="pie__titulo">Resources</p>
       {navegacionPie.recursos.map((e) => <a href={e.ruta}>{e.etiqueta}</a>)}
     </div>
 
@@ -33,7 +33,7 @@ const anio = new Date().getFullYear();
   </div>
 
   <div class="pie__inferior contenedor">
-    <p class="pie__aviso">© {anio} lagorithme. Todos los derechos reservados.</p>
+    <p class="pie__aviso">© {anio} lagorithme. All rights reserved.</p>
     <div class="pie__redes">
       {
         enlacesRedes.map((red) => (

@@ -7,7 +7,20 @@
 }
 
 .cita-destacada {
-  background: var(--color-blanco);
+  background: var(--color-fondo);
   padding-top: 5.625rem;
   padding-bottom: 5.625rem;
+
+  /* Pantalla completa de verdad, igual que la llamada final del home. */
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-height: 480px) {
+  .cita-destacada {
+    min-height: 0;
+  }
 }

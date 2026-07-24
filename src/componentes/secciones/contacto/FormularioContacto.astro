@@ -7,18 +7,18 @@ import { enlacesRedes } from '@datos/navegacion';
    por eso el asunto es un selector y el mensaje es opcional. Falta definir
    un mecanismo de contacto más automático; mientras tanto, formulario. */
 const necesidades = [
-  'Desarrollo a la medida',
-  'Automatización de procesos',
-  'Inteligencia artificial',
-  'Analítica y datos',
-  'Integración de sistemas',
-  'Otra cosa',
+  'Custom development',
+  'Process automation',
+  'Artificial intelligence',
+  'Analytics and data',
+  'Systems integration',
+  'Something else',
 ];
 
 // TODO: teléfono y dirección pendientes de confirmar con la empresa.
 const datos = [
-  { etiqueta: 'Correo', valor: 'hola@lagorithme.com' },
-  { etiqueta: 'Ubicación', valor: 'Colombia' },
+  { etiqueta: 'Email', valor: 'hola@lagorithme.com' },
+  { etiqueta: 'Location', valor: 'Colombia' },
 ];
 ---
 
@@ -30,28 +30,28 @@ const datos = [
     <!-- Honeypot: invisible para humanos; si un bot lo rellena, el
          endpoint descarta el envío. -->
     <p class="campo-oculto" aria-hidden="true">
-      <label>No llenar este campo: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+      <label>Do not fill this field: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
     </p>
 
     <div class="campo">
-      <label for="nombre">Nombre</label>
+      <label for="nombre">Name</label>
       <input class="campo__control" id="nombre" name="nombre" type="text" required />
     </div>
     <div class="campo">
-      <label for="correo">Correo electrónico</label>
+      <label for="correo">Email address</label>
       <input class="campo__control" id="correo" name="correo" type="email" required />
     </div>
     <div class="campo">
-      <label for="necesidad">¿Qué necesitas?</label>
+      <label for="necesidad">What do you need?</label>
       <select class="campo__control" id="necesidad" name="necesidad">
         {necesidades.map((necesidad) => <option value={necesidad}>{necesidad}</option>)}
       </select>
     </div>
     <div class="campo">
-      <label for="mensaje">Cuéntanos más <span class="campo__opcional">(opcional)</span></label>
+      <label for="mensaje">Tell us more <span class="campo__opcional">(optional)</span></label>
       <textarea class="campo__control" id="mensaje" name="mensaje" rows="4"></textarea>
     </div>
-    <Boton tipo="submit" tono="principal" tamano="lg">Enviar</Boton>
+    <Boton tipo="submit" tono="principal" tamano="lg">Send</Boton>
   </form>
 
   <div class="formulario-contacto__info">

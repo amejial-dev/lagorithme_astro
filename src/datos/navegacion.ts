@@ -4,26 +4,26 @@ export interface EnlaceNavegacion {
 }
 
 export const enlacesNavegacion: EnlaceNavegacion[] = [
-  { etiqueta: 'Inicio', ruta: '/' },
-  { etiqueta: 'Servicios', ruta: '/productos' },
-  { etiqueta: 'Nosotros', ruta: '/nosotros' },
-  { etiqueta: 'Colaboradores', ruta: '/colaboradores' },
+  { etiqueta: 'Home', ruta: '/' },
+  { etiqueta: 'Services', ruta: '/productos' },
+  { etiqueta: 'About', ruta: '/nosotros' },
+  { etiqueta: 'Clients', ruta: '/clientes' },
   { etiqueta: 'Blog', ruta: '/blog' },
-  { etiqueta: 'Contacto', ruta: '/contacto' },
+  { etiqueta: 'Contact', ruta: '/contacto' },
 ];
 
 export const navegacionPie = {
   navegacion: [
-    { etiqueta: 'Inicio', ruta: '/' },
-    { etiqueta: 'Servicios', ruta: '/productos' },
-    { etiqueta: 'Nosotros', ruta: '/nosotros' },
-    { etiqueta: 'Colaboradores', ruta: '/colaboradores' },
+    { etiqueta: 'Home', ruta: '/' },
+    { etiqueta: 'Services', ruta: '/productos' },
+    { etiqueta: 'About', ruta: '/nosotros' },
+    { etiqueta: 'Clients', ruta: '/clientes' },
   ],
   recursos: [
     { etiqueta: 'Blog', ruta: '/blog' },
-    { etiqueta: 'Contacto', ruta: '/contacto' },
+    { etiqueta: 'Contact', ruta: '/contacto' },
   ],
-  legal: ['Privacidad', 'Términos'],
+  legal: ['Privacy', 'Terms'],
 };
 
 export const enlacesRedes = [

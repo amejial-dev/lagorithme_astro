@@ -35,7 +35,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   const mensaje = String(datos.get('mensaje') ?? '').trim();
 
   if (!nombre || !correo) {
-    return new Response('Faltan el nombre o el correo.', { status: 400 });
+    return new Response('Name or email is missing.', { status: 400 });
   }
 
   const transporte = nodemailer.createTransport({
@@ -55,19 +55,19 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       from: `"Web lagorithme" <${process.env.SMTP_USER}>`,
       to: process.env.CONTACTO_DESTINO ?? 'dtorradoc@lagorithme.com',
       replyTo: `"${nombre}" <${correo}>`,
-      subject: `[Web] ${necesidad || 'Contacto'} — ${nombre}`,
+      subject: `[Web] ${necesidad || 'Contact'} — ${nombre}`,
       text: [
-        `Nombre: ${nombre}`,
-        `Correo: ${correo}`,
-        `Necesidad: ${necesidad || '(sin especificar)'}`,
+        `Name: ${nombre}`,
+        `Email: ${correo}`,
+        `Need: ${necesidad || '(not specified)'}`,
         '',
-        mensaje || '(sin mensaje)',
+        mensaje || '(no message)',
       ].join('\n'),
     });
   } catch (error) {
     console.error('Fallo el envío del formulario de contacto:', error);
     return new Response(
-      'No pudimos enviar tu mensaje. Escríbenos directo a hola@lagorithme.com.',
+      "We couldn't send your message. Write to us directly at hola@lagorithme.com.",
       { status: 502 },
     );
   }

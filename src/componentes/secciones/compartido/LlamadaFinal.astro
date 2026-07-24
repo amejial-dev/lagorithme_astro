@@ -16,7 +16,7 @@ const {
   subtitulo,
   etiquetaPrincipal,
   rutaPrincipal,
-  etiquetaSecundaria = 'Hablemos de tu proyecto',
+  etiquetaSecundaria = "Let's talk about your project",
   rutaSecundaria = '/contacto',
 } = Astro.props;
 ---
@@ -30,12 +30,18 @@ const {
   <div class="llamada-final__acciones">
     {
       etiquetaPrincipal && rutaPrincipal && (
-        <Boton ruta={rutaPrincipal} variante="solido" tono="principal" tamano="lg">
+        <Boton
+          ruta={rutaPrincipal}
+          variante="solido"
+          tono="gris"
+          tamano="xl"
+          class="llamada-final__cta"
+        >
           {etiquetaPrincipal}
         </Boton>
       )
     }
-    <Boton ruta={rutaSecundaria} variante="contorno" tono="tinta" tamano="md">
+    <Boton ruta={rutaSecundaria} variante="contorno" tamano="md">
       {etiquetaSecundaria}
     </Boton>
   </div>
@@ -45,15 +51,27 @@ const {
   .llamada-final {
     position: relative;
     overflow: hidden;
-    background: var(--color-tinta);
-    color: var(--color-fondo);
+    background: var(--color-principal);
+    color: var(--color-tinta);
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
     gap: 1.375rem;
     padding-top: 6.25rem;
     padding-bottom: 6.25rem;
+
+    /* Pantalla completa de verdad: al ir al fondo de la página el encabezado
+       es un overlay sticky y no ocupa lugar aquí, así que no se descuenta. */
+    min-height: 100svh;
+  }
+
+  /* En pantallas muy bajas el alto mínimo estorba más de lo que ayuda. */
+  @media (max-height: 480px) {
+    .llamada-final {
+      min-height: 0;
+    }
   }
 
   .llamada-final__titulo,
@@ -82,9 +100,21 @@ const {
 
   .llamada-final__acciones {
     display: flex;
-    gap: 1.125rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
     margin-top: 0.625rem;
-    flex-wrap: wrap;
-    justify-content: center;
+
+    /* El CTA principal se estira a lo ancho de este contenedor; el ancho
+       máximo es lo que hace que ocupe la banda como el hero de inicio. */
+    width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  /* El botón vive dentro del componente Boton, así que su clase no lleva el
+     scope de esta sección: hay que alcanzarla con :global. */
+  .llamada-final__acciones :global(.llamada-final__cta) {
+    width: 100%;
   }
 </style>

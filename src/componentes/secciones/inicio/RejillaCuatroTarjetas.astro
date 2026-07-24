@@ -10,7 +10,7 @@ const { elementos } = Astro.props;
 <div class="tarjetas-cuatro">
   {
     elementos.map((elemento) => (
-      <div class="tarjetas-cuatro__elemento" style={`--rotacion:${elemento.rotacion}deg;`}>
+      <div class="tarjetas-cuatro__elemento">
         <h3 class="tarjetas-cuatro__titulo">{elemento.titulo}</h3>
         <p class="tarjetas-cuatro__cuerpo">{elemento.cuerpo}</p>
       </div>
@@ -35,11 +35,11 @@ const { elementos } = Astro.props;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    transform: rotate(var(--rotacion));
+    transition: translate var(--transicion-hover), box-shadow var(--transicion-hover);
+    translate: 0 0;
   }
   .tarjetas-cuatro__elemento:hover {
-    transform: rotate(0deg) translateY(-4px);
+    translate: -4px -4px;
     box-shadow: var(--sombra-md-hover);
   }
 
