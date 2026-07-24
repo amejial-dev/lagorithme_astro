@@ -28,7 +28,7 @@ const SELECTORES_REVELADO = [
   '.tarjeta-mv',
   '.tarjeta-colaborador',
   '.tarjeta-blog',
-  '.banda-trabajos__elemento',
+  '.banda-metodo__paso',
   '.bloque-dividido__contenido > *',
   '.vitrina__tarjeta',
   '.vitrina__bloque',

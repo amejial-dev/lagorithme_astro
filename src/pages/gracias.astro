@@ -1,0 +1,86 @@
+---
+import PlantillaBase from '@plantillas/PlantillaBase.astro';
+import Boton from '@componentes/ui/Boton.astro';
+import AdornoNeo from '@componentes/ui/AdornoNeo.astro';
+
+/*
+  Destino del formulario de contacto (su atributo action apunta aquí).
+  Sin ella, Netlify mostraría su pantalla genérica de "Thank you" fuera
+  del estilo del sitio.
+*/
+---
+
+<PlantillaBase
+  titulo="Gracias"
+  descripcion="Recibimos tu mensaje. Te contactaremos muy pronto."
+>
+  <section class="gracias seccion">
+    <AdornoNeo pieza="07" ancho="280px" arriba="-70px" izquierda="-70px" opacidad="0.1" />
+    <AdornoNeo pieza="14" ancho="240px" abajo="-60px" derecha="-60px" opacidad="0.08" />
+
+    <div class="gracias__tarjeta">
+      <p class="gracias__etiqueta">Mensaje recibido</p>
+      <h1 class="gracias__titulo">¡Gracias por escribirnos!</h1>
+      <p class="gracias__cuerpo">
+        Tu solicitud ya está en nuestras manos. Te contactaremos muy pronto
+        para conversar sobre lo que tu organización necesita.
+      </p>
+      <Boton ruta="/" tono="principal" tamano="md">Volver al inicio</Boton>
+    </div>
+  </section>
+</PlantillaBase>
+
+<style>
+  .gracias {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-fondo);
+    min-height: calc(100vh - var(--alto-encabezado));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gracias__tarjeta {
+    position: relative;
+    z-index: 1;
+    background: var(--color-blanco);
+    border: var(--borde-grueso);
+    box-shadow: var(--sombra-xl);
+    padding: clamp(2.5rem, 5vw, 4rem);
+    max-width: 34rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .gracias__etiqueta {
+    margin: 0;
+    align-self: flex-start;
+    background: var(--color-principal);
+    border: var(--borde-fino);
+    box-shadow: var(--sombra-sm);
+    padding: 0.35rem 0.75rem;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: var(--texto-3xs);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .gracias__titulo {
+    margin: 0;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-negrita);
+    font-size: var(--texto-h4);
+    line-height: 1.1;
+  }
+
+  .gracias__cuerpo {
+    margin: 0;
+    font-size: var(--texto-sm);
+    line-height: 1.65;
+    opacity: 0.8;
+  }
+</style>

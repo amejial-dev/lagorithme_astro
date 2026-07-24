@@ -36,9 +36,12 @@ const elementos = [mision, vision];
     width: 100%;
   }
 
+  /* Blancas y no coral: el par coral era un bloque de color muy pesado y
+     competía con el resto de la página. El borde grueso y la sombra dura
+     las despegan de la banda blanca; el color queda en la etiqueta. */
   .tarjeta-mv {
     border: var(--borde-base);
-    background: var(--color-principal);
+    background: var(--color-blanco);
     color: var(--color-tinta);
     box-shadow: var(--sombra-lg);
     padding: 2.5rem;
@@ -61,7 +64,14 @@ const elementos = [mision, vision];
     object-fit: contain;
   }
 
+  /* El acento de marca de la tarjeta: pastilla coral con borde y sombra
+     pequeña, el mismo lenguaje de las insignias del resto del sitio. */
   .tarjeta-mv__etiqueta {
+    align-self: flex-start;
+    background: var(--color-principal);
+    border: var(--borde-fino);
+    box-shadow: var(--sombra-sm);
+    padding: 0.35rem 0.75rem;
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
     font-size: var(--texto-sm);

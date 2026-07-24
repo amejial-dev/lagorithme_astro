@@ -23,9 +23,28 @@ const datos = [
 ---
 
 <section class="formulario-contacto">
-  <!-- Todavía no hay backend: apunta el action de este formulario a tu
-       endpoint (Formspree, una función serverless, etc). -->
-  <form class="formulario-contacto__formulario">
+  <!-- Netlify Forms: al desplegar, Netlify detecta este formulario por el
+       atributo data-netlify y captura los envíos en su panel (pestaña
+       Forms). La notificación por correo se configura allí mismo:
+       Forms → Form notifications → Email. En localhost no funciona; el
+       receptor del POST existe solo en el sitio desplegado. -->
+  <form
+    class="formulario-contacto__formulario"
+    name="contacto"
+    method="POST"
+    action="/gracias"
+    data-netlify="true"
+    data-netlify-honeypot="bot-field"
+  >
+    <!-- Identifica el formulario en el POST; Netlify lo exige tal cual. -->
+    <input type="hidden" name="form-name" value="contacto" />
+
+    <!-- Honeypot: invisible para humanos; si un bot lo rellena, Netlify
+         descarta el envío. -->
+    <p class="campo-oculto" aria-hidden="true">
+      <label>No llenar este campo: <input name="bot-field" /></label>
+    </p>
+
     <div class="campo">
       <label for="nombre">Nombre</label>
       <input class="campo__control" id="nombre" name="nombre" type="text" required />
@@ -90,6 +109,15 @@ const datos = [
     width: 100%;
     gap: 1.375rem;
     /* border-right: var(--borde-base); */
+  }
+
+  /* Fuera del flujo y de la vista, pero presente en el DOM: es lo que
+     necesita el honeypot. display:none también valdría, pero algunos bots
+     lo saltan. */
+  .campo-oculto {
+    position: absolute;
+    left: -9999px;
+    margin: 0;
   }
 
   .campo {

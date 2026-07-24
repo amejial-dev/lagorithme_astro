@@ -40,8 +40,11 @@
 
 <style>
   .cargador {
-    --cortina-cierre: 650ms;
-    --cortina-apertura: 750ms;
+    /* Más cortas que las originales (650/750): el paso entre páginas se
+       sentía lento. El cierre es lo que el visitante espera tras el clic,
+       por eso es el más corto de los dos. */
+    --cortina-cierre: 450ms;
+    --cortina-apertura: 550ms;
     --paso: 0.35s;
 
     position: fixed;

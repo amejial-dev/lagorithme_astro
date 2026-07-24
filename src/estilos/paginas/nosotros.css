@@ -1,7 +1,9 @@
 /* Estilos específicos de src/pages/nosotros.astro */
 
+/* Fondo base y no blanco: dos de las cuatro tarjetas son blancas y sobre
+   una banda blanca se fundían con la sección. */
 .fila-capacidades {
-  background: var(--color-blanco);
+  background: var(--color-fondo);
 }
 
 .cita-destacada {

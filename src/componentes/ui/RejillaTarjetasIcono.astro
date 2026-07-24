@@ -6,7 +6,12 @@ interface Props {
   columnas?: 2 | 3 | 4;
   tonoSombra?: 'tinta' | 'principal';
   grosorBorde?: 'base' | 'grueso';
-  disposicion?: 'rejilla' | 'flujo';
+  /**
+   * 'tres-dos': cinco tarjetas en dos filas fijas —tres arriba y dos
+   * centradas abajo—, para que el reparto no dependa del ancho como en
+   * 'flujo' (que según la ventana dejaba una tarjeta huérfana).
+   */
+  disposicion?: 'rejilla' | 'flujo' | 'tres-dos';
 }
 
 const {
@@ -19,9 +24,9 @@ const {
 ---
 
 <div
-  class={disposicion === 'flujo'
-    ? 'rejilla-tarjetas rejilla-tarjetas--flujo'
-    : `rejilla-tarjetas rejilla-tarjetas--${columnas}`}
+  class={disposicion === 'rejilla'
+    ? `rejilla-tarjetas rejilla-tarjetas--${columnas}`
+    : `rejilla-tarjetas rejilla-tarjetas--${disposicion}`}
 >
   {
     elementos.map((elemento) => (
@@ -72,21 +77,64 @@ const {
     flex: 1 1 320px;
     max-width: 360px;
   }
+
+  /* Rejilla de seis pistas: cada tarjeta ocupa dos, y la cuarta arranca en
+     la pista 2, lo que centra la fila de abajo. */
+  .rejilla-tarjetas--tres-dos {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .rejilla-tarjetas--tres-dos .tarjeta-icono {
+    grid-column: span 2;
+  }
+  .rejilla-tarjetas--tres-dos .tarjeta-icono:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
   @media (max-width: 992px) {
     .rejilla-tarjetas--2,
-    .rejilla-tarjetas--3,
-    .rejilla-tarjetas--4 {
+    .rejilla-tarjetas--3 {
       grid-template-columns: 1fr;
+    }
+
+    /* Cuatro tarjetas en columna única era un tubo larguísimo: mejor 2×2
+       hasta el apilado de móvil. */
+    .rejilla-tarjetas--4 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* El tres-dos pasa a 2+2+1, con la última a lo ancho. */
+    .rejilla-tarjetas--tres-dos {
+      grid-template-columns: 1fr 1fr;
+    }
+    .rejilla-tarjetas--tres-dos .tarjeta-icono,
+    .rejilla-tarjetas--tres-dos .tarjeta-icono:nth-child(4) {
+      grid-column: auto;
+    }
+    .rejilla-tarjetas--tres-dos .tarjeta-icono:nth-child(5) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .rejilla-tarjetas--4,
+    .rejilla-tarjetas--tres-dos {
+      grid-template-columns: 1fr;
+    }
+    .rejilla-tarjetas--tres-dos .tarjeta-icono:nth-child(5) {
+      grid-column: auto;
     }
   }
 
   .tarjeta-icono {
     background: var(--tarjeta-fondo);
     color: var(--tarjeta-texto);
-    padding: 1.875rem;
+
+    /* Ceñido al contenido: con 1.875rem de padding y 1rem de gap la caja
+       doblaba en aire al texto que lleva dentro. */
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
     transition: translate var(--transicion-hover), box-shadow var(--transicion-hover);
     translate: 0 0;
   }
@@ -114,8 +162,8 @@ const {
   }
 
   .tarjeta-icono__insignia {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3rem;
+    height: 3rem;
     color: var(--color-tinta);
     display: flex;
     align-items: center;
@@ -143,8 +191,8 @@ const {
   .tarjeta-icono__titulo {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-negrita);
-    font-size: var(--texto-2xl);
-    line-height: 1.1;
+    font-size: var(--texto-xl);
+    line-height: 1.15;
     margin: 0;
   }
 

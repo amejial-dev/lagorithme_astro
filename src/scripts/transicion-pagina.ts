@@ -9,7 +9,7 @@
  */
 
 /* Tiene que coincidir con --cortina-cierre en CargadorPagina.astro. */
-const DURACION_CIERRE_MS = 650;
+const DURACION_CIERRE_MS = 450;
 
 function prefiereMenosMovimiento(): boolean {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
