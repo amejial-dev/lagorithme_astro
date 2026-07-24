@@ -1,0 +1,23 @@
+# Política de caché para Netlify.
+#
+# El síntoma que arregla: navegando entre páginas se volvían a descargar
+# fuentes, iconos e imágenes ya vistos, porque sin este archivo Netlify
+# sirve todo con `max-age=0, must-revalidate` (una consulta al servidor
+# por recurso en cada página).
+#
+# Cuando varias reglas coinciden con una ruta, vale la última.
+
+# Assets estáticos de public/: un día de caché y una semana de gracia
+# mientras se revalida en segundo plano.
+/assets/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+# Las fuentes no cambian nunca (y si cambiaran, cambiaríamos el nombre del
+# archivo): caché eterna.
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Lo que construye Astro lleva hash en el nombre: si cambia el contenido,
+# cambia la URL. Caché eterna sin riesgo.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

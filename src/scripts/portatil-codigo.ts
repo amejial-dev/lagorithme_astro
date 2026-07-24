@@ -150,9 +150,9 @@ function escapar(texto: string): string {
   return texto.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-/** Devuelve el HTML del código escrito hasta `caracteres`. */
+/** Devuelve el HTML del código escrito hasta `caracteres` (entero). */
 function componer(caracteres: number): string {
-  let presupuesto = Math.round(caracteres);
+  let presupuesto = caracteres;
   const pintadas: string[] = [];
 
   for (const linea of LINEAS) {
@@ -178,228 +178,227 @@ function componer(caracteres: number): string {
   return pintadas.join('\n');
 }
 
-/* Aire que se le deja al portátil contra los bordes del panel: por debajo
-   de esto se considera que ya no cabe y se apaga. */
-const MARGEN = 28;
-
 /**
- * Pasea el portátil por la portada.
+ * La secuencia del portátil: un solo protagonista en pantalla.
  *
- * Dos reglas gobiernan el recorrido:
+ * La ilusión es que es EL MISMO portátil el que va pasando de sección en
+ * sección; si se llegan a ver dos a la vez, el truco se descubre. Por eso
+ * los cortes son estrictamente secuenciales:
  *
- * 1. No se sale nunca de su panel. La posición no es "el centro de la
- *    ventana" sino ese centro recortado contra la parte visible del panel
- *    de medios, contando el alto real del portátil. Por eso al entrar sube
- *    desde el borde inferior del panel, se queda quieto en el centro
- *    mientras hay sitio, y se va con el borde superior.
+ *   - despedida: el fondo del panel cruza el 45% de la ventana
+ *   - aparición del siguiente: su techo cruza el 42%
  *
- * 2. Aparece solo cuando cabe entero. La condición no es que el panel toque
- *    el centro de la ventana, sino que su trozo visible mida más que el
- *    portátil con sus márgenes. Si no cabe, se apaga.
+ * Esos tres puntos de cortesía garantizan que primero se va uno y luego
+ * llega el otro, incluso en bloques pegados sin sección de tarjetas en
+ * medio. Al subir de vuelta ocurre lo mismo en espejo. Solo el primero
+ * sale en cuanto su panel asoma (no tiene a nadie delante), y el último
+ * no se despide nunca: cierra la portada quedándose.
  *
- * El reparto de propiedades evita que dos animaciones se pisen: el
- * contenedor lleva el desplazamiento vertical y la opacidad; el portátil de
- * dentro lleva el cambio de lado, que es el zigzag.
+ * Escondidos desde JS (gsap.set) y nunca desde CSS, igual que el resto de
+ * revelados del sitio: sin JS la página se ve completa.
  */
-function hacerViajar(suave: boolean) {
-  const viajero = document.querySelector<HTMLElement>('[data-portatil-viajero]');
-  const portatil = viajero?.querySelector<HTMLElement>('.portatil');
-  if (!viajero || !portatil) return;
+function orquestarSecuencia() {
+  const pistas = gsap.utils.toArray<HTMLElement>('.portatil-pista');
 
-  const paneles = Array.from(document.querySelectorAll<HTMLElement>('.bloque-dividido__medio'));
-  if (!paneles.length) return;
+  const mostrar = (portatil: HTMLElement) =>
+    gsap.to(portatil, {
+      opacity: 1,
+      y: 0,
+      rotation: 0,
+      scale: 1,
+      duration: 0.5,
+      ease: 'back.out(1.7)',
+      overwrite: 'auto',
+    });
 
-  let visibleAhora = false;
-  let ladoAhora = '';
-  let zigzag: gsap.core.Timeline | null = null;
-  let yActual = 0;
+  /* La despedida deja el `y` y la rotación ya cargados para que la próxima
+     aparición vuelva a botar, no solo a fundirse. */
+  const esconder = (portatil: HTMLElement) =>
+    gsap.to(portatil, {
+      opacity: 0,
+      y: 30,
+      rotation: -3,
+      scale: 0.85,
+      duration: 0.22,
+      ease: 'power2.in',
+      overwrite: 'auto',
+    });
 
-  /**
-   * Seguimiento vertical propio, en lugar de una animación con duración
-   * fija. La clave es que el acercamiento depende de lo lejos que esté el
-   * objetivo:
-   *
-   * - Corrección pequeña (el scroll normal) → casi instantáneo, así el
-   *   portátil no se descuelga del panel al bajar rápido. Ese retraso era
-   *   justo lo que lo sacaba de los contornos.
-   * - Salto grande (cambio de panel) → lento, para que el brinco de un
-   *   panel al siguiente se lea como un vuelo y no como un teletransporte.
-   *
-   * Y al ser un acercamiento por fracción, si el visitante sigue bajando
-   * durante el vuelo, el destino se recalcula solo.
-   */
-  const acercarY = (objetivo: number) => {
-    if (!suave) {
-      yActual = objetivo;
-      return;
-    }
-    const distancia = Math.abs(objetivo - yActual);
-    yActual += (objetivo - yActual) * (distancia > 150 ? 0.08 : 0.55);
-  };
+  pistas.forEach((pista, indice) => {
+    const portatil = pista.querySelector<HTMLElement>('[data-portatil]');
+    if (!portatil) return;
 
-  const actualizar = () => {
-    const ventana = window.innerHeight;
-    const centroVentana = ventana / 2;
+    gsap.set(portatil, { opacity: 0, y: 46, rotation: -4, scale: 0.94 });
 
-    /* El alto se mide sobre el contenedor, que es lo que realmente se
-       desplaza. El portátil de dentro puede ir inclinado a mitad de zigzag
-       y su caja daría un valor cambiante. */
-    const alto = viajero.offsetHeight;
-    const salto = viajero.offsetWidth;
+    ScrollTrigger.create({
+      trigger: pista,
+      start: indice === 0 ? 'top 82%' : 'top 42%',
+      onEnter: () => mostrar(portatil),
+      onLeaveBack: () => esconder(portatil),
+    });
 
-    /* De todos los paneles, manda el que más superficie enseña. En el salto
-       de un bloque al siguiente esto es lo que decide cuándo cambiar de
-       lado: cuando el nuevo panel ya pesa más que el que se va. */
-    let elegido: HTMLElement | null = null;
-    let mejorHueco = 0;
-    let minCentro = 0;
-    let maxCentro = 0;
-
-    for (const panel of paneles) {
-      const caja = panel.getBoundingClientRect();
-      const arriba = Math.max(caja.top, 0);
-      const abajo = Math.min(caja.bottom, ventana);
-      const hueco = abajo - arriba;
-
-      if (hueco > mejorHueco) {
-        mejorHueco = hueco;
-        elegido = panel;
-        minCentro = arriba + alto / 2 + MARGEN;
-        maxCentro = abajo - alto / 2 - MARGEN;
-      }
-    }
-
-    /* Cabe solo si el trozo visible del panel da para el portátil entero. */
-    const visible = Boolean(elegido) && maxCentro >= minCentro;
-    const estabaVisible = visibleAhora;
-
-    if (visible !== visibleAhora) {
-      visibleAhora = visible;
-      gsap.to(viajero, {
-        opacity: visible ? 1 : 0,
-        duration: suave ? 0.35 : 0,
-        ease: 'power2.out',
-        overwrite: 'auto',
+    if (indice < pistas.length - 1) {
+      ScrollTrigger.create({
+        trigger: pista,
+        start: 'bottom 45%',
+        onEnter: () => esconder(portatil),
+        onLeaveBack: () => mostrar(portatil),
       });
     }
-
-    if (!visible || !elegido) return;
-
-    /* El contenedor está anclado arriba del todo, así que la `y` es la
-       posición absoluta de su borde superior dentro de la ventana. */
-    const centroFinal = Math.min(Math.max(centroVentana, minCentro), maxCentro);
-    const arribaFinal = centroFinal - alto / 2;
-
-    /* Al reaparecer se coloca de golpe: si se dejara interpolar desde la
-       posición que tenía al ocultarse, entraría volando desde el borde de
-       la ventana mientras se funde. */
-    if (estabaVisible) acercarY(arribaFinal);
-    else yActual = arribaFinal;
-
-    gsap.set(viajero, { y: yActual });
-
-    /* El lado sale de dónde está el panel, no de la clase del bloque: es la
-       misma respuesta y aguanta si algún día se reordenan las columnas. */
-    const caja = elegido.getBoundingClientRect();
-    const lado = caja.left + caja.width / 2 < window.innerWidth / 2 ? 'izquierda' : 'derecha';
-    if (lado === ladoAhora) return;
-
-    const destino = lado === 'derecha' ? salto : 0;
-    const cruzarAlaVista = suave && estabaVisible && ladoAhora !== '';
-    ladoAhora = lado;
-
-    /* Venía oculto: se planta en su sitio sin recorrido. */
-    if (!cruzarAlaVista) {
-      zigzag?.kill();
-      gsap.set(portatil, { x: destino, y: 0, rotation: 0, opacity: 1 });
-      return;
-    }
-
-    /* Y si cruza a la vista, lo hace en zigzag: dos quiebros con inclinación
-       y rebote en vez de un deslizamiento recto. El signo depende del
-       sentido de la marcha, para que el primer quiebro sea siempre hacia
-       arriba y el segundo hacia abajo. */
-    const sentido = destino > (gsap.getProperty(portatil, 'x') as number) ? 1 : -1;
-    const desde = gsap.getProperty(portatil, 'x') as number;
-    const tramo = destino - desde;
-
-    zigzag?.kill();
-    zigzag = gsap
-      .timeline()
-      .to(portatil, {
-        x: desde + tramo * 0.34,
-        y: -34,
-        rotation: -5 * sentido,
-        duration: 0.26,
-        ease: 'power1.inOut',
-      })
-      .to(portatil, {
-        x: desde + tramo * 0.68,
-        y: 30,
-        rotation: 5 * sentido,
-        duration: 0.24,
-        ease: 'power1.inOut',
-      })
-      .to(portatil, {
-        x: destino,
-        y: 0,
-        rotation: 0,
-        duration: 0.42,
-        ease: 'back.out(1.7)',
-      })
-      /* En el tramo de en medio el portátil sobrevuela la columna de texto
-         del bloque vecino. Bajarle la opacidad ahí deja leer lo que hay
-         debajo y hace que el cruce se lea como un tránsito, no como un
-         estorbo. Va en paralelo a los quiebros, de ahí las posiciones
-         absolutas en la línea de tiempo. */
-      .to(portatil, { opacity: 0.35, duration: 0.22, ease: 'power1.out' }, 0)
-      .to(portatil, { opacity: 1, duration: 0.34, ease: 'power1.in' }, 0.55);
-  };
-
-  /* Va en el ticker de GSAP y no en un listener de scroll porque el
-     acercamiento tiene que seguir avanzando aunque el visitante se pare a
-     media transición. Es una vuelta por fotograma, ya sincronizada con el
-     resto de animaciones de la página. */
-  gsap.ticker.add(actualizar);
-
-  window.addEventListener('resize', () => {
-    /* El desplazamiento lateral está en píxeles: si cambia el ancho de la
-       ventana hay que recolocarlo desde cero. */
-    ladoAhora = '';
   });
 }
 
+/**
+ * El viaje: cada portátil baja por su panel al ritmo del scroll.
+ *
+ * Un ScrollTrigger con scrub por panel: mientras el panel cruza la ventana
+ * (de asomar por abajo a irse por arriba), el portátil recorre la pista de
+ * punta a punta. Con el panel subiendo y el portátil bajando dentro de él,
+ * el efecto neto es que se queda acompañando al visitante a media pantalla.
+ *
+ * El scrub lleva medio segundo de suavizado: es lo que hace que el
+ * portátil "persiga" el scroll con un pelín de inercia en vez de ir
+ * cosido a la rueda.
+ *
+ * El recorrido se mide en cada refresh (función, no número): si cambia el
+ * tamaño de la ventana, ScrollTrigger lo recalcula solo.
+ */
+function acompanarScroll() {
+  const pistas = Array.from(document.querySelectorAll<HTMLElement>('.portatil-pista'));
+
+  for (const pista of pistas) {
+    const viaje = pista.querySelector<HTMLElement>('[data-portatil-viaje]');
+    if (!viaje) continue;
+
+    gsap.fromTo(
+      viaje,
+      { y: 0 },
+      {
+        y: () => {
+          const relleno = getComputedStyle(pista);
+          const recorrido =
+            pista.clientHeight -
+            parseFloat(relleno.paddingTop) -
+            parseFloat(relleno.paddingBottom) -
+            viaje.offsetHeight;
+          return Math.max(0, recorrido);
+        },
+        ease: 'none',
+        scrollTrigger: {
+          trigger: pista,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.5,
+          invalidateOnRefresh: true,
+        },
+      },
+    );
+  }
+}
+
+/**
+ * Antes había un único portátil fijo que volaba de panel en panel; por muy
+ * afinado que llevara el seguimiento, cualquier rezago de un elemento fijo
+ * lo dejaba asomado sobre la sección vecina. Ahora vive una instancia
+ * DENTRO de cada panel de medios —que además recorta con overflow:hidden—,
+ * así que salirse del contenedor es imposible por construcción. El viaje
+ * con el scroll lo pone acompanarScroll, y el turno de cada uno (nunca dos
+ * a la vez), orquestarSecuencia.
+ *
+ * Todas las pantallas comparten el mismo avance de escritura: cuando un
+ * portátil desaparece con su sección y aparece el del bloque siguiente, el
+ * código continúa exactamente donde iba.
+ */
 export function iniciarPortatilCodigo() {
   const portatiles = Array.from(document.querySelectorAll<HTMLElement>('[data-portatil]'));
   if (!portatiles.length) return;
 
   const pantallas = portatiles.map((portatil) => ({
+    raiz: portatil,
     codigo: portatil.querySelector<HTMLElement>('[data-portatil-codigo]'),
     lienzo: portatil.querySelector<HTMLElement>('.portatil__lienzo'),
+    /* Alto útil del lienzo, medido la primera vez que hace falta y hasta
+       que cambie la ventana. -1 = sin medir. */
+    altoUtil: -1,
+    /* Si está lo bastante cerca del viewport como para merecer pintado. */
+    enPantalla: false,
+    /* Caracteres que esta pantalla tiene escritos, para ponerla al día si
+       entra en escena con el avance ya andado. */
+    pintado: -1,
   }));
 
-  const pintar = (avance: number) => {
-    const html = componer(avance * TOTAL);
+  type Pantalla = (typeof pantallas)[number];
 
-    for (const { codigo, lienzo } of pantallas) {
-      if (!codigo || !lienzo) continue;
-      codigo.innerHTML = html;
+  let ultimoCaracteres = 0;
+  let htmlActual = '';
 
-      /* El código crece hacia abajo y la pantalla no tiene barra de scroll:
-         se desplaza el bloque entero para que la última línea escrita quede
-         siempre visible, como haría un editor de verdad.
+  const pintarPantalla = (pantalla: Pantalla) => {
+    const { codigo, lienzo } = pantalla;
+    if (!codigo || !lienzo || lienzo.clientHeight === 0) return;
 
-         El alto útil descuenta el padding: con clientHeight a secas, la
-         línea que se está escribiendo queda cortada contra el borde. */
+    codigo.innerHTML = htmlActual;
+
+    /* El código crece hacia abajo y la pantalla no tiene barra de scroll:
+       se desplaza el bloque entero para que la última línea escrita quede
+       siempre visible, como haría un editor de verdad.
+
+       El alto útil descuenta el padding: con clientHeight a secas, la
+       línea que se está escribiendo queda cortada contra el borde. */
+    if (pantalla.altoUtil < 0) {
       const relleno = getComputedStyle(lienzo);
-      const alto =
+      pantalla.altoUtil =
         lienzo.clientHeight -
         parseFloat(relleno.paddingTop) -
         parseFloat(relleno.paddingBottom);
-      const sobrante = Math.max(0, codigo.scrollHeight - alto);
-      codigo.style.transform = `translateY(${-sobrante}px)`;
+    }
+    const sobrante = Math.max(0, codigo.scrollHeight - pantalla.altoUtil);
+    codigo.style.transform = `translateY(${-sobrante}px)`;
+
+    pantalla.pintado = ultimoCaracteres;
+  };
+
+  /* ScrollTrigger dispara onUpdate muchas veces por gesto de rueda, pero el
+     texto solo cambia cuando el avance suma un carácter entero: todo lo
+     demás sería reescribir el mismo HTML. Y de las pantallas, solo se
+     escribe a las que andan cerca del viewport; las demás se ponen al día
+     cuando el observador las ve llegar. */
+  const pintar = (avance: number) => {
+    const caracteres = Math.round(avance * TOTAL);
+    if (caracteres === ultimoCaracteres) return;
+    ultimoCaracteres = caracteres;
+    htmlActual = componer(caracteres);
+
+    for (const pantalla of pantallas) {
+      if (pantalla.enPantalla) pintarPantalla(pantalla);
     }
   };
+
+  const observador = new IntersectionObserver(
+    (entradas) => {
+      for (const entrada of entradas) {
+        const pantalla = pantallas.find((p) => p.raiz === entrada.target);
+        if (!pantalla) continue;
+        pantalla.enPantalla = entrada.isIntersecting;
+        if (entrada.isIntersecting && pantalla.pintado !== ultimoCaracteres) {
+          pintarPantalla(pantalla);
+        }
+      }
+    },
+    /* Margen holgado: se ponen al día un poco antes de asomar, para que
+       nunca se vea el momento del repintado. */
+    { rootMargin: '30% 0px' },
+  );
+  for (const pantalla of pantallas) observador.observe(pantalla.raiz);
+
+  window.addEventListener('resize', () => {
+    /* Cambió la ventana: el alto útil guardado ya no vale, y una pantalla
+       que estuviera en cero (display:none por el breakpoint) puede haber
+       pasado a verse. */
+    for (const pantalla of pantallas) {
+      pantalla.altoUtil = -1;
+      if (pantalla.enPantalla) pintarPantalla(pantalla);
+    }
+  });
 
   const bloques = document.querySelectorAll<HTMLElement>('.bloque-dividido');
   if (!bloques.length) {
@@ -407,16 +406,15 @@ export function iniciarPortatilCodigo() {
     return;
   }
 
-  /* Con movimiento reducido el portátil sigue acompañando y ocultándose
-     donde toca —eso es información, no adorno—, pero sin transiciones: se
-     coloca ya puesto. Y el código aparece entero en vez de escribirse. */
+  /* Con movimiento reducido no hay bote de aparición y el código sale
+     entero en vez de escribirse. */
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    hacerViajar(false);
     pintar(1);
     return;
   }
 
-  hacerViajar(true);
+  orquestarSecuencia();
+  acompanarScroll();
 
   /* Un único disparador que abarca desde que entra el primer bloque hasta
      que se va el último: el avance es la posición dentro de ese tramo, y

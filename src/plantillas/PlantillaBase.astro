@@ -26,12 +26,17 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={descripcion} />
     <link rel="icon" type="image/svg+xml" href="/assets/images/lago-logo.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Las fuentes son autoalojadas (ver base.css) y se precargan: sin el
+         preload, el navegador no las pide hasta toparse con el primer texto
+         que las usa, y el cambio de fuente se ve a mitad de carga. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/assets/fonts/sora-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
+    <link rel="preload" href="/assets/fonts/ibrand.otf" as="font" type="font/otf" crossorigin />
     <title>{titulo} · lagorithme</title>
   </head>
   <body>

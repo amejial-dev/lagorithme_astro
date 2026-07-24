@@ -13,44 +13,60 @@
  * viewBox de 1008x635 el rectángulo blanco es x=119 y=31 w=770 h=480. Si
  * algún día se cambia el SVG, hay que recalcular esos cuatro números.
  */
-interface Props {
-  /**
-   * Instancia de reserva para móvil, donde el portátil viajero no cabe:
-   * esta va dentro del flujo, en el primer panel, y se oculta en cuanto hay
-   * sitio para el que viaja.
-   */
-  soloMovil?: boolean;
-}
-
-const { soloMovil = false } = Astro.props;
 ---
 
-<div class:list={['portatil', { 'portatil--solo-movil': soloMovil }]} data-portatil>
-  <img
-    class="portatil__chasis"
-    src="/assets/images/macbook-pro.svg"
-    alt="Portátil mostrando el código de lagorithme"
-    width="1008"
-    height="635"
-  />
+<div class="portatil-pista">
+  <div class="portatil-viaje" data-portatil-viaje>
+    <div class="portatil" data-portatil>
+      <img
+        class="portatil__chasis"
+        src="/assets/images/macbook-pro.svg"
+        alt="Portátil mostrando el código de lagorithme"
+        width="1008"
+        height="635"
+      />
 
-  <div class="portatil__pantalla">
-    <div class="portatil__barra">
-      <span class="portatil__punto portatil__punto--rojo"></span>
-      <span class="portatil__punto"></span>
-      <span class="portatil__punto"></span>
-      <p class="portatil__archivo" data-portatil-archivo>index.astro</p>
-    </div>
+      <div class="portatil__pantalla">
+        <div class="portatil__barra">
+          <span class="portatil__punto portatil__punto--rojo"></span>
+          <span class="portatil__punto"></span>
+          <span class="portatil__punto"></span>
+          <p class="portatil__archivo" data-portatil-archivo>index.astro</p>
+        </div>
 
-    <div class="portatil__lienzo">
-      <!-- El script escribe aquí; sin JS se queda vacío y el portátil se ve
-           igualmente, con la pantalla en blanco. -->
-      <pre class="portatil__codigo" data-portatil-codigo></pre>
+        <div class="portatil__lienzo">
+          <!-- El script escribe aquí; sin JS se queda vacío y el portátil se
+               ve igualmente, con la pantalla en blanco. -->
+          <pre class="portatil__codigo" data-portatil-codigo></pre>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <style>
+  /* La pista ocupa el panel entero y da el recorrido; el viaje es el que se
+     mueve: GSAP lo desplaza de la parte alta a la baja de la pista al ritmo
+     del scroll (ver acompanarScroll en portatil-codigo.ts). El panel
+     recorta con overflow:hidden, así que salirse del contenedor es
+     imposible. Sticky no sirve aquí: un ancestro con overflow lo anula. */
+  .portatil-pista {
+    align-self: stretch;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1.75rem 0;
+  }
+
+  .portatil-viaje {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    will-change: transform;
+  }
+
   .portatil {
     position: relative;
     width: 80%;
@@ -175,17 +191,15 @@ const { soloMovil = false } = Astro.props;
     }
   }
 
-  /* Apilado, el panel de medios baja a 260px: el portátil se ensancha para
-     que el código siga siendo legible. */
+  /* Apilado, el panel de medios baja a 260px: casi no queda recorrido que
+     acompañar (el viaje se encoge solo, porque se calcula del espacio que
+     sobra) y el portátil se ensancha para que el código siga legible. */
   @media (max-width: 768px) {
     .portatil {
       width: 92%;
     }
-  }
-
-  @media (min-width: 769px) {
-    .portatil--solo-movil {
-      display: none;
+    .portatil-pista {
+      padding: 1rem 0;
     }
   }
 </style>

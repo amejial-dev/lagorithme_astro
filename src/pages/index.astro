@@ -11,14 +11,11 @@ import PortadaInicio from "@componentes/secciones/inicio/PortadaInicio.astro";
 import RejillaCuatroTarjetas from "@componentes/secciones/inicio/RejillaCuatroTarjetas.astro";
 import AdornoNeo from "@componentes/ui/AdornoNeo.astro";
 import PortatilCodigo from "@componentes/ui/PortatilCodigo.astro";
-import PortatilViajero from "@componentes/ui/PortatilViajero.astro";
 import { tarjetasServicio, tarjetasPilares } from "@datos/inicio";
 import "@estilos/paginas/inicio.css";
 ---
 
 <PlantillaBase titulo="Inicio" activa="/">
-  <PortatilViajero />
-
   <PortadaInicio />
 
   <BandaTrabajos />
@@ -39,7 +36,7 @@ import "@estilos/paginas/inicio.css";
     </p>
     <Boton ruta="/productos" tono="gris" tamano="sm">Ver servicios</Boton>
     <AdornoNeo slot="medio" pieza="07" ancho="300px" arriba="-80px" izquierda="-70px" opacidad="0.16" />
-    <PortatilCodigo slot="medio" soloMovil />
+    <PortatilCodigo slot="medio" />
   </BloqueDividido>
 
   <BloqueDividido
@@ -58,6 +55,7 @@ import "@estilos/paginas/inicio.css";
     </p>
     <Boton ruta="/productos" tono="gris" tamano="sm">Cómo funciona</Boton>
     <AdornoNeo slot="medio" pieza="11" ancho="280px" abajo="-80px" derecha="-60px" opacidad="0.18" />
+    <PortatilCodigo slot="medio" />
   </BloqueDividido>
 
   <section class="franja-destacada seccion">
@@ -94,6 +92,7 @@ import "@estilos/paginas/inicio.css";
     </p>
     <Boton ruta="/productos" tono="gris" tamano="sm">Descubrir</Boton>
     <AdornoNeo slot="medio" pieza="14" ancho="320px" arriba="-90px" derecha="-80px" opacidad="0.14" />
+    <PortatilCodigo slot="medio" />
   </BloqueDividido>
 
   <section class="franja-destacada seccion">
@@ -122,6 +121,7 @@ import "@estilos/paginas/inicio.css";
       class="bloque-esquina"
     /> -->
     <AdornoNeo slot="medio" pieza="18" ancho="260px" abajo="-70px" izquierda="-60px" opacidad="0.16" />
+    <PortatilCodigo slot="medio" />
   </BloqueDividido>
 
   <BloqueDividido
@@ -141,6 +141,7 @@ import "@estilos/paginas/inicio.css";
       >Ver colaboradores</Boton
     >
     <AdornoNeo slot="medio" pieza="13" ancho="300px" arriba="-80px" izquierda="-70px" opacidad="0.30" />
+    <PortatilCodigo slot="medio" />
   </BloqueDividido>
 
   <LlamadaFinal
