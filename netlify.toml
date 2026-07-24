@@ -1,0 +1,11 @@
+# Configuración de build declarada en el repo para no depender del panel.
+#
+# Historia que explica su existencia: el proyecto Astro vivía en la
+# subcarpeta astro-site/ y el panel de Netlify quedó apuntando allí como
+# "base directory". Al aplanar el repo (22/07/2026) esa carpeta desapareció
+# y todos los deploys fallaron con ENOENT hasta vaciar el base en el panel.
+# Este archivo fija los valores correctos en código.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
