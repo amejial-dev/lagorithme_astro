@@ -68,7 +68,7 @@
   translate: 0 0;
 }
 .encabezado__boton-menu:hover {
-  translate: -3px -3px;
+  translate: 4px 4px;
   box-shadow: var(--sombra-sm-hover);
 }
 .encabezado__barra {
@@ -132,7 +132,7 @@
   background-color: var(--color-gris);
 }
 .pastilla-nav:hover {
-  translate: -3px -3px;
+  translate: 4px 4px;
   box-shadow: var(--sombra-sm-hover);
   color: var(--color-tinta);
 }
@@ -154,7 +154,7 @@
   translate: 0 0;
 }
 .encabezado__cta:hover {
-  translate: -4px -4px;
+  translate: 4px 4px;
   box-shadow: var(--sombra-xl-hover);
   color: var(--color-tinta);
 }

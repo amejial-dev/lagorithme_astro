@@ -32,9 +32,7 @@ const rutaIdioma = rutaOtroIdioma(Astro.url.pathname, locale);
 
   <div class="encabezado__acciones">
     <a href={rutaLocal('/contacto', locale)} class="encabezado__cta">{t('header.cta')}</a>
-    <a href={rutaIdioma} class="encabezado__idioma" aria-label={t('header.langAria')}>
-      {t('header.langLabel')}
-    </a>
+    <a href={rutaIdioma} class="encabezado__idioma" aria-label={t('header.langAria')}>{t('header.langLabel')}</a>
     <button
       type="button"
       id="boton-menu"
@@ -72,22 +70,27 @@ const rutaIdioma = rutaOtroIdioma(Astro.url.pathname, locale);
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
+    /* Mismo alto que "Hablemos": se estira al alto de la fila de acciones,
+       cuyo elemento más alto es el CTA. Solo afecta el alto, no el ancho. */
+    align-self: stretch;
+
     text-decoration: none;
     font-family: var(--fuente-cuerpo);
     font-weight: var(--peso-negrita);
-    font-size: var(--texto-2xs);
-    letter-spacing: 0.5px;
+    font-size: var(--texto-sm);
     line-height: 1;
+    text-align: center;
     color: var(--color-tinta);
-    background: var(--color-fondo);
-    border: var(--borde-fino);
+    background: var(--color-blanco);
+    border: var(--borde-base);
     box-shadow: var(--sombra-sm);
-    padding: 0.45rem 0.7rem;
+    padding: 0 0.85rem;
     transition: translate var(--transicion-hover), box-shadow var(--transicion-hover);
     translate: 0 0;
   }
   .encabezado__idioma:hover {
-    translate: -2px -2px;
+    translate: 4px 4px;
     box-shadow: var(--sombra-sm-hover);
     color: var(--color-tinta);
   }

@@ -61,15 +61,23 @@
   --borde-base: 3px solid var(--color-borde);
   --borde-grueso: 4px solid var(--color-borde);
 
-  /* Sombras "brutalistas" duras — sin desenfoque, solo desplazamiento */
-  --sombra-sm: 3px 3px 0 var(--color-tinta);
-  --sombra-sm-hover: 7px 7px 0 var(--color-tinta);
-  --sombra-md: 5px 5px 0 var(--color-tinta);
-  --sombra-md-hover: 9px 9px 0 var(--color-tinta);
-  --sombra-lg: 8px 8px 0 var(--color-tinta);
-  --sombra-lg-hover: 12px 12px 0 var(--color-tinta);
-  --sombra-xl: 10px 10px 0 var(--color-tinta);
-  --sombra-xl-hover: 15px 15px 0 var(--color-tinta);
+  /* Sombra "brutalista" dura — sin desenfoque, solo desplazamiento.
+     Estandarizada: todos los pasos apuntan al MISMO valor, así todos los
+     contenedores y botones del sitio comparten una única sombra (5px, y
+     9px al hover). Para cambiar la sombra de todo el sitio, se tocan estos
+     dos valores y nada más. */
+  --sombra-sm: 4px 4px 0 var(--color-tinta);
+  --sombra-md: 4px 4px 0 var(--color-tinta);
+  --sombra-lg: 4px 4px 0 var(--color-tinta);
+  --sombra-xl: 4px 4px 0 var(--color-tinta);
+
+  /* En hover los botones y cards se "presionan": bajan a su sombra
+     (translate: 4px 4px, definido en cada componente) y la sombra
+     desaparece. Por eso los tokens de hover son `none`. */
+  --sombra-sm-hover: none;
+  --sombra-md-hover: none;
+  --sombra-lg-hover: none;
+  --sombra-xl-hover: none;
 
   /* Movimiento */
   --transicion-hover: 0.15s ease;
